@@ -29,6 +29,7 @@ import net.technicpack.launchercore.launch.java.source.FileJavaSource;
 import net.technicpack.launchercore.modpacks.sources.IInstalledPackRepository;
 import net.technicpack.platform.io.PlatformPackInfo;
 import net.technicpack.rest.RestObject;
+import net.technicpack.rest.RestfulAPIException;
 import net.technicpack.ui.controls.DraggableFrame;
 import net.technicpack.ui.controls.RoundedButton;
 import net.technicpack.ui.controls.SplatPane;
@@ -233,8 +234,20 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         userModel.setCurrentUser(null);
     }
 
-    protected void launchModpack() {
-        ModpackModel pack = modpackSelector.getSelectedPack();
+    protected void loadLittlebitsMod() {
+        String jsonUrl = "https://s3.amazonaws.com/travis-lb-test/littlebits.json";
+        PlatformPackInfo littlebitsPackInfo = null;
+        try {
+            littlebitsPackInfo = RestObject.getRestObject(PlatformPackInfo.class, jsonUrl);
+        } catch (RestfulAPIException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        InstalledPack installed = packRepo.getInstalledPacks().get(littlebitsPackInfo.getName());
+        ModpackModel pack = new ModpackModel(installed,littlebitsPackInfo, packRepo, directories);
+        launchModpack(pack);
+    }
+
+    protected void launchModpack(ModpackModel pack) {
         boolean requiresInstall = false;
 
         if (pack == null || (pack.getInstalledPack() == null && (pack.getPackInfo() == null || !pack.getPackInfo().isComplete())))
@@ -396,6 +409,16 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         header.setBorder(BorderFactory.createEmptyBorder(0,5,0,10));
         getRootPane().getContentPane().add(header, BorderLayout.PAGE_START);
 
+        ImageIcon testIcon = resources.getIcon("platform_icon_title.png");
+        JButton testLabel = new JButton(testIcon);
+        testLabel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadLittlebitsMod();
+            }
+        });
+        header.add(testLabel);
+        
         ImageIcon headerIcon = resources.getIcon("platform_icon_title.png");
         JButton headerLabel = new JButton(headerIcon);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(5,8,5,0));
@@ -534,19 +557,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         modpackSelector.setInfoPanel(modpackPanel);
         modpackSelector.setLauncherFrame(this);
         playButton = modpackPanel.getPlayButton();
-        playButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() instanceof ModpackModel) {
-                    setupPlayButtonText((ModpackModel) e.getSource(), userModel.getCurrentUser());
-                } else if (installer.isCurrentlyRunning()) {
-                    installer.cancel();
-                    setupPlayButtonText(modpackSelector.getSelectedPack(), userModel.getCurrentUser());
-                } else {
-                    launchModpack();
-                }
-            }
-        });
 
         modpackPanel.getDeleteButton().addActionListener(new ActionListener() {
             @Override
