@@ -363,15 +363,15 @@ public class LauncherMain {
         IDiscordApi discordApi = new HttpDiscordApi("https://discordapp.com/api/");
         discordApi = new CacheDiscordApi(discordApi, 600, 60);
 
-        final LauncherFrame frame = new LauncherFrame(resources, skinRepo, userModel, settings, selector, iconRepo, logoRepo, backgroundRepo, installer, avatarRepo, platform, directories, packStore, startupParameters, discoverInfoPanel, javaVersions, javaVersionFile, buildNumber, discordApi);
+        final LauncherFrame frame = new LauncherFrame(resources, skinRepo, userModel, settings, iconRepo, logoRepo, backgroundRepo, installer, avatarRepo, platform, directories, packStore, startupParameters, javaVersions, javaVersionFile, buildNumber, discordApi);
         userModel.addAuthListener(frame);
 
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 splash.dispose();
-                if (settings.getLaunchToModpacks())
-                    frame.selectTab("modpacks");
+                //if (settings.getLaunchToModpacks())
+               //     frame.selectTab("modpacks");
             }
         };
 

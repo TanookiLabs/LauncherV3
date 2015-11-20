@@ -39,11 +39,6 @@ import net.technicpack.ui.lang.ResourceLoader;
 import net.technicpack.launcher.launch.Installer;
 import net.technicpack.launcher.settings.TechnicSettings;
 import net.technicpack.launcher.ui.components.OptionsDialog;
-import net.technicpack.launcher.ui.components.discover.DiscoverInfoPanel;
-import net.technicpack.launcher.ui.components.modpacks.ModpackInfoPanel;
-import net.technicpack.launcher.ui.components.modpacks.ModpackSelector;
-import net.technicpack.launcher.ui.components.news.NewsInfoPanel;
-import net.technicpack.launcher.ui.components.news.NewsSelector;
 import net.technicpack.launcher.ui.controls.*;
 import net.technicpack.ui.controls.feeds.CountCircle;
 import net.technicpack.ui.controls.installation.ProgressBar;
@@ -62,7 +57,7 @@ import net.technicpack.utilslib.Utils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
-import net.littlebits.ui.controls.ActionButton;
+import net.littlebits.ui.PlayInfoPanel;
 
 
 import javax.swing.*;
@@ -121,10 +116,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
     public static final Color COLOR_REQUIREMENT_SEPARATOR = new Color(37, 44, 49);
     public static final Color COLOR_REQUIREMENT_WARNING = new Color(230, 119, 0);
 
-    public static final String TAB_DISCOVER = "discover";
-    public static final String TAB_MODPACKS = "modpacks";
-    public static final String TAB_NEWS = "news";
-
     private ResourceLoader resources;
     private final UserModel<MojangUser> userModel;
     private final ImageRepository<IUserType> skinRepository;
@@ -145,9 +136,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
     private ModpackOptionsDialog modpackOptionsDialog = null;
 
-    private HeaderTab discoverTab;
-    private HeaderTab modpacksTab;
-    private HeaderTab newsTab;
 
     private CardLayout infoLayout;
     private JPanel infoSwap;
@@ -156,18 +144,13 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
     private ProgressBar installProgress;
     private Component installProgressPlaceholder;
     private RoundedButton playButton;
-    private ModpackSelector modpackSelector;
-    private NewsSelector newsSelector;
+
     private TintablePanel centralPanel;
     private TintablePanel footer;
 
-    private String currentTabName;
+    PlayInfoPanel playInfoPanel;
 
-    NewsInfoPanel newsInfoPanel;
-    ModpackInfoPanel modpackPanel;
-    DiscoverInfoPanel discoverInfoPanel;
-
-    public LauncherFrame(final ResourceLoader resources, final ImageRepository<IUserType> skinRepository, final UserModel userModel, final TechnicSettings settings, final ModpackSelector modpackSelector, final ImageRepository<ModpackModel> iconRepo, final ImageRepository<ModpackModel> logoRepo, final ImageRepository<ModpackModel> backgroundRepo, final Installer installer, final ImageRepository<AuthorshipInfo> avatarRepo, final IPlatformApi platformApi, final LauncherDirectories directories, final IInstalledPackRepository packRepository, final StartupParameters params, final DiscoverInfoPanel discoverInfoPanel, final JavaVersionRepository javaVersions, final FileJavaSource fileJavaSource, final IBuildNumber buildNumber, final IDiscordApi discordApi) {
+    public LauncherFrame(final ResourceLoader resources, final ImageRepository<IUserType> skinRepository, final UserModel userModel, final TechnicSettings settings, final ImageRepository<ModpackModel> iconRepo, final ImageRepository<ModpackModel> logoRepo, final ImageRepository<ModpackModel> backgroundRepo, final Installer installer, final ImageRepository<AuthorshipInfo> avatarRepo, final IPlatformApi platformApi, final LauncherDirectories directories, final IInstalledPackRepository packRepository, final StartupParameters params, final JavaVersionRepository javaVersions, final FileJavaSource fileJavaSource, final IBuildNumber buildNumber, final IDiscordApi discordApi) {
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Technic Launcher");
@@ -175,7 +158,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         this.userModel = userModel;
         this.skinRepository = skinRepository;
         this.settings = settings;
-        this.modpackSelector = modpackSelector;
         this.iconRepo = iconRepo;
         this.logoRepo = logoRepo;
         this.backgroundRepo = backgroundRepo;
@@ -185,7 +167,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         this.directories = directories;
         this.packRepo = packRepository;
         this.params = params;
-        this.discoverInfoPanel = discoverInfoPanel;
         this.fileJavaSource = fileJavaSource;
         this.javaVersions = javaVersions;
         this.buildNumber = buildNumber;
@@ -194,7 +175,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         //Handles rebuilding the frame, so use it to build the frame in the first place
         relocalize(resources);
 
-        selectTab("discover");
+        infoLayout.show(infoSwap, "discover");
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -210,24 +191,9 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
     // Action responses
     /////////////////////////////////////////////////
 
-    public void selectTab(String tabName) {
-        discoverTab.setIsActive(false);
-        modpacksTab.setIsActive(false);
-        newsTab.setIsActive(false);
 
-        if (tabName.equalsIgnoreCase(TAB_DISCOVER))
-            discoverTab.setIsActive(true);
-        else if (tabName.equalsIgnoreCase(TAB_MODPACKS))
-            modpacksTab.setIsActive(true);
-        else if (tabName.equalsIgnoreCase(TAB_NEWS)) {
-            newsTab.setIsActive(true);
-            newsSelector.ping();
-        }
+        //infoLayout.show(infoSwap, tabName);
 
-        infoLayout.show(infoSwap, tabName);
-
-        currentTabName = tabName;
-    }
 
     protected void closeWindow() {
         System.exit(0);
@@ -264,7 +230,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         if (pack.getInstalledDirectory() == null) {
             requiresInstall = true;
             pack.save();
-            modpackSelector.forceRefresh();
         }
 
         if (requiresInstall) {
@@ -380,8 +345,8 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
             modpackOptionsDialog = null;
             centralPanel.setTintActive(false);
             footer.setTintActive(false);
-            modpackPanel.setModpack(model);
-            modpackSelector.forceRefresh();
+            //modpackPanel.setModpack(model);
+            //modpackSelector.forceRefresh();
         }
     }
 
@@ -418,81 +383,11 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         getRootPane().getContentPane().add(header, BorderLayout.PAGE_START);
 
         ImageIcon testIcon = resources.getIcon("platform_icon_title.png");
-        JButton testLabel = new JButton(testIcon);
 
-        ActionButton lbDownloadButton = new ActionButton("DOWNLOAD TO PLAY");
-        lbDownloadButton.setForeground(COLOR_LITTLEBITS_WHITE);
-        lbDownloadButton.setBackground(COLOR_LITTLEBITS_ORANGE);
-        lbDownloadButton.setShouldShowBackground(true);
-        lbDownloadButton.setHoverBackground(COLOR_LITTLEBITS_BUTTON_HOVER);
-        lbDownloadButton.setHoverForeground(COLOR_LITTLEBITS_WHITE);
-        lbDownloadButton.setFocusable(false);
-        lbDownloadButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16, Font.BOLD));
-        lbDownloadButton.setRolloverEnabled(true);
-        lbDownloadButton.setCornerDiameter(14);
-
-
-
-        lbDownloadButton.setAlignmentX(CENTER_ALIGNMENT);
-        lbDownloadButton.setBorder(BorderFactory.createEmptyBorder(15,50,15,50));
-
-
-
-        lbDownloadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadLittlebitsMod();
-            }
-        });
-        header.add(lbDownloadButton);
-        
-        ImageIcon headerIcon = resources.getIcon("platform_icon_title.png");
-        JButton headerLabel = new JButton(headerIcon);
-        headerLabel.setBorder(BorderFactory.createEmptyBorder(5,8,5,0));
-        headerLabel.setContentAreaFilled(false);
-        headerLabel.setFocusPainted(false);
-        headerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        headerLabel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DesktopUtils.browseUrl("http://www.technicpack.net/");
-            }
-        });
-        header.add(headerLabel);
 
         header.add(Box.createRigidArea(new Dimension(6, 0)));
 
-        ActionListener tabListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectTab(e.getActionCommand());
-            }
-        };
 
-        discoverTab = new HeaderTab(resources.getString("launcher.title.discover"), resources);
-        header.add(discoverTab);
-        discoverTab.setActionCommand(TAB_DISCOVER);
-        discoverTab.addActionListener(tabListener);
-
-        modpacksTab = new HeaderTab(resources.getString("launcher.title.modpacks"), resources);
-        modpacksTab.setIsActive(true);
-        modpacksTab.setHorizontalTextPosition(SwingConstants.LEADING);
-        modpacksTab.addActionListener(tabListener);
-        modpacksTab.setActionCommand(TAB_MODPACKS);
-        header.add(modpacksTab);
-
-        newsTab = new HeaderTab(resources.getString("launcher.title.news"), resources);
-        newsTab.setLayout(null);
-        newsTab.addActionListener(tabListener);
-        newsTab.setActionCommand(TAB_NEWS);
-        header.add(newsTab);
-
-        CountCircle newsCircle = new CountCircle();
-        newsCircle.setBackground(COLOR_RED);
-        newsCircle.setForeground(COLOR_WHITE_TEXT);
-        newsCircle.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16, Font.BOLD));
-        newsTab.add(newsCircle);
-        newsCircle.setBounds(10,17,25,25);
 
         header.add(Box.createHorizontalGlue());
 
@@ -568,54 +463,23 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         getRootPane().getContentPane().add(centralPanel, BorderLayout.CENTER);
         centralPanel.setLayout(new BorderLayout());
 
-        modpackPanel = new ModpackInfoPanel(resources, iconRepo, logoRepo, backgroundRepo, avatarRepo, discordApi, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openModpackOptions((ModpackModel)e.getSource());
-            }
-        },
-        new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                refreshModpackOptions((ModpackModel)e.getSource());
-            }
-        }
-        );
-        modpackSelector.setInfoPanel(modpackPanel);
-        modpackSelector.setLauncherFrame(this);
-        playButton = modpackPanel.getPlayButton();
-
-        modpackPanel.getDeleteButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (JOptionPane.showConfirmDialog(LauncherFrame.this, resources.getString("modpackoptions.delete.confirmtext"), resources.getString("modpackoptions.delete.confirmtitle"), JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    modpackSelector.getSelectedPack().delete();
-                    modpackSelector.forceRefresh();
-                }
-            }
-        });
+        playInfoPanel = new PlayInfoPanel(resources, directories);
 
         infoSwap = new JPanel();
         infoLayout = new CardLayout();
         infoSwap.setLayout(infoLayout);
         infoSwap.setOpaque(false);
-        newsInfoPanel = new NewsInfoPanel(resources, avatarRepo);
-        infoSwap.add(discoverInfoPanel,"discover");
+        infoSwap.add(playInfoPanel,"play");
 
-        JPanel newsHost = new JPanel();
-        infoSwap.add(newsHost, "news");
-        JPanel modpackHost = new JPanel();
-        infoSwap.add(modpackHost, "modpacks");
+
+        playInfoPanel.addDownloadActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadLittlebitsMod();
+            }
+        });
+
         centralPanel.add(infoSwap, BorderLayout.CENTER);
-
-        newsSelector = new NewsSelector(resources, newsInfoPanel, platformApi, avatarRepo, newsCircle, settings);
-        newsHost.setLayout(new BorderLayout());
-        newsHost.add(newsInfoPanel, BorderLayout.CENTER);
-        newsHost.add(newsSelector, BorderLayout.WEST);
-
-        modpackHost.setLayout(new BorderLayout());
-        modpackHost.add(modpackPanel, BorderLayout.CENTER);
-        modpackHost.add(modpackSelector, BorderLayout.WEST);
 
         footer = new TintablePanel();
         footer.setTintColor(COLOR_CENTRAL_BACK);
@@ -660,27 +524,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         installProgressPlaceholder = Box.createHorizontalGlue();
         footer.add(installProgressPlaceholder);
 
-        JButton buildCtrl = new JButton(resources.getIcon("apex-logo.png"));
-        buildCtrl.setBorder(BorderFactory.createEmptyBorder());
-        buildCtrl.setContentAreaFilled(false);
-        buildCtrl.setHorizontalTextPosition(SwingConstants.RIGHT);
-        buildCtrl.setHorizontalAlignment(SwingConstants.RIGHT);
-        buildCtrl.setFocusable(false);
-        buildCtrl.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        buildCtrl.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DesktopUtils.browseUrl("https://apexminecrafthosting.com/partners/technic");
-            }
-        });
-        footer.add(buildCtrl);
-
         getRootPane().getContentPane().add(footer, BorderLayout.PAGE_END);
-
-        if (resources.hasResource("teaser.png")) {
-            getRootPane().setGlassPane(new SplatPane(modpacksTab, resources.getIcon("teaser.png"), JLabel.SOUTH, 5, 0));
-            getRootPane().getGlassPane().setVisible(true);
-        }
     }
 
     @Override
@@ -699,8 +543,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         initComponents();
         userChanged(userModel.getCurrentUser());
 
-        if (currentTabName != null)
-            selectTab(currentTabName);
+        infoLayout.show(infoSwap, "discover");
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -719,10 +562,9 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
             this.setVisible(true);
             userWidget.setUser(mojangUser);
 
-            if (modpackSelector.getSelectedPack() != null)
-                setupPlayButtonText(modpackSelector.getSelectedPack(), mojangUser);
+            // TODO: LB
+            //setupPlayButtonText(modpackSelector.getSelectedPack(), mojangUser);
 
-            modpackSelector.forceRefresh();
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {

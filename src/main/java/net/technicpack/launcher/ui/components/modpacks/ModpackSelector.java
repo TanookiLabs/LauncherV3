@@ -462,8 +462,8 @@ public class ModpackSelector extends TintablePanel implements IModpackContainer,
         filterContents.setText(text);
         detectFilterChanges();
 
-        if (this.launcherFrame != null)
-            this.launcherFrame.selectTab("modpacks");
+        //if (this.launcherFrame != null)
+            //this.launcherFrame.selectTab("modpacks");
     }
 
     protected void detectFilterChanges() {
