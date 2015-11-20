@@ -62,6 +62,9 @@ import net.technicpack.utilslib.Utils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
+import net.littlebits.ui.controls.ActionButton;
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -82,6 +85,11 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
     private static final int SIDEKICK_WIDTH = 300;
     private static final int SIDEKICK_HEIGHT = 250;
+
+    // Littlebits variables
+    public static final Color COLOR_LITTLEBITS_ORANGE = new Color(255,138,0); // #FF8A00
+    public static final Color COLOR_LITTLEBITS_BUTTON_HOVER = new Color(230,140,0); // #e67c00
+    public static final Color COLOR_LITTLEBITS_WHITE = new Color(255,255,255);
 
     public static final Color COLOR_RED = new Color(229,0,0);
     public static final Color COLOR_GREEN = new Color(90, 184, 96);
@@ -411,13 +419,32 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
         ImageIcon testIcon = resources.getIcon("platform_icon_title.png");
         JButton testLabel = new JButton(testIcon);
-        testLabel.addActionListener(new ActionListener() {
+
+        ActionButton lbDownloadButton = new ActionButton("DOWNLOAD TO PLAY");
+        lbDownloadButton.setForeground(COLOR_LITTLEBITS_WHITE);
+        lbDownloadButton.setBackground(COLOR_LITTLEBITS_ORANGE);
+        lbDownloadButton.setShouldShowBackground(true);
+        lbDownloadButton.setHoverBackground(COLOR_LITTLEBITS_BUTTON_HOVER);
+        lbDownloadButton.setHoverForeground(COLOR_LITTLEBITS_WHITE);
+        lbDownloadButton.setFocusable(false);
+        lbDownloadButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16, Font.BOLD));
+        lbDownloadButton.setRolloverEnabled(true);
+        lbDownloadButton.setCornerDiameter(14);
+
+
+
+        lbDownloadButton.setAlignmentX(CENTER_ALIGNMENT);
+        lbDownloadButton.setBorder(BorderFactory.createEmptyBorder(15,50,15,50));
+
+
+
+        lbDownloadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadLittlebitsMod();
             }
         });
-        header.add(testLabel);
+        header.add(lbDownloadButton);
         
         ImageIcon headerIcon = resources.getIcon("platform_icon_title.png");
         JButton headerLabel = new JButton(headerIcon);
