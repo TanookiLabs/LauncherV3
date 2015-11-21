@@ -1,23 +1,27 @@
 package net.littlebits.ui;
 
 import net.littlebits.ui.controls.ActionButton;
+import net.littlebits.ui.controls.ImagePanel;
 import net.technicpack.launcher.ui.LauncherFrame;
 import net.technicpack.launchercore.install.LauncherDirectories;
 import net.technicpack.ui.controls.TiledBackground;
 import net.technicpack.ui.lang.ResourceLoader;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+
 
 public class PlayInfoPanel extends JPanel {
 
     final private ResourceLoader resources;
     final private LauncherDirectories directories;
     private ActionListener loadListener = null;
-    private TiledBackground background;
     private ActionButton downloadButton;
 
     public static final Color COLOR_LITTLEBITS_ORANGE = new Color(255,138,0); // #FF8A00
@@ -32,14 +36,23 @@ public class PlayInfoPanel extends JPanel {
 
         this.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
 
-        background = new TiledBackground(null);
+        JPanel background = new JPanel(null);
         background.setOpaque(true);
         background.setForeground(COLOR_LITTLEBITS_WHITE);
-        background.setBackground(LauncherFrame.COLOR_BLUE_DARKER);
+        background.setBackground(LauncherFrame.COLOR_GREEN);
         background.setLayout(new BorderLayout());
         //background.setFilterImage(true);
         this.add(background, BorderLayout.CENTER);
 
+        BufferedImage backgroundImage = resources.getImage("BITCRAFT-purple-HR.png");
+
+        ImagePanel containerPanel = new ImagePanel(new GridBagLayout());
+        containerPanel.setBackground(Color.green);
+        containerPanel.setImage(backgroundImage);
+        containerPanel.setOpaque(true);
+
+
+        background.add(containerPanel);
 
 
         JPanel contentPanel = new JPanel();
@@ -59,10 +72,7 @@ public class PlayInfoPanel extends JPanel {
         downloadButton = setupDownloadButton();
         contentPanel.add(downloadButton);
 
-        JPanel containerPanel = new JPanel(new GridBagLayout());
-        containerPanel.setBackground(Color.CYAN);
         containerPanel.add(contentPanel);
-        background.add(containerPanel);
     }
 
     public void addDownloadActionListener(ActionListener buttonActionListener) {
