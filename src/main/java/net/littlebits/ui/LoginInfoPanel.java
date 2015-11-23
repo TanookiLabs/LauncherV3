@@ -1,7 +1,6 @@
 package net.littlebits.ui;
 
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -36,7 +35,7 @@ public class LoginInfoPanel extends BitcraftPanel {
 		super(loader, contentDimensions);
         JLabel goLabel = new JLabel("LET'S GO");
         goLabel.setAlignmentX(CENTER_ALIGNMENT);
-        this.contentPanel.setBackground(COLOR_LITTLEBITS_WHITE);
+        //this.contentPanel.setBackground(Color.green);
 	}
 
 

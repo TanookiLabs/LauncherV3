@@ -333,22 +333,16 @@ public class LoginFrame extends DraggableFrame
 	 */
 	private void initComponents() {
 
-		BoxLayout layout = new BoxLayout();
+		BorderLayout layout = new BorderLayout();
 		getRootPane().getContentPane().setLayout(layout);
 
+		LoginInfoPanel fullPanel = new LoginInfoPanel(resources, new Dimension(300, 300));
+		add(fullPanel);
+
 		JPanel loginPanel = new JPanel();
+		fullPanel.contentPanel.add(loginPanel);
+
 		loginPanel.setLayout(new GridBagLayout());
-
-		Dimension contentDimensions = new Dimension(LOGIN_PANEL_WIDTH, LOGIN_PANEL_HEIGHT);
-
-		loginPanel.setPreferredSize(contentDimensions);
-		loginPanel.setMaximumSize(contentDimensions);
-		loginPanel.setMinimumSize(contentDimensions);
-
-		bitcraftPanel = new LoginInfoPanel(resources, new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-
-		bitcraftPanel.setBackground(BitcraftPanel.COLOR_LITTLEBITS_WHITE);
-		add(bitcraftPanel, BorderLayout.CENTER);
 
 		// Close button
 		JButton closeButton = new JButton();
@@ -553,7 +547,7 @@ public class LoginFrame extends DraggableFrame
 //		loginPanel.add(linkPane, new GridBagConstraints(0, 9, 3, 1, 1.0, 0.0, GridBagConstraints.SOUTH,
 //				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
-		bitcraftPanel.contentPanel.add(loginPanel);
+		//bitcraftPanel.contentPanel.add(loginPanel);
 	}
 
 	@Override
