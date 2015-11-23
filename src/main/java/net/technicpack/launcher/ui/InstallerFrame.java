@@ -151,12 +151,6 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         resources.setLocale(langCode);
     }
 
-    protected void portableLanguageChanged() {
-        String langCode = ((LanguageItem)portableLanguages.getSelectedItem()).getLangCode();
-        settings.setLanguageCode(langCode);
-        resources.setLocale(langCode);
-    }
-
     protected void standardInstall() {
         glassPane.setVisible(true);
 
@@ -208,94 +202,6 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
             }
         });
         thread.start();
-    }
-
-    protected void portableInstall() {
-        String targetPath = null;
-        final Relauncher relauncher = new TechnicRelauncher(null, settings.getBuildStream(), 0, new TechnicLauncherDirectories(settings.getTechnicRoot()), resources, params);
-        try {
-            String currentPath = relauncher.getRunningPath();
-            String launcher = (currentPath.endsWith(".exe"))?"TechnicLauncher.exe":"TechnicLauncher.jar";
-
-            targetPath = new File(portableInstallDir.getText(), launcher).getAbsolutePath();
-
-            File targetExe = new File(portableInstallDir.getText(), launcher);
-
-            if (!(new File(currentPath).equals(targetExe))) {
-                if (targetExe.exists() && !targetExe.delete()) {
-                    JOptionPane.showMessageDialog(this, resources.getString("installer.portable.replacefailed"), resources.getString("installer.portable.replacefailtitle"), JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                MoveLauncherPackage moveTask = new MoveLauncherPackage("", targetExe, relauncher);
-                moveTask.runTask(null);
-            }
-
-
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
-            return;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return;
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-            return;
-        }
-
-        glassPane.setVisible(true);
-
-        final String threadTargetPath = targetPath;
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                File oldRoot = settings.getTechnicRoot();
-                File newRoot = new File(portableInstallDir.getText(), "littlebits-bitcraft");
-
-                File oldSettingsFile = settings.getFilePath();
-                File newSettingsFile = new File(newRoot, "settings.json");
-
-                if (oldSettingsFile.exists() && !oldSettingsFile.getAbsolutePath().equals(newSettingsFile.getAbsolutePath()))
-                    oldSettingsFile.delete();
-
-                boolean rootHasChanged = false;
-
-                if (oldRoot.exists() && !oldRoot.getAbsolutePath().equals(newRoot.getAbsolutePath())) {
-                    rootHasChanged = true;
-                    try {
-                        if (!newRoot.exists())
-                            newRoot.mkdirs();
-
-                        FileUtils.copyDirectory(oldRoot, newRoot);
-                        FileUtils.deleteDirectory(oldRoot);
-                    } catch (IOException ex) {
-                        Utils.getLogger().log(Level.SEVERE, "Copying install to new directory failed: ",ex);
-                    }
-                }
-
-                settings.setPortable();
-                settings.setFilePath(newSettingsFile);
-                settings.getTechnicRoot();
-                settings.setLanguageCode(((LanguageItem)portableLanguages.getSelectedItem()).getLangCode());
-                settings.save();
-
-                relauncher.launch(threadTargetPath, params.getArgs());
-                System.exit(0);
-            }
-        });
-        thread.start();
-    }
-
-    protected void selectPortable() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        int result = chooser.showOpenDialog(this);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            portableInstallDir.setText(chooser.getSelectedFile().getAbsolutePath());
-            portableInstallButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-            portableInstallButton.setEnabled(true);
-        }
     }
 
     protected void selectStandard() {
@@ -385,19 +291,8 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         standardInstallPanel.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
 
         setupStandardInstall(standardInstallPanel);
-
-        JPanel portableModePanel = new JPanel();
-        portableModePanel.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
-
-        setupPortableMode(portableModePanel);
-
         centerPanel.addTab(resources.getString("launcher.installer.standard").toUpperCase(), standardInstallPanel);
-        centerPanel.addTab(resources.getString("launcher.installer.portable").toUpperCase(), portableModePanel);
-
-        if (settings.isPortable()) {
-            centerPanel.setSelectedIndex(1);
-        } else
-            centerPanel.setSelectedIndex(0);
+        centerPanel.setSelectedIndex(0);
 
         setLocationRelativeTo(null);
     }
@@ -519,108 +414,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
 
     }
 
-    private void setupPortableMode(JPanel panel) {
-        panel.setLayout(new GridBagLayout());
 
-        JLabel portableSpiel = new JLabel("<html><body align=\"left\" style='margin-right:10px;'>"+resources.getString("launcher.installer.portablespiel")+"</body></html>");
-        portableSpiel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
-        portableSpiel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        portableSpiel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-        panel.add(portableSpiel, new GridBagConstraints(0, 0, 3, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(9, 8, 9, 3), 0, 0));
-
-        panel.add(Box.createGlue(), new GridBagConstraints(0, 1, 3, 1, 1.0, 0.7, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0),0,0));
-
-        JLabel installFolderLabel = new JLabel(resources.getString("launcher.installer.folder"));
-        installFolderLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
-        installFolderLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        panel.add(installFolderLabel, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0,24,0,8), 0,0));
-
-        String installDir = "";
-        if (settings.isPortable())
-            installDir = settings.getTechnicRoot().getAbsolutePath();
-
-        portableInstallDir = new JTextField(installDir);
-        portableInstallDir.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
-        portableInstallDir.setForeground(LauncherFrame.COLOR_BLUE);
-        portableInstallDir.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        portableInstallDir.setHighlighter(null);
-        portableInstallDir.setEditable(false);
-        portableInstallDir.setCursor(null);
-        portableInstallDir.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
-        panel.add(portableInstallDir, new GridBagConstraints(1, 2, 1, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,5,0,5),0,16));
-
-        RoundedButton selectInstall = new RoundedButton(resources.getString("launcher.installer.select"));
-        selectInstall.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
-        selectInstall.setContentAreaFilled(false);
-        selectInstall.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        selectInstall.setHoverForeground(LauncherFrame.COLOR_BLUE);
-        selectInstall.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectPortable();
-            }
-        });
-        panel.add(selectInstall, new GridBagConstraints(2, 2, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,5,0,16), 0,0));
-
-        panel.add(Box.createGlue(), new GridBagConstraints(0, 3, 3, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0),0,0));
-
-        String defaultLocaleText = resources.getString("launcheroptions.language.default");
-        if (!resources.isDefaultLocaleSupported()) {
-            defaultLocaleText = defaultLocaleText.concat(" (" + resources.getString("launcheroptions.language.unavailable") + ")");
-        }
-
-        portableLanguages = new JComboBox();
-        portableLanguages.addItem(new LanguageItem(ResourceLoader.DEFAULT_LOCALE, defaultLocaleText, resources));
-        for (int i = 0; i < LauncherMain.supportedLanguages.length; i++) {
-            portableLanguages.addItem(new LanguageItem(resources.getCodeFromLocale(LauncherMain.supportedLanguages[i]), LauncherMain.supportedLanguages[i].getDisplayName(LauncherMain.supportedLanguages[i]), resources.getVariant(LauncherMain.supportedLanguages[i])));
-        }
-        if (!settings.getLanguageCode().equalsIgnoreCase(ResourceLoader.DEFAULT_LOCALE)) {
-            Locale loc = resources.getLocaleFromCode(settings.getLanguageCode());
-
-            for (int i = 0; i < LauncherMain.supportedLanguages.length; i++) {
-                if (loc.equals(LauncherMain.supportedLanguages[i])) {
-                    portableLanguages.setSelectedIndex(i+1);
-                    break;
-                }
-            }
-        }
-        portableLanguages.setBorder(new RoundBorder(LauncherFrame.COLOR_SCROLL_THUMB, 1, 10));
-        portableLanguages.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
-        portableLanguages.setUI(new LanguageCellUI(resources, new RoundedBorderFormatter(new LineBorder(Color.black, 1)), LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB));
-        portableLanguages.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        portableLanguages.setBackground(LauncherFrame.COLOR_SELECTOR_BACK);
-        portableLanguages.setRenderer(new LanguageCellRenderer(resources, "globe.png", LauncherFrame.COLOR_SELECTOR_BACK, LauncherFrame.COLOR_WHITE_TEXT));
-        portableLanguages.setEditable(false);
-        portableLanguages.setFocusable(false);
-        portableLanguages.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                portableLanguageChanged();
-            }
-        });
-        panel.add(portableLanguages, new GridBagConstraints(0, 4, 1, 0, 0, 0, GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0,8,8,0), 0,0));
-
-        portableInstallButton = new RoundedButton(resources.getString("launcher.installer.install"));
-        portableInstallButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
-        portableInstallButton.setContentAreaFilled(false);
-        portableInstallButton.setForeground(LauncherFrame.COLOR_GREY_TEXT);
-        portableInstallButton.setHoverForeground(LauncherFrame.COLOR_BLUE);
-        portableInstallButton.setBorder(BorderFactory.createEmptyBorder(5, 17, 10, 17));
-        portableInstallButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                portableInstall();
-            }
-        });
-        portableInstallButton.setEnabled(false);
-
-        if (!installDir.equals("")) {
-            portableInstallButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-            portableInstallButton.setEnabled(true);
-        }
-
-        panel.add(portableInstallButton, new GridBagConstraints(1, 4, 2, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.VERTICAL, new Insets(0,0,8,8), 0,0));
-    }
 
     @Override
     public void relocalize(ResourceLoader loader) {
