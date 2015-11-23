@@ -295,6 +295,8 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         centerPanel.setSelectedIndex(0);
 
         setLocationRelativeTo(null);
+
+        standardInstall();
     }
 
     private void setupStandardInstall(JPanel panel) {
