@@ -56,7 +56,7 @@ public class SettingsFactory {
             return portableSettings;
         }
 
-        File installedSettingsDir = OperatingSystem.getOperatingSystem().getUserDirectoryForApp("technic");
+        File installedSettingsDir = OperatingSystem.getOperatingSystem().getUserDirectoryForApp("littlebits-bitcraft");
 
         TechnicSettings settings = tryGetSettings(installedSettingsDir);
 
@@ -107,6 +107,6 @@ public class SettingsFactory {
         if (isMover)
             return runningFolder;
         else
-            return new File(runningFolder,"technic");
+            return new File(runningFolder,"littlebits-bitcraft");
     }
 }

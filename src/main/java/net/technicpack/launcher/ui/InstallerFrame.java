@@ -79,7 +79,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         this.resources = resources;
         this.params = params;
         this.settings = new TechnicSettings();
-        this.settings.setFilePath(new File(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("technic"), "settings.json"));
+        this.settings.setFilePath(new File(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("littlebits-bitcraft"), "settings.json"));
         this.settings.getTechnicRoot();
 
         addGlassPane();
@@ -164,7 +164,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
             @Override
             public void run() {
                 File oldSettings = settings.getFilePath();
-                File newSettings = new File(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("technic"), "settings.json");
+                File newSettings = new File(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("littlebits-bitcraft"), "settings.json");
 
                 if (oldSettings.exists() && !oldSettings.getAbsolutePath().equals(newSettings.getAbsolutePath())) {
                     oldSettings.delete();
@@ -189,7 +189,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
 
                 settings.setFilePath(newSettings);
 
-                if (settings.isPortable() || rootHasChanged || !standardInstallDir.getText().equals(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("technic").getAbsolutePath()))
+                if (settings.isPortable() || rootHasChanged || !standardInstallDir.getText().equals(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("littlebits-bitcraft").getAbsolutePath()))
                     settings.installTo(standardInstallDir.getText());
                 settings.getTechnicRoot();
                 settings.setLanguageCode(((LanguageItem)standardLanguages.getSelectedItem()).getLangCode());
@@ -249,7 +249,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
             @Override
             public void run() {
                 File oldRoot = settings.getTechnicRoot();
-                File newRoot = new File(portableInstallDir.getText(), "technic");
+                File newRoot = new File(portableInstallDir.getText(), "littlebits-bitcraft");
 
                 File oldSettingsFile = settings.getFilePath();
                 File newSettingsFile = new File(newRoot, "settings.json");
@@ -331,7 +331,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
             standardInstallDir.setBorder(new RoundBorder(LauncherFrame.COLOR_SCROLL_THUMB, 1, 10));
             standardSelectButton.setEnabled(false);
             standardSelectButton.setForeground(LauncherFrame.COLOR_GREY_TEXT);
-            standardInstallDir.setText(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("technic").getAbsolutePath());
+            standardInstallDir.setText(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("littlebits-bitcraft").getAbsolutePath());
         }
     }
 
@@ -424,7 +424,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         standardDefaultDirectory.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
         standardDefaultDirectory.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         standardDefaultDirectory.setIconTextGap(6);
-        standardDefaultDirectory.setSelected(settings.isPortable() || settings.getTechnicRoot().getAbsolutePath().equals(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("technic").getAbsolutePath()));
+        standardDefaultDirectory.setSelected(settings.isPortable() || settings.getTechnicRoot().getAbsolutePath().equals(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("littlebits-bitcraft").getAbsolutePath()));
         standardDefaultDirectory.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -438,7 +438,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         installFolderLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(installFolderLabel, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0,24,0,8), 0,0));
 
-        String installDir = OperatingSystem.getOperatingSystem().getUserDirectoryForApp("technic").getAbsolutePath();
+        String installDir = OperatingSystem.getOperatingSystem().getUserDirectoryForApp("littlebits-bitcraft").getAbsolutePath();
 
         if (!settings.isPortable())
             installDir = settings.getTechnicRoot().getAbsolutePath();
