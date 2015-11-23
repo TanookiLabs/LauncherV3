@@ -24,7 +24,7 @@ public class PlayInfoPanel extends BitcraftPanel {
     private ActionButton downloadButton;
 
     public PlayInfoPanel(final ResourceLoader loader,final LauncherDirectories directories) {
-        super(loader, directories, new Dimension(500, 320));
+        super(loader, new Dimension(500, 320));
 
         JLabel goLabel = new JLabel("LET'S GO");
         goLabel.setAlignmentX(CENTER_ALIGNMENT);

@@ -18,20 +18,21 @@ import java.io.IOException;
 
 public class BitcraftPanel extends JPanel {
     final protected ResourceLoader resources;
-    final protected LauncherDirectories directories;
+   
 
     public static final Color COLOR_LITTLEBITS_ORANGE = new Color(255,138,0); // #FF8A00
     public static final Color COLOR_LITTLEBITS_BUTTON_HOVER = new Color(230,140,0); // #e67c00
     public static final Color COLOR_LITTLEBITS_WHITE = new Color(255,255,255);
     public static final Color COLOR_LITTLEBITS_TEXT = new Color(68,68,68); // #444
+    public static final Color COLOR_LITTLEBITS_TEXT_FIELD_BG = new Color(238,238,238); // #eee
+    public static final Color COLOR_LITTLEBITS_TEXT_FIELD_STROKE = new Color(204,204,204); // #ccc
 
     public ImagePanel containerPanel;
     public JPanel contentPanel;
 
-    public BitcraftPanel(final ResourceLoader loader,final LauncherDirectories directories, Dimension contentDimensions) {
+    public BitcraftPanel(final ResourceLoader loader, Dimension contentDimensions) {
         setLayout(new BorderLayout());
         this.resources = loader;
-        this.directories = directories;
 
         this.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
 
