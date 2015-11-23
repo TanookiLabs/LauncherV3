@@ -336,7 +336,7 @@ public class LoginFrame extends DraggableFrame
 		BorderLayout layout = new BorderLayout();
 		getRootPane().getContentPane().setLayout(layout);
 
-		LoginInfoPanel fullPanel = new LoginInfoPanel(resources, new Dimension(300, 300));
+		LoginInfoPanel fullPanel = new LoginInfoPanel(resources, new Dimension(LOGIN_PANEL_WIDTH, LOGIN_PANEL_HEIGHT));
 		add(fullPanel);
 
 		JPanel loginPanel = new JPanel();
