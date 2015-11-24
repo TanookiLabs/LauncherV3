@@ -22,6 +22,7 @@ import net.littlebits.ui.BitcraftPanel;
 import net.littlebits.ui.LoginInfoPanel;
 import net.littlebits.ui.PlayInfoPanel;
 import net.littlebits.ui.controls.ActionButton;
+import net.littlebits.ui.controls.ImagePanel;
 import net.technicpack.launcher.LauncherMain;
 import net.technicpack.ui.controls.list.popupformatters.RoundedBorderFormatter;
 import net.technicpack.ui.controls.lang.LanguageCellRenderer;
@@ -53,6 +54,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Locale;
@@ -74,9 +76,13 @@ public class LoginFrame extends DraggableFrame
 	private static final int FRAME_WIDTH = 1194;
 	private static final int FRAME_HEIGHT = 718;
 
-	private static final int LOGIN_PANEL_WIDTH = 347;
-	private static final int LOGIN_PANEL_HEIGHT = 409;
+//	private static final int LOGIN_PANEL_WIDTH = 347;
+//	private static final int LOGIN_PANEL_HEIGHT = 409;
 
+	private static final int LOGIN_PANEL_WIDTH = 626;
+	private static final int LOGIN_PANEL_HEIGHT = 737;
+	
+	
 	LoginInfoPanel bitcraftPanel;
 
 	public LoginFrame(ResourceLoader resources, TechnicSettings settings, UserModel userModel,
@@ -335,13 +341,63 @@ public class LoginFrame extends DraggableFrame
 
 		BorderLayout layout = new BorderLayout();
 		getRootPane().getContentPane().setLayout(layout);
+		
+		JPanel loginPanel = new JPanel();	
+		loginPanel.setBackground(BitcraftPanel.COLOR_LITTLEBITS_WHITE);
+		Dimension loginPanelDimensions = new Dimension(347,409);
+		loginPanel.setPreferredSize(loginPanelDimensions);
+		loginPanel.setMinimumSize(loginPanelDimensions);
+		loginPanel.setMaximumSize(loginPanelDimensions);
 
+		
+		
+		BufferedImage littleBitsLogo = resources.getImage("littlebits-logo-2x.png");
+		ImagePanel lbLogoContainerPanel = new ImagePanel(new GridBagLayout());
+		lbLogoContainerPanel.setImage(littleBitsLogo);
+		lbLogoContainerPanel.setOpaque(false);
+		lbLogoContainerPanel.setBackground(new Color(0,0,0,0));
+		
+		
+		JPanel lbLogoContainer = new JPanel(new BorderLayout());
+		
+		Dimension lbContainerDimensions = new Dimension(626,105); 
+		lbLogoContainer.setPreferredSize(lbContainerDimensions);
+		lbLogoContainer.setMinimumSize(lbContainerDimensions);
+		lbLogoContainer.setMaximumSize(lbContainerDimensions);
+		lbLogoContainer.setOpaque(false);
+		lbLogoContainer.setBorder(BorderFactory.createEmptyBorder(50,33,15,0));
+		
+		
+		Dimension lbLogoDimensions = new Dimension(147,40); 
+		lbLogoContainerPanel.setPreferredSize(lbLogoDimensions);
+		lbLogoContainerPanel.setMinimumSize(lbLogoDimensions);
+		lbLogoContainerPanel.setMaximumSize(lbLogoDimensions);
+		
+		
+		lbLogoContainer.add(lbLogoContainerPanel, BorderLayout.WEST);
+		BufferedImage bitcraftLogo = resources.getImage("bitcraft-logo-2x.png");
+		ImagePanel bcLogoContainerPanel = new ImagePanel(new GridBagLayout());
+		bcLogoContainerPanel.setImage(bitcraftLogo);
+		bcLogoContainerPanel.setOpaque(false);				
+		
+		
+		Dimension bcLogoDimensions = new Dimension(626,137); 
+		bcLogoContainerPanel.setPreferredSize(bcLogoDimensions);
+		bcLogoContainerPanel.setMinimumSize(bcLogoDimensions);
+		bcLogoContainerPanel.setMaximumSize(bcLogoDimensions);
+		
+		
 		LoginInfoPanel fullPanel = new LoginInfoPanel(resources, new Dimension(LOGIN_PANEL_WIDTH, LOGIN_PANEL_HEIGHT));
-		add(fullPanel);
-
-		JPanel loginPanel = new JPanel();
+		add(fullPanel);		
+		
+		
+		fullPanel.contentPanel.setOpaque(false);
+		
+		fullPanel.contentPanel.add(lbLogoContainer);
+		fullPanel.contentPanel.add(bcLogoContainerPanel);
+		fullPanel.contentPanel.add(Box.createVerticalStrut(45));
 		fullPanel.contentPanel.add(loginPanel);
-
+		
 		loginPanel.setLayout(new GridBagLayout());
 
 		// Close button
@@ -360,11 +416,11 @@ public class LoginFrame extends DraggableFrame
 		loginPanel.add(closeButton, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHEAST,
 				GridBagConstraints.NONE, new Insets(7, 0, 0, 7), 0, 0));
 
+		// wasn't able to use the resources for this string to get the correct html styling.  
 		JLabel instructionText = new JLabel(
-				"<html><body align=\"center\">" + resources.getString("login.instructions") + "</body></html>",
+				"<html><body align=\"center\"><span style='font-size: 18px; color:#444'>LOGIN TO</span> <span style='font-size: 18px; color:#FF8A00'>MINECRAFT</span></body></html>",
 				JLabel.CENTER);
-		instructionText.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
-		instructionText.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+
 		loginPanel.add(instructionText, new GridBagConstraints(0, 1, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(9, 3, 0, 3), 0, 0));
 
