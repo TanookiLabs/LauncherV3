@@ -61,11 +61,13 @@ import net.littlebits.ui.PlayInfoPanel;
 
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -481,36 +483,42 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
         centralPanel.add(infoSwap, BorderLayout.CENTER);
 
-        footer = new TintablePanel();
-        footer.setTintColor(COLOR_CENTRAL_BACK);
-        footer.setBackground(COLOR_FOOTER);
-        footer.setLayout(new BoxLayout(footer, BoxLayout.LINE_AXIS));
-        footer.setForeground(COLOR_WHITE_TEXT);
-        footer.setBorder(BorderFactory.createEmptyBorder(3,6,3,12));
-
-        userWidget = new UserWidget(resources, skinRepository);
-        userWidget.setMaximumSize(userWidget.getPreferredSize());
-        footer.add(userWidget);
-
-        JLabel dashText = new JLabel("| ");
-        dashText.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        dashText.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 15));
-        footer.add(dashText);
-
-        JButton logout = new JButton(resources.getString("launcher.user.logout"));
+        JButton logout = new JButton();
         logout.setBorder(BorderFactory.createEmptyBorder());
         logout.setContentAreaFilled(false);
         logout.setFocusable(false);
         logout.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         logout.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 15));
+        //Icon logoutIcon= resources.getIcon("log-out-2x.png");
+
+        //Image newimg = img.getScaledInstance( NEW_WIDTH, NEW_HEIGHT,  java.awt.Image.SCALE_SMOOTH ) ;
+        BufferedImage logoutImage = resources.getImage("log-out-2x.png");
+        Image sizedImage = logoutImage.getScaledInstance(66,50, Image.SCALE_SMOOTH);
+        ImageIcon logoutIcon = new ImageIcon(sizedImage);
+        logout.setIcon(logoutIcon);
+
         logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 logout();
             }
         });
-        footer.add(logout);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(logout);
+        buttonPanel.setOpaque(false);
+        buttonPanel.setBorder(new EmptyBorder(0, 0, 0, 40));
+
+        playInfoPanel.containerPanel.add(buttonPanel, BorderLayout.PAGE_END);
+
+
+        //userWidget = new UserWidget(resources, skinRepository);
+        //userWidget.setMaximumSize(userWidget.getPreferredSize());
+        //footer.add(userWidget);
+
+
 
         installProgress = new ProgressBar();
         installProgress.setForeground(Color.white);
@@ -519,12 +527,10 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         installProgress.setIcon(resources.getIcon("download_icon.png"));
         installProgress.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 12));
         installProgress.setVisible(false);
-        footer.add(installProgress);
+        playInfoPanel.contentPanel.add(installProgress);
 
         installProgressPlaceholder = Box.createHorizontalGlue();
-        footer.add(installProgressPlaceholder);
-
-        getRootPane().getContentPane().add(footer, BorderLayout.PAGE_END);
+        playInfoPanel.contentPanel.add(installProgressPlaceholder);
     }
 
     @Override

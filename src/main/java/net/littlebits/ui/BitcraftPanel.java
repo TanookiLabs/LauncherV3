@@ -9,6 +9,7 @@ import net.technicpack.ui.lang.ResourceLoader;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,12 +63,6 @@ public class BitcraftPanel extends JPanel {
         contentPanel.setMaximumSize(contentDimensions);
         contentPanel.setMinimumSize(contentDimensions);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-
-
-
-
-
 
         BufferedImage littleBitsLogo = resources.getImage("littlebits-logo-2x.png");
         ImagePanel lbLogoContainerPanel = new ImagePanel(new GridBagLayout());
