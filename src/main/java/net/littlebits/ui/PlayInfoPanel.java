@@ -26,12 +26,23 @@ public class PlayInfoPanel extends BitcraftPanel {
     public PlayInfoPanel(final ResourceLoader loader,final LauncherDirectories directories) {
         super(loader, new Dimension(500, 320));
 
-        JLabel goLabel = new JLabel("LET'S GO");
+        contentPanel.add(Box.createVerticalStrut(75));
+
+        JLabel goLabel = new JLabel();
+        goLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 28));
+        goLabel.setText("<html>LET'S <font color='#FF8A00'><b>GO</b></font></html>");
+        goLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        goLabel.setHorizontalAlignment(JLabel.CENTER);
         goLabel.setAlignmentX(CENTER_ALIGNMENT);
+
         this.contentPanel.add(goLabel);
+
+        contentPanel.add(Box.createVerticalStrut(45));
 
         downloadButton = setupDownloadButton();
         this.contentPanel.add(downloadButton);
+
+
 
     }
 
