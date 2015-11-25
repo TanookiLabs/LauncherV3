@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.autoupdate.IBuildNumber;
 import net.technicpack.discord.IDiscordApi;
 import net.technicpack.launcher.LauncherMain;
@@ -518,19 +519,26 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         //userWidget.setMaximumSize(userWidget.getPreferredSize());
         //footer.add(userWidget);
 
+        playInfoPanel.contentPanel.add(Box.createVerticalStrut(45));
 
-
+        JPanel progressContainer = new JPanel(new BorderLayout());
+        progressContainer.setMaximumSize(new Dimension(30000, 40));
+        progressContainer.setOpaque(false);
         installProgress = new ProgressBar();
-        installProgress.setForeground(Color.white);
-        installProgress.setBackground(LauncherFrame.COLOR_GREEN);
+        installProgress.setForeground(Color.black);
+        installProgress.setBackground(BitcraftPanel.COLOR_LITTLEBITS_ORANGE);
         installProgress.setBorder(BorderFactory.createEmptyBorder(5, 45, 4, 45));
         installProgress.setIcon(resources.getIcon("download_icon.png"));
         installProgress.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 12));
-        installProgress.setVisible(false);
-        playInfoPanel.contentPanel.add(installProgress);
+
+        installProgress.setVisible(true);
+        installProgress.setAlignmentX(CENTER_ALIGNMENT);
+        progressContainer.add(installProgress);
+        playInfoPanel.contentPanel.add(progressContainer);
 
         installProgressPlaceholder = Box.createHorizontalGlue();
-        playInfoPanel.contentPanel.add(installProgressPlaceholder);
+        //installProgressPlaceholder.setBackground(Color.red);
+        //playInfoPanel.contentPanel.add(installProgressPlaceholder);
     }
 
     @Override
