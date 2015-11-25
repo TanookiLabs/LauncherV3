@@ -76,11 +76,11 @@ public class LoginFrame extends DraggableFrame
 	private static final int FRAME_WIDTH = 1194;
 	private static final int FRAME_HEIGHT = 718;
 
-//	private static final int LOGIN_PANEL_WIDTH = 347;
-//	private static final int LOGIN_PANEL_HEIGHT = 409;
+	private static final int LOGIN_PANEL_WIDTH = 347;
+	private static final int LOGIN_PANEL_HEIGHT = 409;
 
-	private static final int LOGIN_PANEL_WIDTH = 626;
-	private static final int LOGIN_PANEL_HEIGHT = 737;
+//	private static final int LOGIN_PANEL_WIDTH = 626;
+//	private static final int LOGIN_PANEL_HEIGHT = 737;
 	
 	
 	LoginInfoPanel bitcraftPanel;
@@ -344,58 +344,10 @@ public class LoginFrame extends DraggableFrame
 		
 		JPanel loginPanel = new JPanel();	
 		loginPanel.setBackground(BitcraftPanel.COLOR_LITTLEBITS_WHITE);
-		Dimension loginPanelDimensions = new Dimension(347,409);
-		loginPanel.setPreferredSize(loginPanelDimensions);
-		loginPanel.setMinimumSize(loginPanelDimensions);
-		loginPanel.setMaximumSize(loginPanelDimensions);
 
-		
-		
-		BufferedImage littleBitsLogo = resources.getImage("littlebits-logo-2x.png");
-		ImagePanel lbLogoContainerPanel = new ImagePanel(new GridBagLayout());
-		lbLogoContainerPanel.setImage(littleBitsLogo);
-		lbLogoContainerPanel.setOpaque(false);
-		lbLogoContainerPanel.setBackground(new Color(0,0,0,0));
-		
-		
-		JPanel lbLogoContainer = new JPanel(new BorderLayout());
-		
-		Dimension lbContainerDimensions = new Dimension(626,105); 
-		lbLogoContainer.setPreferredSize(lbContainerDimensions);
-		lbLogoContainer.setMinimumSize(lbContainerDimensions);
-		lbLogoContainer.setMaximumSize(lbContainerDimensions);
-		lbLogoContainer.setOpaque(false);
-		lbLogoContainer.setBorder(BorderFactory.createEmptyBorder(50,33,15,0));
-		
-		
-		Dimension lbLogoDimensions = new Dimension(147,40); 
-		lbLogoContainerPanel.setPreferredSize(lbLogoDimensions);
-		lbLogoContainerPanel.setMinimumSize(lbLogoDimensions);
-		lbLogoContainerPanel.setMaximumSize(lbLogoDimensions);
-		
-		
-		lbLogoContainer.add(lbLogoContainerPanel, BorderLayout.WEST);
-		BufferedImage bitcraftLogo = resources.getImage("bitcraft-logo-2x.png");
-		ImagePanel bcLogoContainerPanel = new ImagePanel(new GridBagLayout());
-		bcLogoContainerPanel.setImage(bitcraftLogo);
-		bcLogoContainerPanel.setOpaque(false);				
-		
-		
-		Dimension bcLogoDimensions = new Dimension(626,137); 
-		bcLogoContainerPanel.setPreferredSize(bcLogoDimensions);
-		bcLogoContainerPanel.setMinimumSize(bcLogoDimensions);
-		bcLogoContainerPanel.setMaximumSize(bcLogoDimensions);
-		
-		
 		LoginInfoPanel fullPanel = new LoginInfoPanel(resources, new Dimension(LOGIN_PANEL_WIDTH, LOGIN_PANEL_HEIGHT));
 		add(fullPanel);		
 		
-		
-		fullPanel.contentPanel.setOpaque(false);
-		
-		fullPanel.contentPanel.add(lbLogoContainer);
-		fullPanel.contentPanel.add(bcLogoContainerPanel);
-		fullPanel.contentPanel.add(Box.createVerticalStrut(45));
 		fullPanel.contentPanel.add(loginPanel);
 		
 		loginPanel.setLayout(new GridBagLayout());

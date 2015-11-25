@@ -46,7 +46,8 @@ public class BitcraftPanel extends JPanel {
 
         BufferedImage backgroundImage = resources.getImage("BITCRAFT-purple-HR.png");
 
-        containerPanel = new ImagePanel(new GridBagLayout());
+        containerPanel = new ImagePanel();
+        containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.Y_AXIS));
         containerPanel.setBackground(Color.green);
         containerPanel.setImage(backgroundImage);
         containerPanel.setOpaque(true);
@@ -63,6 +64,52 @@ public class BitcraftPanel extends JPanel {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
 
+
+
+
+
+
+        BufferedImage littleBitsLogo = resources.getImage("littlebits-logo-2x.png");
+        ImagePanel lbLogoContainerPanel = new ImagePanel(new GridBagLayout());
+        lbLogoContainerPanel.setImage(littleBitsLogo);
+        lbLogoContainerPanel.setOpaque(false);
+        lbLogoContainerPanel.setBackground(new Color(0,0,0,0));
+
+
+        JPanel lbLogoContainer = new JPanel(new BorderLayout());
+
+        Dimension lbContainerDimensions = new Dimension(626,105);
+        lbLogoContainer.setPreferredSize(lbContainerDimensions);
+        lbLogoContainer.setMinimumSize(lbContainerDimensions);
+        lbLogoContainer.setMaximumSize(lbContainerDimensions);
+        lbLogoContainer.setOpaque(false);
+        lbLogoContainer.setBorder(BorderFactory.createEmptyBorder(50,33,15,0));
+
+
+        Dimension lbLogoDimensions = new Dimension(147,40);
+        lbLogoContainerPanel.setPreferredSize(lbLogoDimensions);
+        lbLogoContainerPanel.setMinimumSize(lbLogoDimensions);
+        lbLogoContainerPanel.setMaximumSize(lbLogoDimensions);
+
+
+        lbLogoContainer.add(lbLogoContainerPanel, BorderLayout.WEST);
+        BufferedImage bitcraftLogo = resources.getImage("bitcraft-logo-2x.png");
+        ImagePanel bcLogoContainerPanel = new ImagePanel(new GridBagLayout());
+        bcLogoContainerPanel.setImage(bitcraftLogo);
+        bcLogoContainerPanel.setOpaque(false);
+
+
+        Dimension bcLogoDimensions = new Dimension(626,137);
+        bcLogoContainerPanel.setPreferredSize(bcLogoDimensions);
+        bcLogoContainerPanel.setMinimumSize(bcLogoDimensions);
+        bcLogoContainerPanel.setMaximumSize(bcLogoDimensions);
+
+        //container.setOpaque(false);
+
+        containerPanel.add(lbLogoContainer);
+        containerPanel.add(bcLogoContainerPanel);
+        containerPanel.add(Box.createVerticalStrut(45));
         this.containerPanel.add(contentPanel);
+
     }
 }
