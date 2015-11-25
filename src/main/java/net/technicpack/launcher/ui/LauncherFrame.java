@@ -531,7 +531,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         installProgress.setIcon(resources.getIcon("download_icon.png"));
         installProgress.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 12));
 
-        installProgress.setVisible(true);
+        installProgress.setVisible(false);
         installProgress.setAlignmentX(CENTER_ALIGNMENT);
         progressContainer.add(installProgress);
         playInfoPanel.contentPanel.add(progressContainer);
