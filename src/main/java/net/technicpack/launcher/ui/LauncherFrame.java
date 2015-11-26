@@ -515,7 +515,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         playInfoPanel.containerPanel.add(buttonPanel, BorderLayout.PAGE_END);
 
 
-        //userWidget = new UserWidget(resources, skinRepository);
+        userWidget = new UserWidget(resources, skinRepository);
         //userWidget.setMaximumSize(userWidget.getPreferredSize());
         //footer.add(userWidget);
 
