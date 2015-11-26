@@ -445,17 +445,17 @@ public class ModpackSelector extends TintablePanel implements IModpackContainer,
             ArrayList<IPackSource> sources = new ArrayList<IPackSource>(1);
             sources.add(technicSolder);
             defaultPacks.addPassthroughContainer(this);
-            packLoader.createRepositoryLoadJob(defaultPacks, sources, null, true);
+            //packLoader.createRepositoryLoadJob(defaultPacks, sources, null, true);
         }
     }
 
     public void forceRefresh() {
-        lastFilterContents = "THIS IS A TERRIBLE HACK I'M BASICALLY FORCING A REFRESH BUT WITHOUT DOING ANY WORK";
-        defaultPacks.clear();
-        detectFilterChanges();
-        ArrayList<IPackSource> sources = new ArrayList<IPackSource>(1);
-        sources.add(technicSolder);
-        packLoader.createRepositoryLoadJob(defaultPacks, sources, null, true);
+        //lastFilterContents = "THIS IS A TERRIBLE HACK I'M BASICALLY FORCING A REFRESH BUT WITHOUT DOING ANY WORK";
+        //defaultPacks.clear();
+        //detectFilterChanges();
+        //ArrayList<IPackSource> sources = new ArrayList<IPackSource>(1);
+        //sources.add(technicSolder);
+        //packLoader.createRepositoryLoadJob(defaultPacks, sources, null, true);
     }
 
     public void setFilter(String text) {
