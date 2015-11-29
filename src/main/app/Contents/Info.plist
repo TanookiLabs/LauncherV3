@@ -37,6 +37,9 @@
     
     <key>NSHumanReadableCopyright</key>
     <string></string>
+
+    <key>JVMRuntime</key>
+    <string>jre</string>
     
     <key>JVMMainClassName</key>
     <string>net.technicpack.launcher.LauncherMain</string>
