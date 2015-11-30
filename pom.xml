@@ -442,8 +442,9 @@
 								<configuration>
 									<executable>/bin/chmod</executable>
 									<arguments>
-										<argument>755</argument>
-										<argument>${basedir}/src/main/app/Contents/PlugIns/jre/Contents/Home/jre/bin/*</argument>
+										<argument>-R</argument>
+										<argument>a+x</argument>
+										<argument>${basedir}/src/main/app/Contents/PlugIns/jre/Contents/Home/jre/bin/</argument>
 									</arguments>
 								</configuration>
 							</execution>
