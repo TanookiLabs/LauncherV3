@@ -1,0 +1,15 @@
+#!/bin/sh
+
+mvn clean package
+cd ./target
+mkdir ./osx
+cp ./*.app.zip ./osx
+cd ./osx
+unzip *.app.zip
+rm *.app.zip
+cd ..
+git clone https://github.com/andreyvit/create-dmg.git
+./create-dmg/create-dmg --window-size 620 387 --background ../src/main/resources/exe/background.png \
+--icon-size 96 --volname "Launcher" --volicon "osx/Technic.app/Contents/Resources/technic.icns" --app-drop-link 380 205 --icon "Technic.app" 110 205 \
+launcher.dmg ./osx
+
