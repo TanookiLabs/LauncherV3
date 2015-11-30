@@ -123,9 +123,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
     private final UserModel<MojangUser> userModel;
     private final ImageRepository<IUserType> skinRepository;
     private final TechnicSettings settings;
-    private final ImageRepository<ModpackModel> iconRepo;
-    private final ImageRepository<ModpackModel> logoRepo;
-    private final ImageRepository<ModpackModel> backgroundRepo;
     private final ImageRepository<AuthorshipInfo> avatarRepo;
     private final Installer installer;
     private final IPlatformApi platformApi;
@@ -153,7 +150,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
     PlayInfoPanel playInfoPanel;
 
-    public LauncherFrame(final ResourceLoader resources, final ImageRepository<IUserType> skinRepository, final UserModel userModel, final TechnicSettings settings, final ImageRepository<ModpackModel> iconRepo, final ImageRepository<ModpackModel> logoRepo, final ImageRepository<ModpackModel> backgroundRepo, final Installer installer, final ImageRepository<AuthorshipInfo> avatarRepo, final IPlatformApi platformApi, final LauncherDirectories directories, final IInstalledPackRepository packRepository, final StartupParameters params, final JavaVersionRepository javaVersions, final FileJavaSource fileJavaSource, final IBuildNumber buildNumber, final IDiscordApi discordApi) {
+    public LauncherFrame(final ResourceLoader resources, final ImageRepository<IUserType> skinRepository, final UserModel userModel, final TechnicSettings settings, final Installer installer, final ImageRepository<AuthorshipInfo> avatarRepo, final IPlatformApi platformApi, final LauncherDirectories directories, final IInstalledPackRepository packRepository, final StartupParameters params, final JavaVersionRepository javaVersions, final FileJavaSource fileJavaSource, final IBuildNumber buildNumber, final IDiscordApi discordApi) {
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Technic Launcher");
@@ -161,9 +158,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         this.userModel = userModel;
         this.skinRepository = skinRepository;
         this.settings = settings;
-        this.iconRepo = iconRepo;
-        this.logoRepo = logoRepo;
-        this.backgroundRepo = backgroundRepo;
         this.installer = installer;
         this.avatarRepo = avatarRepo;
         this.platformApi = platformApi;
