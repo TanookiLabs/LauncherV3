@@ -31,6 +31,7 @@ import net.technicpack.launchercore.modpacks.sources.IInstalledPackRepository;
 import net.technicpack.platform.io.PlatformPackInfo;
 import net.technicpack.rest.RestObject;
 import net.technicpack.rest.RestfulAPIException;
+import net.technicpack.rest.io.Modpack;
 import net.technicpack.ui.controls.DraggableFrame;
 import net.technicpack.ui.controls.RoundedButton;
 import net.technicpack.ui.controls.SplatPane;
@@ -134,6 +135,8 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
     private final IBuildNumber buildNumber;
     private final IDiscordApi discordApi;
 
+    private ModpackModel littlebitsModpack;
+
     private ModpackOptionsDialog modpackOptionsDialog = null;
 
 
@@ -205,7 +208,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         userModel.setCurrentUser(null);
     }
 
-    protected void loadLittlebitsMod() {
+    protected void setupLittlebitsMod() {
         String jsonUrl = "https://s3.amazonaws.com/travis-lb-test/littlebits.json";
         PlatformPackInfo littlebitsPackInfo = null;
         try {
@@ -213,9 +216,13 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         } catch (RestfulAPIException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        InstalledPack installed = packRepo.getInstalledPacks().get(littlebitsPackInfo.getName());
-        ModpackModel pack = new ModpackModel(installed,littlebitsPackInfo, packRepo, directories);
-        launchModpack(pack);
+        InstalledPack installed = packRepo.getInstalledPacks().get("littlebits-bitcraft");
+        littlebitsModpack = new ModpackModel(installed,littlebitsPackInfo, packRepo, directories);
+    }
+
+    protected void loadLittlebitsMod() {
+
+        launchModpack(littlebitsModpack);
     }
 
     protected void launchModpack(ModpackModel pack) {
@@ -476,6 +483,9 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
             }
         });
 
+        setupLittlebitsMod();
+        //setupPlayButtonText(littlebitsModpack, userModel);
+
         centralPanel.add(infoSwap, BorderLayout.CENTER);
 
         JButton logout = new JButton();
@@ -570,8 +580,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
             this.setVisible(true);
             userWidget.setUser(mojangUser);
 
-            // TODO: LB
-            //setupPlayButtonText(modpackSelector.getSelectedPack(), mojangUser);
+            setupPlayButtonText(littlebitsModpack, mojangUser);
 
             EventQueue.invokeLater(new Runnable() {
                 @Override
@@ -583,29 +592,20 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
     }
 
     public void setupPlayButtonText(ModpackModel modpack, MojangUser user) {
-        playButton.setEnabled(true);
-        playButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-
         if (installer.isCurrentlyRunning()) {
-            playButton.setText(resources.getString("launcher.pack.cancel"));
+            playInfoPanel.setPlayState("installer-running"); // can cancel
         } else if (modpack.getInstalledVersion() != null) {
             if (userModel.getCurrentUser() == null || userModel.getCurrentUser().isOffline()) {
-                playButton.setText(resources.getString("launcher.pack.launch.offline"));
+                playInfoPanel.setPlayState("installed-offline"); //installed, but offline
             } else {
-                playButton.setText(resources.getString("launcher.pack.launch"));
+                playInfoPanel.setPlayState("installed"); //installed
             }
-            playButton.setIcon(new ImageIcon(resources.colorImage(resources.getImage("play_button.png"), LauncherFrame.COLOR_BUTTON_BLUE)));
-            playButton.setHoverIcon(new ImageIcon(resources.colorImage(resources.getImage("play_button.png"), LauncherFrame.COLOR_BLUE)));
         } else {
             if (userModel.getCurrentUser() == null || userModel.getCurrentUser().isOffline()) {
-                playButton.setEnabled(false);
-                playButton.setForeground(LauncherFrame.COLOR_GREY_TEXT);
-                playButton.setText(resources.getString("launcher.pack.cannotinstall"));
+                playInfoPanel.setPlayState("offline"); // launcher.pack.cannotinstall
             } else {
-                playButton.setText(resources.getString("launcher.pack.install"));
+                playInfoPanel.setPlayState("can-install");
             }
-            playButton.setIcon(new ImageIcon(resources.colorImage(resources.getImage("download_button.png"), LauncherFrame.COLOR_BUTTON_BLUE)));
-            playButton.setHoverIcon(new ImageIcon(resources.colorImage(resources.getImage("download_button.png"), LauncherFrame.COLOR_BLUE)));
         }
     }
 }
