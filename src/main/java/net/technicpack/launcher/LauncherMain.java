@@ -187,7 +187,8 @@ public class LauncherMain {
             //This is probably a debug build or something, build number is invalid
         }
 
-        Relauncher launcher = new TechnicRelauncher(new HttpUpdateStream("http://api.technicpack.net/launcher/"), settings.getBuildStream()+"4", build, directories, resources, params);
+        //build = 100;
+        Relauncher launcher = new TechnicRelauncher(new HttpUpdateStream("http://s3.amazonaws.com/travis-lb-test/launcher/"), settings.getBuildStream()+"4", build, directories, resources, params);
 
         try {
             if (launcher.runAutoUpdater())

@@ -24,6 +24,10 @@ public class ImagePanel extends JPanel{
         super(layout, true);
     }
 
+    public ImagePanel() {
+        super();
+    }
+
 
     public void setImage(BufferedImage newImage) {
         this.image = newImage;
