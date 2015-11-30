@@ -486,6 +486,8 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         setupLittlebitsMod();
         //setupPlayButtonText(littlebitsModpack, userModel);
 
+        playInfoPanel.debugInfo.setText("Build " + buildNumber.getBuildNumber());
+
         centralPanel.add(infoSwap, BorderLayout.CENTER);
 
         JButton logout = new JButton();
@@ -494,7 +496,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         logout.setFocusable(false);
         logout.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        logout.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 15));
+
         //Icon logoutIcon= resources.getIcon("log-out-2x.png");
 
         //Image newimg = img.getScaledInstance( NEW_WIDTH, NEW_HEIGHT,  java.awt.Image.SCALE_SMOOTH ) ;
@@ -516,7 +518,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         buttonPanel.setOpaque(false);
         buttonPanel.setBorder(new EmptyBorder(0, 0, 0, 40));
 
-        playInfoPanel.containerPanel.add(buttonPanel, BorderLayout.PAGE_END);
+        playInfoPanel.bottomPanel.add(buttonPanel, BorderLayout.LINE_END);
 
 
         userWidget = new UserWidget(resources, skinRepository);

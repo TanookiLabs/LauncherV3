@@ -30,6 +30,9 @@ public class BitcraftPanel extends JPanel {
 
     public ImagePanel containerPanel;
     public JPanel contentPanel;
+    public JLabel debugInfo;
+
+    public JPanel bottomPanel;
 
     public BitcraftPanel(final ResourceLoader loader, Dimension contentDimensions) {
         setLayout(new BorderLayout());
@@ -105,6 +108,24 @@ public class BitcraftPanel extends JPanel {
         containerPanel.add(bcLogoContainerPanel);
         containerPanel.add(Box.createVerticalStrut(45));
         this.containerPanel.add(contentPanel);
+
+
+
+        debugInfo = new JLabel("test");
+
+        debugInfo.setForeground(Color.lightGray);
+
+
+        bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(debugInfo, BorderLayout.LINE_START);
+        bottomPanel.setOpaque(false);
+
+        bottomPanel.setBorder(new EmptyBorder(0, 40, 40, 40));
+
+        containerPanel.add(bottomPanel, BorderLayout.PAGE_END);
+
+
+
 
     }
 }
