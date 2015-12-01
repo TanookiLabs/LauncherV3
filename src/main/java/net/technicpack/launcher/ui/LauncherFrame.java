@@ -528,7 +528,9 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         buttonPanel.setOpaque(false);
         //buttonPanel.setBorder(new EmptyBorder(0, 0, 0, 40));
 
-        playInfoPanel.bottomPanel.add(buttonPanel, BorderLayout.LINE_END);
+        //playInfoPanel.bottomPanel.add(buttonPanel, BorderLayout.LINE_END);
+        playInfoPanel.bottomPanel.add(buttonPanel, new GridBagConstraints(1,2,1,1,1,1, GridBagConstraints.LAST_LINE_END, GridBagConstraints.NONE, new Insets(0,0,15,0), 0,0));
+
 
 
         userWidget = new UserWidget(resources, skinRepository);

@@ -87,11 +87,11 @@ public class BitcraftPanel extends JPanel {
         debugInfo = new JLabel("");
         debugInfo.setForeground(Color.lightGray);
 
-        bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.add(debugInfo, BorderLayout.LINE_START);
+        bottomPanel = new JPanel(new GridBagLayout());
+        bottomPanel.add(debugInfo, new GridBagConstraints(0,2,1,1,1,1, GridBagConstraints.LAST_LINE_START, GridBagConstraints.NONE, new Insets(0,0,15,0), 0,0));
         bottomPanel.setOpaque(false);
 
-        bottomPanel.setBorder(new EmptyBorder(0, 40, 40, 40));
+        bottomPanel.setBorder(new EmptyBorder(0, 40, 0, 40));
 
         containerPanel.add(bottomPanel, BorderLayout.PAGE_END);
 
