@@ -509,9 +509,11 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
         //Image newimg = img.getScaledInstance( NEW_WIDTH, NEW_HEIGHT,  java.awt.Image.SCALE_SMOOTH ) ;
         BufferedImage logoutImage = resources.getImage("log-out-2x.png");
-        Image sizedImage = logoutImage.getScaledInstance(66,50, Image.SCALE_SMOOTH);
+        Image sizedImage = logoutImage.getScaledInstance(26,25, Image.SCALE_SMOOTH);
         ImageIcon logoutIcon = new ImageIcon(sizedImage);
         logout.setIcon(logoutIcon);
+        logout.setText("log out");
+        logout.setIconTextGap(15);
 
         logout.addActionListener(new ActionListener() {
             @Override
@@ -524,7 +526,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(logout);
         buttonPanel.setOpaque(false);
-        buttonPanel.setBorder(new EmptyBorder(0, 0, 0, 40));
+        //buttonPanel.setBorder(new EmptyBorder(0, 0, 0, 40));
 
         playInfoPanel.bottomPanel.add(buttonPanel, BorderLayout.LINE_END);
 

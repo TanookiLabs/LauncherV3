@@ -76,8 +76,8 @@ public class LoginFrame extends DraggableFrame
 	private static final int FRAME_WIDTH = 1194;
 	private static final int FRAME_HEIGHT = 718;
 
-	private static final int LOGIN_PANEL_WIDTH = 347;
-	private static final int LOGIN_PANEL_HEIGHT = 409;
+	private static final int LOGIN_PANEL_WIDTH = 500;
+	private static final int LOGIN_PANEL_HEIGHT = 400;
 
 //	private static final int LOGIN_PANEL_WIDTH = 626;
 //	private static final int LOGIN_PANEL_HEIGHT = 737;
@@ -339,6 +339,9 @@ public class LoginFrame extends DraggableFrame
 	 */
 	private void initComponents() {
 
+		int leftMargin = 100;
+		int rightMargin = 100;
+
 		BorderLayout layout = new BorderLayout();
 		getRootPane().getContentPane().setLayout(layout);
 		
@@ -355,7 +358,7 @@ public class LoginFrame extends DraggableFrame
 		// Close button
 		JButton closeButton = new JButton();
 		closeButton.setContentAreaFilled(false);
-		closeButton.setBorder(BorderFactory.createEmptyBorder());
+		closeButton.setBorder(BorderFactory.createEmptyBorder(15,0,0,15));
 		closeButton.setIcon(resources.getIcon("close-black.png"));
 		closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		closeButton.addActionListener(new ActionListener() {
@@ -370,7 +373,7 @@ public class LoginFrame extends DraggableFrame
 
 		// wasn't able to use the resources for this string to get the correct html styling.  
 		JLabel instructionText = new JLabel(
-				"<html><body align=\"center\"><span style='font-size: 18px; color:#444'>LOGIN TO</span> <span style='font-size: 18px; color:#FF8A00'>MINECRAFT</span></body></html>",
+				"<html><body align=\"center\"><span style='font-size: 18px; color:#444'>LOGIN TO</span> <span style='font-size: 18px; color:#FF8A00;'><b>MINECRAFT</b></span></body></html>",
 				JLabel.CENTER);
 
 		loginPanel.add(instructionText, new GridBagConstraints(0, 1, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER,
@@ -378,9 +381,9 @@ public class LoginFrame extends DraggableFrame
 
 		JLabel userLabel = new JLabel(resources.getString("login.username"));
 		userLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
-		userLabel.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_BG);
+		userLabel.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		loginPanel.add(userLabel, new GridBagConstraints(0, 2, 3, 1, 0.0, 0.0, GridBagConstraints.WEST,
-				GridBagConstraints.NONE, new Insets(10, 20, 0, 20), 0, 0));
+				GridBagConstraints.NONE, new Insets(10, leftMargin, 0, rightMargin), 0, 0));
 
 		// Setup username box
 		nameSelect = new JComboBox();
@@ -392,8 +395,8 @@ public class LoginFrame extends DraggableFrame
 		nameSelect.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
 		nameSelect.setEditable(true);
 		nameSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
-		nameSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-		nameSelect.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
+		nameSelect.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
+		nameSelect.setBackground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_BG);
 		nameSelect.setVisible(false);
 		UserCellRenderer userRenderer = new UserCellRenderer(resources, this.skinRepository);
 		userRenderer.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
@@ -417,7 +420,7 @@ public class LoginFrame extends DraggableFrame
 		});
 
 		loginPanel.add(nameSelect, new GridBagConstraints(0, 3, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(3, 20, 0, 20), 4, 4));
+				GridBagConstraints.BOTH, new Insets(3, leftMargin, 0, rightMargin), 4, 4));
 
 		Border fieldBorder = BorderFactory.createLineBorder(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE, 1);
 
@@ -425,24 +428,24 @@ public class LoginFrame extends DraggableFrame
 		name.setBorder(fieldBorder);
 		name.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
 		name.setBackground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_BG);
-		name.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
+		name.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		name.setCaretColor(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
-		name.setMargin(new Insets(0, 20, 0, 0));
+		name.setMargin(new Insets(0, leftMargin, 0, 0));
 		name.addKeyListener(this);
 		loginPanel.add(name, new GridBagConstraints(0, 3, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(3, 20, 0, 20), 4, 17));
+				GridBagConstraints.BOTH, new Insets(3, leftMargin, 0, rightMargin), 4, 17));
 
 		JLabel passLabel = new JLabel(resources.getString("login.password"));
 		passLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
-		passLabel.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_BG);
+		passLabel.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		loginPanel.add(passLabel, new GridBagConstraints(0, 4, 3, 1, 0.0, 0.0, GridBagConstraints.WEST,
-				GridBagConstraints.NONE, new Insets(12, 20, 0, 20), 0, 0));
+				GridBagConstraints.NONE, new Insets(12, leftMargin, 0, rightMargin), 0, 0));
 
 		// Setup password box
 		password = new JPasswordField();
 		password.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
 		password.setBorder(fieldBorder);
-		password.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
+		password.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		password.setBackground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_BG);
 		password.addKeyListener(this);
 		password.setEchoChar('*');
@@ -454,19 +457,18 @@ public class LoginFrame extends DraggableFrame
 		});
 		password.setCaretColor(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
 		loginPanel.add(password, new GridBagConstraints(0, 5, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER,
-				GridBagConstraints.BOTH, new Insets(3, 20, 0, 20), 4, 17));
+				GridBagConstraints.BOTH, new Insets(3, leftMargin, 0, rightMargin), 4, 17));
 
 		// "Remember this account"
 		Font rememberFont = resources.getFont(ResourceLoader.FONT_OPENSANS, 14);
-		rememberAccount = new JCheckBox(
-				"<html><body style=\"color:#fff\">" + resources.getString("login.remember") + "</body></html>", false);
+		rememberAccount = new JCheckBox(resources.getString("login.remember"), false);
 		rememberAccount.setFont(rememberFont);
-		rememberAccount.setForeground(BitcraftPanel.COLOR_LITTLEBITS_WHITE);
+		rememberAccount.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		rememberAccount.setOpaque(false);
-		rememberAccount.setHorizontalTextPosition(SwingConstants.LEFT);
-		rememberAccount.setHorizontalAlignment(SwingConstants.RIGHT);
+		rememberAccount.setHorizontalTextPosition(SwingConstants.RIGHT);
+		rememberAccount.setHorizontalAlignment(SwingConstants.LEFT);
 		rememberAccount.setBorder(BorderFactory.createEmptyBorder());
-		rememberAccount.setIconTextGap(6);
+		rememberAccount.setIconTextGap(15);
 		rememberAccount.addKeyListener(this);
 		rememberAccount.setSelectedIcon(resources.getIcon("checkbox_closed.png"));
 		rememberAccount.setIcon(resources.getIcon("checkbox_open.png"));
@@ -477,12 +479,12 @@ public class LoginFrame extends DraggableFrame
 			}
 		});
 		rememberAccount.setFocusPainted(false);
-		 loginPanel.add(rememberAccount, new GridBagConstraints(0, 6, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
-		 GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
+		loginPanel.add(rememberAccount, new GridBagConstraints(0, 6, 1, 1, 1.0, 0.0, GridBagConstraints.LINE_START,
+		 GridBagConstraints.HORIZONTAL, new Insets(15, leftMargin, 0, 0), 0, 0));
 
 		// Login button
-		loginPanel.add(setupLoginButton(), new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER,
-				GridBagConstraints.HORIZONTAL, new Insets(24, 20, 0, 0), 0, 0));
+		loginPanel.add(setupLoginButton(), new GridBagConstraints(0, 7, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER,
+				GridBagConstraints.HORIZONTAL, new Insets(15, leftMargin, 0, rightMargin), 0, 0));
 
 		loginPanel.add(Box.createVerticalGlue(), new GridBagConstraints(0, 8, 3, 1, 1.0, 1.0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
@@ -631,7 +633,7 @@ public class LoginFrame extends DraggableFrame
 		lbLoginButton.setRolloverEnabled(true);
 		lbLoginButton.setCornerDiameter(14);
 		lbLoginButton.setAlignmentX(CENTER_ALIGNMENT);
-		lbLoginButton.setBorder(BorderFactory.createEmptyBorder(15, 50, 15, 50));
+		lbLoginButton.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
 		return lbLoginButton;
 	}
 
