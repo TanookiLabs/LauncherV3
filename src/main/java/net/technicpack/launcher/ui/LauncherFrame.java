@@ -381,7 +381,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
         header.setBackground(BitcraftPanel.COLOR_LITTLEBITS_GREY_BG);
         header.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
-        header.setBorder(BorderFactory.createEmptyBorder(0,5,0,10));
+        header.setBorder(BorderFactory.createEmptyBorder(5,5,5,10));
         getRootPane().getContentPane().add(header, BorderLayout.PAGE_START);
 
         ImageIcon testIcon = resources.getIcon("platform_icon_title.png");
@@ -425,6 +425,10 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
         ImageIcon minimizeIcon = resources.getIcon("minimize.png");
         JButton minimizeButton = new JButton(minimizeIcon);
+        Dimension buttonSize = new Dimension(15,15);
+        minimizeButton.setPreferredSize(buttonSize);
+        minimizeButton.setMinimumSize(buttonSize);
+        minimizeButton.setMaximumSize(buttonSize);
         minimizeButton.setBorder(BorderFactory.createEmptyBorder());
         minimizeButton.setContentAreaFilled(false);
         minimizeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -435,9 +439,11 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
                 minimizeWindow();
             }
         });
-        windowGadgetPanel.add(minimizeButton);
 
-        ImageIcon closeIcon = resources.getIcon("close.png");
+        windowGadgetPanel.add(minimizeButton);
+        windowGadgetPanel.add(Box.createHorizontalStrut(10));
+
+        ImageIcon closeIcon = resources.getIcon("close-black.png");
         JButton closeButton = new JButton(closeIcon);
         closeButton.setBorder(BorderFactory.createEmptyBorder());
         closeButton.setContentAreaFilled(false);
