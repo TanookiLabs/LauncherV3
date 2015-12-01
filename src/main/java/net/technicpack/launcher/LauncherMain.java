@@ -32,7 +32,7 @@ import net.technicpack.launcher.io.*;
 import net.technicpack.launcher.settings.migration.IMigrator;
 import net.technicpack.launcher.settings.migration.InitialV3Migrator;
 import net.technicpack.launcher.ui.InstallerFrame;
-import net.technicpack.launcher.ui.components.discover.DiscoverInfoPanel;
+//import net.technicpack.launcher.ui.components.discover.DiscoverInfoPanel;
 import net.technicpack.launcher.ui.components.modpacks.ModpackSelector;
 import net.technicpack.launchercore.auth.IAuthListener;
 import net.technicpack.launchercore.auth.IUserStore;
