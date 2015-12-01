@@ -379,8 +379,8 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         /////////////////////////////////////////////////////////////
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
-        header.setBackground(COLOR_BLUE);
-        header.setForeground(COLOR_WHITE_TEXT);
+        header.setBackground(BitcraftPanel.COLOR_LITTLEBITS_GREY_BG);
+        header.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
         header.setBorder(BorderFactory.createEmptyBorder(0,5,0,10));
         getRootPane().getContentPane().add(header, BorderLayout.PAGE_START);
 
@@ -402,6 +402,26 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         windowGadgetPanel.setOpaque(false);
         windowGadgetPanel.setLayout(new BoxLayout(windowGadgetPanel, BoxLayout.LINE_AXIS));
         windowGadgetPanel.setAlignmentX(RIGHT_ALIGNMENT);
+
+        JButton launcherOptionsLabel = new JButton(resources.getString("launcher.title.options"));
+        launcherOptionsLabel.setIcon(resources.getIcon("options_cog.png"));
+        //launcherOptionsLabel.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 14));
+        launcherOptionsLabel.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
+        launcherOptionsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        launcherOptionsLabel.setHorizontalTextPosition(SwingConstants.TRAILING);
+        launcherOptionsLabel.setAlignmentX(RIGHT_ALIGNMENT);
+        launcherOptionsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        launcherOptionsLabel.setBorder(BorderFactory.createEmptyBorder());
+        launcherOptionsLabel.setContentAreaFilled(false);
+        launcherOptionsLabel.setFocusPainted(false);
+        launcherOptionsLabel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openLauncherOptions();
+            }
+        });
+        windowGadgetPanel.add(launcherOptionsLabel);
+        windowGadgetPanel.add(Box.createHorizontalStrut(35));
 
         ImageIcon minimizeIcon = resources.getIcon("minimize.png");
         JButton minimizeButton = new JButton(minimizeIcon);
@@ -431,27 +451,11 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         closeButton.setFocusable(false);
         windowGadgetPanel.add(closeButton);
 
-        rightHeaderPanel.add(windowGadgetPanel);
-        rightHeaderPanel.add(Box.createVerticalGlue());
 
-        JButton launcherOptionsLabel = new JButton(resources.getString("launcher.title.options"));
-        launcherOptionsLabel.setIcon(resources.getIcon("options_cog.png"));
-        launcherOptionsLabel.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 14));
-        launcherOptionsLabel.setForeground(COLOR_WHITE_TEXT);
-        launcherOptionsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        launcherOptionsLabel.setHorizontalTextPosition(SwingConstants.LEADING);
-        launcherOptionsLabel.setAlignmentX(RIGHT_ALIGNMENT);
-        launcherOptionsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        launcherOptionsLabel.setBorder(BorderFactory.createEmptyBorder());
-        launcherOptionsLabel.setContentAreaFilled(false);
-        launcherOptionsLabel.setFocusPainted(false);
-        launcherOptionsLabel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openLauncherOptions();
-            }
-        });
-        rightHeaderPanel.add(launcherOptionsLabel);
+        //rightHeaderPanel.add(Box.createVerticalGlue());
+
+
+        rightHeaderPanel.add(windowGadgetPanel);
 
         header.add(rightHeaderPanel);
 

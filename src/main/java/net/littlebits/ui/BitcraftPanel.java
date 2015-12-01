@@ -28,6 +28,8 @@ public class BitcraftPanel extends JPanel {
     public static final Color COLOR_LITTLEBITS_TEXT_FIELD_BG = new Color(238,238,238); // #eee
     public static final Color COLOR_LITTLEBITS_TEXT_FIELD_STROKE = new Color(204,204,204); // #ccc
 
+    public static final Color COLOR_LITTLEBITS_GREY_BG = new Color(238,238,238); // #eee
+
     public ImagePanel containerPanel;
     public JPanel contentPanel;
     public JLabel debugInfo;
