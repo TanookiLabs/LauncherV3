@@ -83,6 +83,7 @@ public class PlayInfoPanel extends BitcraftPanel {
         lbDownloadButton.setRolloverEnabled(true);
         lbDownloadButton.setCornerDiameter(14);
         lbDownloadButton.setAlignmentX(CENTER_ALIGNMENT);
+        lbDownloadButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lbDownloadButton.setBorder(BorderFactory.createEmptyBorder(15,50,15,50));
         return lbDownloadButton;
     }
