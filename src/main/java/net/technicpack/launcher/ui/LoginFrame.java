@@ -376,11 +376,13 @@ public class LoginFrame extends DraggableFrame
 				"<html><body align=\"center\"><span style='font-size: 18px; color:#444'>LOGIN TO</span> <span style='font-size: 18px; color:#FF8A00;'><b>MINECRAFT</b></span></body></html>",
 				JLabel.CENTER);
 
+		instructionText.setFont(bitcraftPanel.mainFont.deriveFont(Font.PLAIN, 18));
+
 		loginPanel.add(instructionText, new GridBagConstraints(0, 1, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER,
 				GridBagConstraints.BOTH, new Insets(9, 3, 0, 3), 0, 0));
 
 		JLabel userLabel = new JLabel(resources.getString("login.username"));
-		userLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+		userLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
 		userLabel.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		loginPanel.add(userLabel, new GridBagConstraints(0, 2, 3, 1, 0.0, 0.0, GridBagConstraints.WEST,
 				GridBagConstraints.NONE, new Insets(10, leftMargin, 0, rightMargin), 0, 0));
@@ -392,20 +394,20 @@ public class LoginFrame extends DraggableFrame
 			nameSelect.setUI(new MetalComboBoxUI());
 		}
 
-		nameSelect.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+		nameSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
 		nameSelect.setEditable(true);
 		nameSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
 		nameSelect.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		nameSelect.setBackground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_BG);
 		nameSelect.setVisible(false);
 		UserCellRenderer userRenderer = new UserCellRenderer(resources, this.skinRepository);
-		userRenderer.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+		userRenderer.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
 		userRenderer.setSelectedBackgroundColor(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
 		userRenderer.setSelectedForegroundColor(LauncherFrame.COLOR_BUTTON_BLUE);
 		userRenderer.setUnselectedBackgroundColor(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
 		userRenderer.setUnselectedForegroundColor(LauncherFrame.COLOR_BUTTON_BLUE);
 		nameSelect.setRenderer(userRenderer);
-		UserCellEditor userEditor = new UserCellEditor(resources.getFont(ResourceLoader.FONT_OPENSANS, 16),
+		UserCellEditor userEditor = new UserCellEditor(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16),
 				this.skinRepository, LauncherFrame.COLOR_BUTTON_BLUE);
 		nameSelect.setEditor(userEditor);
 		userEditor.addKeyListener(this);
@@ -426,7 +428,7 @@ public class LoginFrame extends DraggableFrame
 
 		name = new JTextField();
 		name.setBorder(fieldBorder);
-		name.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+		name.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
 		name.setBackground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_BG);
 		name.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		name.setCaretColor(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
@@ -436,14 +438,14 @@ public class LoginFrame extends DraggableFrame
 				GridBagConstraints.BOTH, new Insets(3, leftMargin, 0, rightMargin), 4, 17));
 
 		JLabel passLabel = new JLabel(resources.getString("login.password"));
-		passLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+		passLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
 		passLabel.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		loginPanel.add(passLabel, new GridBagConstraints(0, 4, 3, 1, 0.0, 0.0, GridBagConstraints.WEST,
 				GridBagConstraints.NONE, new Insets(12, leftMargin, 0, rightMargin), 0, 0));
 
 		// Setup password box
 		password = new JPasswordField();
-		password.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+		password.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
 		password.setBorder(fieldBorder);
 		password.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
 		password.setBackground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_BG);
@@ -460,7 +462,7 @@ public class LoginFrame extends DraggableFrame
 				GridBagConstraints.BOTH, new Insets(3, leftMargin, 0, rightMargin), 4, 17));
 
 		// "Remember this account"
-		Font rememberFont = resources.getFont(ResourceLoader.FONT_OPENSANS, 14);
+		Font rememberFont = BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14);
 		rememberAccount = new JCheckBox(resources.getString("login.remember"), false);
 		rememberAccount.setFont(rememberFont);
 		rememberAccount.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT_FIELD_STROKE);
@@ -520,7 +522,7 @@ public class LoginFrame extends DraggableFrame
 //			}
 //		}
 //		languages.setBorder(BorderFactory.createEmptyBorder());
-//		languages.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+//		languages.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
 //		languages.setUI(new LanguageCellUI(resources, new RoundedBorderFormatter(new LineBorder(Color.black, 1)),
 //				LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB));
 //		languages.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
@@ -543,7 +545,7 @@ public class LoginFrame extends DraggableFrame
 //		termsLink.setContentAreaFilled(false);
 //		termsLink.setBorder(BorderFactory.createEmptyBorder());
 //		termsLink.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-//		termsLink.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+//		termsLink.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
 //		termsLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 //		termsLink.addActionListener(new ActionListener() {
 //			@Override
@@ -629,7 +631,7 @@ public class LoginFrame extends DraggableFrame
 		lbLoginButton.setHoverBackground(BitcraftPanel.COLOR_LITTLEBITS_BUTTON_HOVER);
 		lbLoginButton.setHoverForeground(BitcraftPanel.COLOR_LITTLEBITS_WHITE);
 		lbLoginButton.setFocusable(false);
-		lbLoginButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16, Font.BOLD));
+		lbLoginButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.BOLD, 16));
 		lbLoginButton.setRolloverEnabled(true);
 		lbLoginButton.setCornerDiameter(14);
 		lbLoginButton.setAlignmentX(CENTER_ALIGNMENT);

@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui.controls.modpacks;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.ui.controls.borders.DropShadowBorder;
 import net.technicpack.ui.lang.ResourceLoader;
 import net.technicpack.launcher.ui.LauncherFrame;
@@ -64,7 +65,7 @@ public class ModpackWidget extends SelectorWidget implements IImageJobListener<M
         add(icon, new GridBagConstraints(0,0,1,1,0,0,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0,0,0,14),0,0));
 
         displayName = new JLabel(modpack.getDisplayName());
-        displayName.setFont(getResources().getFont(ResourceLoader.FONT_OPENSANS, 14));
+        displayName.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         displayName.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         displayName.setMaximumSize(new Dimension(210, displayName.getPreferredSize().height));
         add(displayName, new GridBagConstraints(1,0,1,1,1,0,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0,0,0,0),0,0));
@@ -93,7 +94,7 @@ public class ModpackWidget extends SelectorWidget implements IImageJobListener<M
         toolTip.setBackground(LauncherFrame.COLOR_FOOTER);
         toolTip.setForeground(LauncherFrame.COLOR_GREY_TEXT);
         toolTip.setBorder(BorderFactory.createCompoundBorder(new LineBorder(LauncherFrame.COLOR_GREY_TEXT), BorderFactory.createEmptyBorder(5,5,5,5)));
-        toolTip.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        toolTip.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
 
         return toolTip;
     }

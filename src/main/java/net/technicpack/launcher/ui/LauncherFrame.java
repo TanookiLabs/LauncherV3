@@ -405,7 +405,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
         JButton launcherOptionsLabel = new JButton(resources.getString("launcher.title.options"));
         launcherOptionsLabel.setIcon(resources.getIcon("options_cog.png"));
-        //launcherOptionsLabel.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 14));
+        launcherOptionsLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         launcherOptionsLabel.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
         launcherOptionsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         launcherOptionsLabel.setHorizontalTextPosition(SwingConstants.TRAILING);
@@ -547,7 +547,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         installProgress.setBackground(BitcraftPanel.COLOR_LITTLEBITS_ORANGE);
         installProgress.setBorder(BorderFactory.createEmptyBorder(5, 45, 4, 45));
         installProgress.setIcon(resources.getIcon("download_icon.png"));
-        installProgress.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 12));
+        installProgress.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 12));
 
         installProgress.setVisible(false);
         installProgress.setAlignmentX(CENTER_ALIGNMENT);

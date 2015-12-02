@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.autoupdate;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.autoupdate.IUpdateStream;
 import net.technicpack.autoupdate.Relauncher;
 import net.technicpack.autoupdate.tasks.*;
@@ -111,7 +112,7 @@ public class TechnicRelauncher extends Relauncher {
         screen.getProgressBar().setForeground(Color.white);
         screen.getProgressBar().setBackground(LauncherFrame.COLOR_GREEN);
         screen.getProgressBar().setBackFill(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
-        screen.getProgressBar().setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 12));
+        screen.getProgressBar().setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 12));
         screen.pack();
         screen.setLocationRelativeTo(null);
         screen.setVisible(true);

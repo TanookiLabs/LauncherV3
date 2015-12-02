@@ -30,7 +30,8 @@ public class PlayInfoPanel extends BitcraftPanel {
         contentPanel.add(Box.createVerticalStrut(75));
 
         goLabel = new JLabel();
-        goLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 28));
+        goLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 28));
+
 
         goLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         goLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -78,7 +79,7 @@ public class PlayInfoPanel extends BitcraftPanel {
         lbDownloadButton.setHoverBackground(COLOR_LITTLEBITS_BUTTON_HOVER);
         lbDownloadButton.setHoverForeground(COLOR_LITTLEBITS_WHITE);
         lbDownloadButton.setFocusable(false);
-        lbDownloadButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16, Font.BOLD));
+        lbDownloadButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.BOLD, 16));
         lbDownloadButton.setRolloverEnabled(true);
         lbDownloadButton.setCornerDiameter(14);
         lbDownloadButton.setAlignmentX(CENTER_ALIGNMENT);

@@ -42,7 +42,7 @@ public class BitcraftPanel extends JPanel {
         setLayout(new BorderLayout());
         this.resources = loader;
 
-        this.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        this.setFont(mainFont.deriveFont(Font.PLAIN, 16));
 
         JPanel background = new JPanel(null);
         background.setOpaque(true);
@@ -88,6 +88,7 @@ public class BitcraftPanel extends JPanel {
 
         debugInfo = new JLabel("");
         debugInfo.setForeground(Color.lightGray);
+        debugInfo.setFont(mainFont.deriveFont(Font.PLAIN, 12));
 
         bottomPanel = new JPanel(new GridBagLayout());
         bottomPanel.add(debugInfo, new GridBagConstraints(0,2,1,1,1,1, GridBagConstraints.LAST_LINE_START, GridBagConstraints.NONE, new Insets(0,0,15,0), 0,0));

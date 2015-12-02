@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui.controls;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.ui.lang.ResourceLoader;
 import net.technicpack.launcher.ui.LauncherFrame;
 import net.technicpack.launchercore.auth.IUserType;
@@ -77,7 +78,7 @@ public class UserWidget extends JPanel implements IImageJobListener<MojangUser> 
 
         JLabel staticText = new JLabel(preText);
         staticText.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        staticText.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 15));
+        staticText.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 15));
 
         if (preText.length() > 0)
             this.add(staticText);
@@ -85,12 +86,12 @@ public class UserWidget extends JPanel implements IImageJobListener<MojangUser> 
         userName = new JLabel("");
         userName.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         userName.setBackground(Color.white);
-        userName.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 17, Font.BOLD));
+        userName.setFont(BitcraftPanel.mainFont.deriveFont(Font.BOLD, 17));
         this.add(userName);
 
         staticText = new JLabel(postText);
         staticText.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        staticText.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 15));
+        staticText.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 15));
 
         if (postText.length() > 0)
             this.add(staticText);
