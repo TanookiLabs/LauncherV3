@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui.components.modpacks;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.discord.IDiscordApi;
 import net.technicpack.discord.IDiscordCallback;
 import net.technicpack.discord.io.Server;
@@ -204,7 +205,7 @@ public class ModpackDataDisplay extends JPanel implements IImageJobListener<Modp
 
         discordLabel = new JButton(resources.getString("launcher.discord.join"));
         discordLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        discordLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 20));
+        discordLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 20));
         discordLabel.setContentAreaFilled(false);
         discordLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         discordLabel.setFocusPainted(false);
@@ -214,7 +215,7 @@ public class ModpackDataDisplay extends JPanel implements IImageJobListener<Modp
 
         countLabel = new JButton(resources.getString("launcher.discord.count", Integer.toString(0)));
         countLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        countLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        countLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         countLabel.setContentAreaFilled(false);
         countLabel.setBorder(BorderFactory.createEmptyBorder());
         countLabel.setFocusPainted(false);
@@ -226,7 +227,7 @@ public class ModpackDataDisplay extends JPanel implements IImageJobListener<Modp
         discordPanel.setVisible(false);
 
         titleLabel = new JLabel(resources.getString("launcher.packstats.title", "Modpack"));
-        titleLabel.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 24, Font.BOLD));
+        titleLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.BOLD, 24));
         titleLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
         titleLabel.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -261,7 +262,7 @@ public class ModpackDataDisplay extends JPanel implements IImageJobListener<Modp
         packInfoPanel.add(titleLabel, new GridBagConstraints(0,0,4,1,1.0,0.0,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0,0,0,0),0,0));
 
         description = new JTextPane();
-        description.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        description.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         description.setOpaque(false);
         description.setEditable(false);
         description.setHighlighter(null);

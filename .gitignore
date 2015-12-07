@@ -12,3 +12,6 @@ target/
 module_launcherv3.xml
 launcherv3.xml
 launcherv3.properties
+
+.DS_Store
+

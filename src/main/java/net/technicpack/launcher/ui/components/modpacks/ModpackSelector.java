@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui.components.modpacks;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.contrib.romainguy.AbstractFilter;
 import net.technicpack.launcher.ui.controls.modpacks.FindMoreWidget;
 import net.technicpack.launchercore.auth.IAuthListener;
@@ -147,7 +148,7 @@ public class ModpackSelector extends TintablePanel implements IModpackContainer,
         add(header, BorderLayout.PAGE_START);
 
         filterContents = new WatermarkTextField(resources.getString("launcher.packselector.filter.hotfix"), LauncherFrame.COLOR_BLUE_DARKER);
-        filterContents.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        filterContents.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         filterContents.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
         filterContents.setForeground(LauncherFrame.COLOR_BLUE);
         filterContents.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);

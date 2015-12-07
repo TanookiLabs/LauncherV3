@@ -22,15 +22,17 @@ public class PlayInfoPanel extends BitcraftPanel {
 
     private ActionListener loadListener = null;
     private ActionButton downloadButton;
+    private JLabel goLabel;
 
     public PlayInfoPanel(final ResourceLoader loader,final LauncherDirectories directories) {
         super(loader, new Dimension(500, 320));
 
         contentPanel.add(Box.createVerticalStrut(75));
 
-        JLabel goLabel = new JLabel();
-        goLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 28));
-        goLabel.setText("<html>LET'S <font color='#FF8A00'><b>GO</b></font></html>");
+        goLabel = new JLabel();
+        goLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 28));
+
+
         goLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         goLabel.setHorizontalAlignment(JLabel.CENTER);
         goLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -50,6 +52,25 @@ public class PlayInfoPanel extends BitcraftPanel {
         this.downloadButton.addActionListener(buttonActionListener);
     }
 
+    public void setPlayState(String newState) {
+        downloadButton.setVisible(true);
+        downloadButton.setEnabled(true);
+        goLabel.setText("<html>LET'S <font color='#FF8A00'><b>GO</b></font></html>");
+        if (newState.equals("installer-running")) {
+            downloadButton.setVisible(false);
+            goLabel.setText("<html><font color='#FF8A00'><b>DOWNLOADING...</b></font></html>");
+        } else if (newState.equals("installed-offline")) {
+            downloadButton.setText("PLAY OFFLINE");
+        } else if (newState.equals("installed")) {
+                downloadButton.setText("PLAY");
+        } else if (newState.equals("offline")) {
+                downloadButton.setEnabled(false);
+                downloadButton.setText("OFFLINE - CONNECT TO DOWNLOAD");
+        } else if (newState.equals("can-install")) {
+            downloadButton.setText("DOWNLOAD TO PLAY");
+        }
+    }
+
     protected ActionButton setupDownloadButton() {
         ActionButton lbDownloadButton = new ActionButton("DOWNLOAD TO PLAY");
         lbDownloadButton.setForeground(COLOR_LITTLEBITS_WHITE);
@@ -58,10 +79,11 @@ public class PlayInfoPanel extends BitcraftPanel {
         lbDownloadButton.setHoverBackground(COLOR_LITTLEBITS_BUTTON_HOVER);
         lbDownloadButton.setHoverForeground(COLOR_LITTLEBITS_WHITE);
         lbDownloadButton.setFocusable(false);
-        lbDownloadButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16, Font.BOLD));
+        lbDownloadButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.BOLD, 16));
         lbDownloadButton.setRolloverEnabled(true);
         lbDownloadButton.setCornerDiameter(14);
         lbDownloadButton.setAlignmentX(CENTER_ALIGNMENT);
+        lbDownloadButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lbDownloadButton.setBorder(BorderFactory.createEmptyBorder(15,50,15,50));
         return lbDownloadButton;
     }

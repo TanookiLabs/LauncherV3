@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui.components.modpacks;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.launchercore.modpacks.packinfo.CombinedPackInfo;
 import net.technicpack.ui.lang.ResourceLoader;
 import net.technicpack.launcher.ui.LauncherFrame;
@@ -121,7 +122,7 @@ public class ModpackBanner extends JPanel implements IImageJobListener<ModpackMo
         ModpackTag tag = new ModpackTag(resources.getString(textString));
         tag.setForeground(Color.white);
         tag.setBackground(lineColor);
-        tag.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 11));
+        tag.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 11));
         modpackTags.add(tag);
     }
 
@@ -145,7 +146,7 @@ public class ModpackBanner extends JPanel implements IImageJobListener<ModpackMo
 
         modpackName = new JLabel("Modpack");
         modpackName.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        modpackName.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 26));
+        modpackName.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 26));
         modpackName.setHorizontalTextPosition(SwingConstants.LEFT);
         modpackName.setAlignmentX(LEFT_ALIGNMENT);
         modpackName.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
@@ -183,7 +184,7 @@ public class ModpackBanner extends JPanel implements IImageJobListener<ModpackMo
         versionPanel.add(updateReady);
 
         versionText = new JLabel(resources.getString("launcher.packbanner.version"));
-        versionText.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        versionText.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         versionText.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         versionText.setHorizontalTextPosition(SwingConstants.LEADING);
         versionText.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -192,7 +193,7 @@ public class ModpackBanner extends JPanel implements IImageJobListener<ModpackMo
         versionPanel.add(versionText);
 
         installedVersion = new JLabel("1.0.7");
-        installedVersion.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        installedVersion.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         installedVersion.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         installedVersion.setHorizontalTextPosition(SwingConstants.LEADING);
         installedVersion.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -205,7 +206,7 @@ public class ModpackBanner extends JPanel implements IImageJobListener<ModpackMo
         modpackOptions = new JLabel(resources.getString("launcher.packbanner.options"));
         modpackOptions.setIcon(new ImageIcon(resources.colorImage(resources.getImage("options_cog.png"), LauncherFrame.COLOR_BUTTON_BLUE)));
         modpackOptions.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        Font font = resources.getFont(ResourceLoader.FONT_OPENSANS, 14);
+        Font font = BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14);
         modpackOptions.setFont(font);
         modpackOptions.setForeground(LauncherFrame.COLOR_BLUE);
         modpackOptions.setHorizontalTextPosition(SwingConstants.LEADING);

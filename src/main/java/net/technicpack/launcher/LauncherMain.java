@@ -32,7 +32,7 @@ import net.technicpack.launcher.io.*;
 import net.technicpack.launcher.settings.migration.IMigrator;
 import net.technicpack.launcher.settings.migration.InitialV3Migrator;
 import net.technicpack.launcher.ui.InstallerFrame;
-import net.technicpack.launcher.ui.components.discover.DiscoverInfoPanel;
+//import net.technicpack.launcher.ui.components.discover.DiscoverInfoPanel;
 import net.technicpack.launcher.ui.components.modpacks.ModpackSelector;
 import net.technicpack.launchercore.auth.IAuthListener;
 import net.technicpack.launchercore.auth.IUserStore;
@@ -319,43 +319,39 @@ public class LauncherMain {
         UserModel userModel = new UserModel(users, new AuthenticationService());
 
         MirrorStore mirrorStore = new MirrorStore(userModel);
-        mirrorStore.addSecureMirror("mirror.technicpack.net", new JsonWebSecureMirror("http://mirror.technicpack.net/", "mirror.technicpack.net"));
+        //mirrorStore.addSecureMirror("mirror.technicpack.net", new JsonWebSecureMirror("http://mirror.technicpack.net/", "mirror.technicpack.net"));
 
         IModpackResourceType iconType = new IconResourceType();
         IModpackResourceType logoType = new LogoResourceType();
         IModpackResourceType backgroundType = new BackgroundResourceType();
 
         PackResourceMapper iconMapper = new PackResourceMapper(directories, resources.getImage("icon.png"), iconType);
-        ImageRepository<ModpackModel> iconRepo = new ImageRepository<ModpackModel>(iconMapper, new PackImageStore(iconType, mirrorStore, userModel));
-        ImageRepository<ModpackModel> logoRepo = new ImageRepository<ModpackModel>(new PackResourceMapper(directories, resources.getImage("modpack/ModImageFiller.png"), logoType), new PackImageStore(logoType, mirrorStore, userModel));
-        ImageRepository<ModpackModel> backgroundRepo = new ImageRepository<ModpackModel>(new PackResourceMapper(directories, null, backgroundType), new PackImageStore(backgroundType, mirrorStore, userModel));
-
         ImageRepository<IUserType> skinRepo = new ImageRepository<IUserType>(new TechnicFaceMapper(directories, resources), new CrafatarFaceImageStore("http://crafatar.com/", mirrorStore));
 
         ImageRepository<AuthorshipInfo> avatarRepo = new ImageRepository<AuthorshipInfo>(new TechnicAvatarMapper(directories, resources), new WebAvatarImageStore(mirrorStore));
 
-        HttpSolderApi httpSolder = new HttpSolderApi(settings.getClientId(), userModel);
-        ISolderApi solder = new CachedSolderApi(directories, httpSolder, 60 * 60);
-        HttpPlatformApi httpPlatform = new HttpPlatformApi("http://api.technicpack.net/", mirrorStore, buildNumber.getBuildNumber());
+        //HttpSolderApi httpSolder = new HttpSolderApi(settings.getClientId(), userModel);
+        //ISolderApi solder = new CachedSolderApi(directories, httpSolder, 60 * 60);
+        HttpPlatformApi httpPlatform = new HttpPlatformApi("", mirrorStore, buildNumber.getBuildNumber());
 
         IPlatformApi platform = new ModpackCachePlatformApi(httpPlatform, 60 * 60, directories);
-        IPlatformSearchApi platformSearch = new HttpPlatformSearchApi("http://api.technicpack.net/", buildNumber.getBuildNumber());
+        //IPlatformSearchApi platformSearch = new HttpPlatformSearchApi("http://api.technicpack.net/", buildNumber.getBuildNumber());
 
         IInstalledPackRepository packStore = TechnicInstalledPackStore.load(new File(directories.getLauncherDirectory(), "installedPacks"));
-        IAuthoritativePackSource packInfoRepository = new PlatformPackInfoRepository(platform, solder);
+        //IAuthoritativePackSource packInfoRepository = new PlatformPackInfoRepository(platform, solder);
 
         ArrayList<IMigrator> migrators = new ArrayList<IMigrator>(1);
         migrators.add(new InitialV3Migrator(platform));
         SettingsFactory.migrateSettings(settings, packStore, directories, users, migrators);
 
-        PackLoader packList = new PackLoader(directories, packStore, packInfoRepository);
-        ModpackSelector selector = new ModpackSelector(resources, packList, new SolderPackSource("http://solder.technicpack.net/api/", solder), solder, platform, platformSearch, iconRepo);
-        selector.setBorder(BorderFactory.createEmptyBorder());
-        userModel.addAuthListener(selector);
+        //PackLoader packList = new PackLoader(directories, packStore, packInfoRepository);
+        //ModpackSelector selector = new ModpackSelector(resources, packList, new SolderPackSource("http://solder.technicpack.net/api/", solder), solder, platform, platformSearch, iconRepo);
+        //selector.setBorder(BorderFactory.createEmptyBorder());
+        //userModel.addAuthListener(selector);
 
-        resources.registerResource(selector);
+        //resources.registerResource(selector);
 
-        DiscoverInfoPanel discoverInfoPanel = new DiscoverInfoPanel(resources, startupParameters.getDiscoverUrl(), platform, directories, selector);
+        //DiscoverInfoPanel discoverInfoPanel = new DiscoverInfoPanel(resources, startupParameters.getDiscoverUrl(), platform, directories, selector);
 
         MinecraftLauncher launcher = new MinecraftLauncher(platform, directories, userModel, javaVersions);
         ModpackInstaller modpackInstaller = new ModpackInstaller(platform, settings.getClientId());
@@ -364,7 +360,7 @@ public class LauncherMain {
         IDiscordApi discordApi = new HttpDiscordApi("https://discordapp.com/api/");
         discordApi = new CacheDiscordApi(discordApi, 600, 60);
 
-        final LauncherFrame frame = new LauncherFrame(resources, skinRepo, userModel, settings, iconRepo, logoRepo, backgroundRepo, installer, avatarRepo, platform, directories, packStore, startupParameters, javaVersions, javaVersionFile, buildNumber, discordApi);
+        final LauncherFrame frame = new LauncherFrame(resources, skinRepo, userModel, settings, installer, avatarRepo, platform, directories, packStore, startupParameters, javaVersions, javaVersionFile, buildNumber, discordApi);
         userModel.addAuthListener(frame);
 
         ActionListener listener = new ActionListener() {
@@ -376,7 +372,7 @@ public class LauncherMain {
             }
         };
 
-        discoverInfoPanel.setLoadListener(listener);
+        //discoverInfoPanel.setLoadListener(listener);
 
         LoginFrame login = new LoginFrame(resources, settings, userModel, skinRepo);
         userModel.addAuthListener(login);

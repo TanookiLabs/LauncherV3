@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui.components;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.autoupdate.IBuildNumber;
 import net.technicpack.launcher.LauncherMain;
 import net.technicpack.launcher.settings.StartupParameters;
@@ -588,7 +589,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
                 toolTip.setBackground(LauncherFrame.COLOR_FOOTER);
                 toolTip.setForeground(LauncherFrame.COLOR_GREY_TEXT);
                 toolTip.setBorder(BorderFactory.createCompoundBorder(new LineBorder(LauncherFrame.COLOR_GREY_TEXT), BorderFactory.createEmptyBorder(5,5,5,5)));
-                toolTip.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+                toolTip.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
 
 
                 String text = null;
@@ -621,7 +622,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         add(header, BorderLayout.PAGE_START);
 
         JLabel title = new JLabel(resources.getString("launcher.title.options"));
-        title.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 26));
+        title.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 26));
         title.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         title.setOpaque(false);
         title.setIcon(resources.getIcon("options_cog.png"));
@@ -649,7 +650,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         centerPanel.setForeground(LauncherFrame.COLOR_GREY_TEXT);
         centerPanel.setSelectedBackground(LauncherFrame.COLOR_BLUE);
         centerPanel.setSelectedForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        centerPanel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        centerPanel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         centerPanel.setOpaque(true);
         add(centerPanel, BorderLayout.CENTER);
 
@@ -672,7 +673,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         about.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
 
         String linkText = "<a href=\"https://github.com/TechnicPack/\">"+resources.getString("launcheroptions.about.linktext")+"</a>";
-        String aboutText = "<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.technicpack.net/assets/css/launcher.css\" /></head><body style=\"font-family: "+resources.getFont(ResourceLoader.FONT_OPENSANS, 12).getFamily()+";color:#D0D0D0\">";
+        String aboutText = "<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.technicpack.net/assets/css/launcher.css\" /></head><body style=\"font-family: "+BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 12).getFamily()+";color:#D0D0D0\">";
         aboutText += "<p>" + resources.getString("launcheroptions.about.copyright", buildNumber.getBuildNumber(), linkText) + "</p>";
         aboutText += "<p>" + resources.getString("launcheroptions.about.romainguy") + "</p>";
         aboutText += "<p>" + resources.getString("launcheroptions.about.summary") + "</p>";
@@ -681,7 +682,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         JLabel buildCtrl = new JLabel(resources.getString("launcher.build.text", buildNumber.getBuildNumber(), resources.getString("launcher.build." + settings.getBuildStream())));
         buildCtrl.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        buildCtrl.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        buildCtrl.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         buildCtrl.setBorder(BorderFactory.createEmptyBorder(6, 12, 6, 0));
         about.add(buildCtrl, BorderLayout.SOUTH);
 
@@ -689,7 +690,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         textPane.setBorder(BorderFactory.createEmptyBorder(0, 24, 9, 24));
         textPane.setOpaque(false);
         textPane.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        textPane.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        textPane.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         textPane.setEditable(false);
         textPane.setHighlighter(null);
         textPane.setAlignmentX(LEFT_ALIGNMENT);
@@ -720,7 +721,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.setLayout(new GridBagLayout());
 
         JLabel streamLabel = new JLabel(resources.getString("launcheroptions.general.build"));
-        streamLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        streamLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         streamLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(streamLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
@@ -731,7 +732,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
             streamSelect.setUI(new MetalComboBoxUI());
         }
 
-        streamSelect.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        streamSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         streamSelect.setEditable(false);
         streamSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
         streamSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -750,7 +751,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         //Setup language box
         JLabel langLabel = new JLabel(resources.getString("launcheroptions.general.lang"));
-        langLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        langLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         langLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(langLabel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
@@ -760,7 +761,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
             langSelect.setUI(new MetalComboBoxUI());
         }
 
-        langSelect.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        langSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         langSelect.setEditable(false);
         langSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
         langSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -779,7 +780,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         //Setup on pack launch box
         JLabel launchLabel = new JLabel(resources.getString("launcheroptions.general.onlaunch"));
-        launchLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        launchLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         launchLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(launchLabel, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
@@ -789,7 +790,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
             launchSelect.setUI(new MetalComboBoxUI());
         }
 
-        launchSelect.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        launchSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         launchSelect.setEditable(false);
         launchSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
         launchSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -808,12 +809,12 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         //Install folder field
         JLabel installLabel = new JLabel(resources.getString("launcheroptions.general.install"));
-        installLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        installLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         installLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(installLabel, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
         installField = new JTextField("");
-        installField.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        installField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         installField.setForeground(LauncherFrame.COLOR_BLUE);
         installField.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
         installField.setHighlighter(null);
@@ -823,7 +824,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.add(installField, new GridBagConstraints(1, 3, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         RoundedButton reinstallButton = new RoundedButton(resources.getString("launcheroptions.install.change"));
-        reinstallButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        reinstallButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         reinstallButton.setContentAreaFilled(false);
         reinstallButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         reinstallButton.setHoverForeground(LauncherFrame.COLOR_BLUE);
@@ -837,12 +838,12 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         //Client ID field
         JLabel clientIdField = new JLabel(resources.getString("launcheroptions.general.id"));
-        clientIdField.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        clientIdField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         clientIdField.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(clientIdField, new GridBagConstraints(0, 4, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
         clientId = new JTextField("abc123");
-        clientId.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        clientId.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         clientId.setForeground(LauncherFrame.COLOR_BLUE);
         clientId.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
         clientId.setHighlighter(null);
@@ -852,7 +853,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.add(clientId, new GridBagConstraints(1, 4, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         RoundedButton copyButton = new RoundedButton(resources.getString("launcheroptions.id.copy"));
-        copyButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        copyButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         copyButton.setContentAreaFilled(false);
         copyButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         copyButton.setHoverForeground(LauncherFrame.COLOR_BLUE);
@@ -868,7 +869,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         //Add show console field
         JLabel showConsoleField = new JLabel(resources.getString("launcheroptions.general.console"));
-        showConsoleField.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        showConsoleField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         showConsoleField.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(showConsoleField, new GridBagConstraints(0, 5, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 40, 0, 0), 0, 0));
 
@@ -885,7 +886,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         //Add launch to modpacks
         JLabel launchToModpacksField = new JLabel(resources.getString("launcheroptions.general.modpacktab"));
-        launchToModpacksField.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        launchToModpacksField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         launchToModpacksField.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(launchToModpacksField, new GridBagConstraints(0,6,1,1,0,0,GridBagConstraints.EAST,GridBagConstraints.NONE,new Insets(10,40,0,0),0,0));
 
@@ -904,7 +905,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         //Open logs button
         RoundedButton openLogs = new RoundedButton(resources.getString("launcheroptions.general.logs"));
-        openLogs.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        openLogs.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         openLogs.setContentAreaFilled(false);
         openLogs.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         openLogs.setHoverForeground(LauncherFrame.COLOR_BLUE);
@@ -940,7 +941,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.setLayout(new GridBagLayout());
 
         JLabel streamLabel = new JLabel(resources.getString("launcheroptions.video.windowSize"));
-        streamLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        streamLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         streamLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(streamLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
@@ -950,7 +951,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
             windowSelect.setUI(new MetalComboBoxUI());
         }
 
-        windowSelect.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        windowSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         windowSelect.setEditable(false);
         windowSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
         windowSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -968,12 +969,12 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.add(windowSelect, new GridBagConstraints(1, 0, 1, 1, 0.5f, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         JLabel widthLabel = new JLabel(resources.getString("launcheroptions.video.windowSize.width"));
-        widthLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        widthLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         widthLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(widthLabel, new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
         widthInput = new JTextField(3);
-        widthInput.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        widthInput.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         widthInput.setForeground(LauncherFrame.COLOR_BLUE);
         widthInput.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
         widthInput.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
@@ -982,12 +983,12 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.add(widthInput, new GridBagConstraints(3, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 6, 8, 16), 0, 0));
 
         JLabel heightLabel = new JLabel(resources.getString("launcheroptions.video.windowSize.height"));
-        heightLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        heightLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         heightLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(heightLabel, new GridBagConstraints(4, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
         heightInput = new JTextField(3);
-        heightInput.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        heightInput.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         heightInput.setForeground(LauncherFrame.COLOR_BLUE);
         heightInput.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
         heightInput.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
@@ -997,7 +998,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         //Add show console field
         JLabel useStencilField = new JLabel(resources.getString("launcheroptions.video.stencil"));
-        useStencilField.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        useStencilField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         useStencilField.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(useStencilField, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 40, 0, 0), 0, 0));
 
@@ -1007,7 +1008,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
             useStencil.setUI(new MetalComboBoxUI());
         }
 
-        useStencil.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        useStencil.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         useStencil.setEditable(false);
         useStencil.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
         useStencil.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -1034,7 +1035,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
                 return getMinimumSize();
             }
         };
-        stencilInfo.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 12));
+        stencilInfo.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 12));
         stencilInfo.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
 
         stencilInfo.setText("<html><body style=\"font-family:" + stencilInfo.getFont().getFamily() + ";color:#D0D0D0\">" + resources.getString("launcheroptions.video.stencil.info") + "</body></html>");
@@ -1050,7 +1051,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.setLayout(new GridBagLayout());
 
         JLabel versionLabel = new JLabel(resources.getString("launcheroptions.java.version"));
-        versionLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        versionLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         versionLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(versionLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 60, 0, 0), 0, 0));
 
@@ -1060,7 +1061,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
             versionSelect.setUI(new MetalComboBoxUI());
         }
 
-        versionSelect.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        versionSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         versionSelect.setEditable(false);
         versionSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
         versionSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -1079,7 +1080,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.add(versionSelect, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 8), 0, 16));
 
         RoundedButton otherVersionButton = new RoundedButton(resources.getString("launcheroptions.java.otherversion"));
-        otherVersionButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        otherVersionButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         otherVersionButton.setContentAreaFilled(false);
         otherVersionButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         otherVersionButton.setHoverForeground(LauncherFrame.COLOR_BLUE);
@@ -1092,7 +1093,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.add(otherVersionButton, new GridBagConstraints(2, 0, 5, 1, 2, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 8, 8, 80), 0, 0));
 
         JLabel memLabel = new JLabel(resources.getString("launcheroptions.java.memory"));
-        memLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        memLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         memLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(memLabel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 60, 0, 0), 0, 0));
 
@@ -1102,7 +1103,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
             memSelect.setUI(new MetalComboBoxUI());
         }
 
-        memSelect.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        memSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         memSelect.setEditable(false);
         memSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
         memSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -1120,12 +1121,12 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.add(memSelect, new GridBagConstraints(1, 1, 6, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 80), 0, 16));
 
         JLabel argsLabel = new JLabel(resources.getString("launcheroptions.java.arguments"));
-        argsLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        argsLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         argsLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(argsLabel, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 60, 0, 0), 0, 0));
 
         javaArgs = new JTextArea(32, 4);
-        javaArgs.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        javaArgs.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         javaArgs.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         javaArgs.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
         javaArgs.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
@@ -1139,7 +1140,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         panel.add(javaArgs, new GridBagConstraints(1, 2, 6, 2, 0, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 6, 80), 0, 0));
 
         JLabel autoApprovalLabel = new JLabel(resources.getString("launcheroptions.java.autoApprove"));
-        autoApprovalLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        autoApprovalLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         autoApprovalLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(autoApprovalLabel, new GridBagConstraints(0, 4, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
 

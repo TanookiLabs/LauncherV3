@@ -1,5 +1,6 @@
 package net.technicpack.launcher.ui.components;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.launcher.ui.LauncherFrame;
 import net.technicpack.launchercore.launch.java.IJavaVersion;
 import net.technicpack.launchercore.launch.java.JavaVersionRepository;
@@ -122,7 +123,7 @@ public class FixRunDataDialog extends LauncherDialog {
 
         centerPanel.setLayout(new GridBagLayout());
 
-        Font font = resourceLoader.getFont(ResourceLoader.FONT_OPENSANS, 16);
+        Font font = BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16);
 
         JLabel label = new JLabel(
             "<html>" +
@@ -177,7 +178,7 @@ public class FixRunDataDialog extends LauncherDialog {
         add(header, BorderLayout.PAGE_START);
 
         JLabel title = new JLabel(text);
-        title.setFont(resourceLoader.getFont(ResourceLoader.FONT_RALEWAY, 26));
+        title.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 26));
         title.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
         title.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         title.setOpaque(false);
@@ -328,7 +329,7 @@ public class FixRunDataDialog extends LauncherDialog {
         centerPanel.add(buttonPanel, new GridBagConstraints(0, gridBagIndex++, 1, 1, 1.0f, 1.0f, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(8, 0, 0, 0), 0, 0));
 
         RoundedButton okButton = new RoundedButton(resourceLoader.getString("fixRunData.OK"));
-        okButton.setFont(resourceLoader.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        okButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         okButton.setContentAreaFilled(false);
         okButton.setBorder(BorderFactory.createEmptyBorder(5, 25, 5, 25));
         okButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -367,7 +368,7 @@ public class FixRunDataDialog extends LauncherDialog {
         centerPanel.add(buttonPanel, new GridBagConstraints(0, gridBagIndex++, 1, 1, 1.0f, 1.0f, GridBagConstraints.NORTH, GridBagConstraints.BOTH, new Insets(8, 0, 0, 0), 0, 0));
 
         RoundedButton cancelButton = new RoundedButton(resourceLoader.getString("fixRunData.cancel"));
-        cancelButton.setFont(resourceLoader.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        cancelButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         cancelButton.setContentAreaFilled(false);
         cancelButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         cancelButton.setHoverForeground(LauncherFrame.COLOR_BLUE);
@@ -383,7 +384,7 @@ public class FixRunDataDialog extends LauncherDialog {
         buttonPanel.add(Box.createHorizontalGlue());
 
         RoundedButton okButton = new RoundedButton(resourceLoader.getString("fixRunData.OK"));
-        okButton.setFont(resourceLoader.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        okButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         okButton.setContentAreaFilled(false);
         okButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         okButton.setHoverForeground(LauncherFrame.COLOR_BLUE);

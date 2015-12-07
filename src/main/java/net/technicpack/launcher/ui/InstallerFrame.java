@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.autoupdate.Relauncher;
 import net.technicpack.autoupdate.tasks.MoveLauncherPackage;
 import net.technicpack.launcher.LauncherMain;
@@ -253,7 +254,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         add(header, BorderLayout.PAGE_START);
 
         JLabel title = new JLabel(resources.getString("launcher.installer.title"));
-        title.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 26));
+        title.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 26));
         title.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
         title.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         title.setOpaque(false);
@@ -283,7 +284,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         centerPanel.setForeground(LauncherFrame.COLOR_GREY_TEXT);
         centerPanel.setSelectedBackground(LauncherFrame.COLOR_BLUE);
         centerPanel.setSelectedForeground(LauncherFrame.COLOR_WHITE_TEXT);
-        centerPanel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        centerPanel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         centerPanel.setOpaque(true);
         add(centerPanel, BorderLayout.CENTER);
 
@@ -303,7 +304,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         panel.setLayout(new GridBagLayout());
 
         JLabel standardSpiel = new JLabel("<html><body align=\"left\" style='margin-right:10px;'>"+resources.getString("launcher.installer.standardspiel")+"</body></html>");
-        standardSpiel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        standardSpiel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         standardSpiel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         standardSpiel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         panel.add(standardSpiel, new GridBagConstraints(0, 0, 3, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(9, 0, 0, 3), 0, 0));
@@ -318,7 +319,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         standardDefaultDirectory.setSelectedIcon(resources.getIcon("checkbox_closed.png"));
         standardDefaultDirectory.setIcon(resources.getIcon("checkbox_open.png"));
         standardDefaultDirectory.setFocusPainted(false);
-        standardDefaultDirectory.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        standardDefaultDirectory.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         standardDefaultDirectory.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         standardDefaultDirectory.setIconTextGap(6);
         standardDefaultDirectory.setSelected(settings.isPortable() || settings.getTechnicRoot().getAbsolutePath().equals(OperatingSystem.getOperatingSystem().getUserDirectoryForApp("littlebits-bitcraft").getAbsolutePath()));
@@ -331,7 +332,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         panel.add(standardDefaultDirectory, new GridBagConstraints(0, 2, 3, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0,24,12,0),0,0));
 
         JLabel installFolderLabel = new JLabel(resources.getString("launcher.installer.folder"));
-        installFolderLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        installFolderLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         installFolderLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         panel.add(installFolderLabel, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0,24,0,8), 0,0));
 
@@ -341,7 +342,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
             installDir = settings.getTechnicRoot().getAbsolutePath();
 
         standardInstallDir = new JTextField(installDir);
-        standardInstallDir.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        standardInstallDir.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         standardInstallDir.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
         standardInstallDir.setHighlighter(null);
         standardInstallDir.setEditable(false);
@@ -349,7 +350,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         panel.add(standardInstallDir, new GridBagConstraints(1, 3, 1, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,5,0,5),0,16));
 
         standardSelectButton = new RoundedButton(resources.getString("launcher.installer.select"));
-        standardSelectButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        standardSelectButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         standardSelectButton.setContentAreaFilled(false);
         standardSelectButton.setHoverForeground(LauncherFrame.COLOR_BLUE);
         standardSelectButton.addActionListener(new ActionListener() {
@@ -385,7 +386,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
             }
         }
         standardLanguages.setBorder(new RoundBorder(LauncherFrame.COLOR_SCROLL_THUMB, 1, 10));
-        standardLanguages.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 14));
+        standardLanguages.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         standardLanguages.setUI(new LanguageCellUI(resources, new RoundedBorderFormatter(new LineBorder(Color.black, 1)), LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB));
         standardLanguages.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         standardLanguages.setBackground(LauncherFrame.COLOR_SELECTOR_BACK);
@@ -401,7 +402,7 @@ public class InstallerFrame extends DraggableFrame implements IRelocalizableReso
         panel.add(standardLanguages, new GridBagConstraints(0, 5, 1, 0, 0, 0, GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0,8,8,0), 0,0));
 
         RoundedButton install = new RoundedButton(resources.getString("launcher.installer.install"));
-        install.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        install.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         install.setContentAreaFilled(false);
         install.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         install.setHoverForeground(LauncherFrame.COLOR_BLUE);

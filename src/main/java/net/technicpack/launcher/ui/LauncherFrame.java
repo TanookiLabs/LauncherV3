@@ -31,6 +31,7 @@ import net.technicpack.launchercore.modpacks.sources.IInstalledPackRepository;
 import net.technicpack.platform.io.PlatformPackInfo;
 import net.technicpack.rest.RestObject;
 import net.technicpack.rest.RestfulAPIException;
+import net.technicpack.rest.io.Modpack;
 import net.technicpack.ui.controls.DraggableFrame;
 import net.technicpack.ui.controls.RoundedButton;
 import net.technicpack.ui.controls.SplatPane;
@@ -123,9 +124,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
     private final UserModel<MojangUser> userModel;
     private final ImageRepository<IUserType> skinRepository;
     private final TechnicSettings settings;
-    private final ImageRepository<ModpackModel> iconRepo;
-    private final ImageRepository<ModpackModel> logoRepo;
-    private final ImageRepository<ModpackModel> backgroundRepo;
     private final ImageRepository<AuthorshipInfo> avatarRepo;
     private final Installer installer;
     private final IPlatformApi platformApi;
@@ -136,6 +134,8 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
     private final FileJavaSource fileJavaSource;
     private final IBuildNumber buildNumber;
     private final IDiscordApi discordApi;
+
+    private ModpackModel littlebitsModpack;
 
     private ModpackOptionsDialog modpackOptionsDialog = null;
 
@@ -153,7 +153,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
     PlayInfoPanel playInfoPanel;
 
-    public LauncherFrame(final ResourceLoader resources, final ImageRepository<IUserType> skinRepository, final UserModel userModel, final TechnicSettings settings, final ImageRepository<ModpackModel> iconRepo, final ImageRepository<ModpackModel> logoRepo, final ImageRepository<ModpackModel> backgroundRepo, final Installer installer, final ImageRepository<AuthorshipInfo> avatarRepo, final IPlatformApi platformApi, final LauncherDirectories directories, final IInstalledPackRepository packRepository, final StartupParameters params, final JavaVersionRepository javaVersions, final FileJavaSource fileJavaSource, final IBuildNumber buildNumber, final IDiscordApi discordApi) {
+    public LauncherFrame(final ResourceLoader resources, final ImageRepository<IUserType> skinRepository, final UserModel userModel, final TechnicSettings settings, final Installer installer, final ImageRepository<AuthorshipInfo> avatarRepo, final IPlatformApi platformApi, final LauncherDirectories directories, final IInstalledPackRepository packRepository, final StartupParameters params, final JavaVersionRepository javaVersions, final FileJavaSource fileJavaSource, final IBuildNumber buildNumber, final IDiscordApi discordApi) {
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Technic Launcher");
@@ -161,9 +161,6 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         this.userModel = userModel;
         this.skinRepository = skinRepository;
         this.settings = settings;
-        this.iconRepo = iconRepo;
-        this.logoRepo = logoRepo;
-        this.backgroundRepo = backgroundRepo;
         this.installer = installer;
         this.avatarRepo = avatarRepo;
         this.platformApi = platformApi;
@@ -211,17 +208,21 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         userModel.setCurrentUser(null);
     }
 
-    protected void loadLittlebitsMod() {
+    protected void setupLittlebitsMod() {
+        InstalledPack installed = packRepo.getInstalledPacks().get("littlebits-bitcraft");
         String jsonUrl = "https://s3.amazonaws.com/travis-lb-test/littlebits.json";
         PlatformPackInfo littlebitsPackInfo = null;
         try {
             littlebitsPackInfo = RestObject.getRestObject(PlatformPackInfo.class, jsonUrl);
-        } catch (RestfulAPIException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (RestfulAPIException ex) {
+            Utils.getLogger().log(Level.SEVERE, ex.getMessage(), ex);
         }
-        InstalledPack installed = packRepo.getInstalledPacks().get(littlebitsPackInfo.getName());
-        ModpackModel pack = new ModpackModel(installed,littlebitsPackInfo, packRepo, directories);
-        launchModpack(pack);
+        littlebitsModpack = new ModpackModel(installed, littlebitsPackInfo, packRepo, directories);
+    }
+
+    protected void loadLittlebitsMod() {
+
+        launchModpack(littlebitsModpack);
     }
 
     protected void launchModpack(ModpackModel pack) {
@@ -360,11 +361,9 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
     protected void openLauncherOptions() {
         centralPanel.setTintActive(true);
-        footer.setTintActive(true);
         OptionsDialog dialog = new OptionsDialog(this, settings, resources, params, javaVersions, fileJavaSource, buildNumber);
         dialog.setVisible(true);
         centralPanel.setTintActive(false);
-        footer.setTintActive(false);
     }
 
     /////////////////////////////////////////////////
@@ -380,9 +379,9 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         /////////////////////////////////////////////////////////////
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
-        header.setBackground(COLOR_BLUE);
-        header.setForeground(COLOR_WHITE_TEXT);
-        header.setBorder(BorderFactory.createEmptyBorder(0,5,0,10));
+        header.setBackground(BitcraftPanel.COLOR_LITTLEBITS_GREY_BG);
+        header.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
+        header.setBorder(BorderFactory.createEmptyBorder(5,5,5,10));
         getRootPane().getContentPane().add(header, BorderLayout.PAGE_START);
 
         ImageIcon testIcon = resources.getIcon("platform_icon_title.png");
@@ -404,8 +403,32 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         windowGadgetPanel.setLayout(new BoxLayout(windowGadgetPanel, BoxLayout.LINE_AXIS));
         windowGadgetPanel.setAlignmentX(RIGHT_ALIGNMENT);
 
+        JButton launcherOptionsLabel = new JButton(resources.getString("launcher.title.options"));
+        launcherOptionsLabel.setIcon(resources.getIcon("options_cog.png"));
+        launcherOptionsLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
+        launcherOptionsLabel.setForeground(BitcraftPanel.COLOR_LITTLEBITS_TEXT);
+        launcherOptionsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        launcherOptionsLabel.setHorizontalTextPosition(SwingConstants.TRAILING);
+        launcherOptionsLabel.setAlignmentX(RIGHT_ALIGNMENT);
+        launcherOptionsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        launcherOptionsLabel.setBorder(BorderFactory.createEmptyBorder());
+        launcherOptionsLabel.setContentAreaFilled(false);
+        launcherOptionsLabel.setFocusPainted(false);
+        launcherOptionsLabel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openLauncherOptions();
+            }
+        });
+        windowGadgetPanel.add(launcherOptionsLabel);
+        windowGadgetPanel.add(Box.createHorizontalStrut(35));
+
         ImageIcon minimizeIcon = resources.getIcon("minimize.png");
         JButton minimizeButton = new JButton(minimizeIcon);
+        Dimension buttonSize = new Dimension(15,15);
+        minimizeButton.setPreferredSize(buttonSize);
+        minimizeButton.setMinimumSize(buttonSize);
+        minimizeButton.setMaximumSize(buttonSize);
         minimizeButton.setBorder(BorderFactory.createEmptyBorder());
         minimizeButton.setContentAreaFilled(false);
         minimizeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -416,9 +439,11 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
                 minimizeWindow();
             }
         });
-        windowGadgetPanel.add(minimizeButton);
 
-        ImageIcon closeIcon = resources.getIcon("close.png");
+        windowGadgetPanel.add(minimizeButton);
+        windowGadgetPanel.add(Box.createHorizontalStrut(10));
+
+        ImageIcon closeIcon = resources.getIcon("close-black.png");
         JButton closeButton = new JButton(closeIcon);
         closeButton.setBorder(BorderFactory.createEmptyBorder());
         closeButton.setContentAreaFilled(false);
@@ -432,27 +457,11 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         closeButton.setFocusable(false);
         windowGadgetPanel.add(closeButton);
 
-        rightHeaderPanel.add(windowGadgetPanel);
-        rightHeaderPanel.add(Box.createVerticalGlue());
 
-        JButton launcherOptionsLabel = new JButton(resources.getString("launcher.title.options"));
-        launcherOptionsLabel.setIcon(resources.getIcon("options_cog.png"));
-        launcherOptionsLabel.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 14));
-        launcherOptionsLabel.setForeground(COLOR_WHITE_TEXT);
-        launcherOptionsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        launcherOptionsLabel.setHorizontalTextPosition(SwingConstants.LEADING);
-        launcherOptionsLabel.setAlignmentX(RIGHT_ALIGNMENT);
-        launcherOptionsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        launcherOptionsLabel.setBorder(BorderFactory.createEmptyBorder());
-        launcherOptionsLabel.setContentAreaFilled(false);
-        launcherOptionsLabel.setFocusPainted(false);
-        launcherOptionsLabel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openLauncherOptions();
-            }
-        });
-        rightHeaderPanel.add(launcherOptionsLabel);
+        //rightHeaderPanel.add(Box.createVerticalGlue());
+
+
+        rightHeaderPanel.add(windowGadgetPanel);
 
         header.add(rightHeaderPanel);
 
@@ -482,6 +491,11 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
             }
         });
 
+        setupLittlebitsMod();
+        //setupPlayButtonText(littlebitsModpack, userModel);
+
+        playInfoPanel.debugInfo.setText("Build " + buildNumber.getBuildNumber());
+
         centralPanel.add(infoSwap, BorderLayout.CENTER);
 
         JButton logout = new JButton();
@@ -490,14 +504,16 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         logout.setFocusable(false);
         logout.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        logout.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 15));
+
         //Icon logoutIcon= resources.getIcon("log-out-2x.png");
 
         //Image newimg = img.getScaledInstance( NEW_WIDTH, NEW_HEIGHT,  java.awt.Image.SCALE_SMOOTH ) ;
         BufferedImage logoutImage = resources.getImage("log-out-2x.png");
-        Image sizedImage = logoutImage.getScaledInstance(66,50, Image.SCALE_SMOOTH);
+        Image sizedImage = logoutImage.getScaledInstance(26,25, Image.SCALE_SMOOTH);
         ImageIcon logoutIcon = new ImageIcon(sizedImage);
         logout.setIcon(logoutIcon);
+        logout.setText("log out");
+        logout.setIconTextGap(15);
 
         logout.addActionListener(new ActionListener() {
             @Override
@@ -510,9 +526,11 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.add(logout);
         buttonPanel.setOpaque(false);
-        buttonPanel.setBorder(new EmptyBorder(0, 0, 0, 40));
+        //buttonPanel.setBorder(new EmptyBorder(0, 0, 0, 40));
 
-        playInfoPanel.containerPanel.add(buttonPanel, BorderLayout.PAGE_END);
+        //playInfoPanel.bottomPanel.add(buttonPanel, BorderLayout.LINE_END);
+        playInfoPanel.bottomPanel.add(buttonPanel, new GridBagConstraints(1,2,1,1,1,1, GridBagConstraints.LAST_LINE_END, GridBagConstraints.NONE, new Insets(0,0,15,0), 0,0));
+
 
 
         userWidget = new UserWidget(resources, skinRepository);
@@ -529,7 +547,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         installProgress.setBackground(BitcraftPanel.COLOR_LITTLEBITS_ORANGE);
         installProgress.setBorder(BorderFactory.createEmptyBorder(5, 45, 4, 45));
         installProgress.setIcon(resources.getIcon("download_icon.png"));
-        installProgress.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 12));
+        installProgress.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 12));
 
         installProgress.setVisible(false);
         installProgress.setAlignmentX(CENTER_ALIGNMENT);
@@ -576,8 +594,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
             this.setVisible(true);
             userWidget.setUser(mojangUser);
 
-            // TODO: LB
-            //setupPlayButtonText(modpackSelector.getSelectedPack(), mojangUser);
+            setupPlayButtonText(littlebitsModpack, mojangUser);
 
             EventQueue.invokeLater(new Runnable() {
                 @Override
@@ -589,29 +606,20 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
     }
 
     public void setupPlayButtonText(ModpackModel modpack, MojangUser user) {
-        playButton.setEnabled(true);
-        playButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-
         if (installer.isCurrentlyRunning()) {
-            playButton.setText(resources.getString("launcher.pack.cancel"));
+            playInfoPanel.setPlayState("installer-running"); // can cancel
         } else if (modpack.getInstalledVersion() != null) {
             if (userModel.getCurrentUser() == null || userModel.getCurrentUser().isOffline()) {
-                playButton.setText(resources.getString("launcher.pack.launch.offline"));
+                playInfoPanel.setPlayState("installed-offline"); //installed, but offline
             } else {
-                playButton.setText(resources.getString("launcher.pack.launch"));
+                playInfoPanel.setPlayState("installed"); //installed
             }
-            playButton.setIcon(new ImageIcon(resources.colorImage(resources.getImage("play_button.png"), LauncherFrame.COLOR_BUTTON_BLUE)));
-            playButton.setHoverIcon(new ImageIcon(resources.colorImage(resources.getImage("play_button.png"), LauncherFrame.COLOR_BLUE)));
         } else {
             if (userModel.getCurrentUser() == null || userModel.getCurrentUser().isOffline()) {
-                playButton.setEnabled(false);
-                playButton.setForeground(LauncherFrame.COLOR_GREY_TEXT);
-                playButton.setText(resources.getString("launcher.pack.cannotinstall"));
+                playInfoPanel.setPlayState("offline"); // launcher.pack.cannotinstall
             } else {
-                playButton.setText(resources.getString("launcher.pack.install"));
+                playInfoPanel.setPlayState("can-install");
             }
-            playButton.setIcon(new ImageIcon(resources.colorImage(resources.getImage("download_button.png"), LauncherFrame.COLOR_BUTTON_BLUE)));
-            playButton.setHoverIcon(new ImageIcon(resources.colorImage(resources.getImage("download_button.png"), LauncherFrame.COLOR_BLUE)));
         }
     }
 }

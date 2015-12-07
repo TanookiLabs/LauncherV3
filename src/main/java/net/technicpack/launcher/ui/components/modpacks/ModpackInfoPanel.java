@@ -18,26 +18,23 @@
 
 package net.technicpack.launcher.ui.components.modpacks;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.discord.IDiscordApi;
 import net.technicpack.ui.controls.RoundedButton;
 import net.technicpack.ui.controls.TiledBackground;
 import net.technicpack.ui.lang.ResourceLoader;
 import net.technicpack.launcher.ui.LauncherFrame;
-import net.technicpack.launcher.ui.controls.feeds.FeedItemView;
 import net.technicpack.ui.controls.feeds.HorizontalGallery;
 import net.technicpack.launchercore.image.IImageJobListener;
 import net.technicpack.launchercore.image.ImageJob;
 import net.technicpack.launchercore.image.ImageRepository;
 import net.technicpack.launchercore.modpacks.ModpackModel;
 import net.technicpack.platform.io.AuthorshipInfo;
-import net.technicpack.platform.io.FeedItem;
-import net.technicpack.utilslib.DesktopUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class ModpackInfoPanel extends JPanel implements IImageJobListener<ModpackModel> {
     private ResourceLoader resources;
@@ -84,21 +81,7 @@ public class ModpackInfoPanel extends JPanel implements IImageJobListener<Modpac
 
         feedGallery.removeAll();
 
-        ArrayList<FeedItem> feed = modpack.getFeed();
 
-        if (feed != null) {
-            for (int i = 0; i < feed.size(); i++) {
-                FeedItem item = feed.get(i);
-                FeedItemView itemView = new FeedItemView(resources, item, avatarRepo.startImageJob(item.getAuthorship()));
-                itemView.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        clickFeedItem((FeedItemView) e.getSource(), e.getActionCommand());
-                    }
-                });
-                feedGallery.add(itemView);
-            }
-        }
 
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -122,14 +105,6 @@ public class ModpackInfoPanel extends JPanel implements IImageJobListener<Modpac
         feedGallery.selectNextComponent();
     }
 
-    protected void clickFeedItem(FeedItemView item, String command) {
-        Rectangle r = item.getVisibleRect();
-
-        if (r.getSize().equals(item.getSize()))
-            DesktopUtils.browseUrl(item.getUrl());
-        else
-            feedGallery.selectComponent(item);
-    }
 
     private void initComponents(ImageRepository<ModpackModel> iconRepo, ImageRepository<ModpackModel> logoRepo, ActionListener modpackOptionsListener, IDiscordApi discordApi) {
         setLayout(new BorderLayout());
@@ -184,7 +159,7 @@ public class ModpackInfoPanel extends JPanel implements IImageJobListener<Modpac
         feedBottom.add(topline, constraints);
 
         JLabel toplineLabel = new JLabel(resources.getString("launcher.packfeed.title"));
-        toplineLabel.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 28));
+        toplineLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 26));
         toplineLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         topline.add(toplineLabel);
         topline.add(Box.createHorizontalGlue());
@@ -212,7 +187,7 @@ public class ModpackInfoPanel extends JPanel implements IImageJobListener<Modpac
         topline.add(rightButton);
 
         JLabel label = new JLabel(resources.getString("launcher.packfeed.noupdates"));
-        label.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 20));
+        label.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 20));
         label.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
 
         feedGallery = new HorizontalGallery();
@@ -241,7 +216,7 @@ public class ModpackInfoPanel extends JPanel implements IImageJobListener<Modpac
         feedBottom.add(vertFill, constraints);
 
         deleteButton = new RoundedButton(resources.getString("modpackoptions.delete.text"));
-        deleteButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        deleteButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         deleteButton.setBorder(BorderFactory.createEmptyBorder(5, 17, 10, 17));
         deleteButton.setBackground(LauncherFrame.COLOR_FOOTER);
         deleteButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -266,7 +241,7 @@ public class ModpackInfoPanel extends JPanel implements IImageJobListener<Modpac
         feedBottom.add(horizFill, constraints);
 
         playButton = new RoundedButton(resources.getString("launcher.pack.launch"));
-        playButton.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        playButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         playButton.setBorder(BorderFactory.createEmptyBorder(5, 17, 10, 17));
         playButton.setBackground(LauncherFrame.COLOR_FOOTER);
         playButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);

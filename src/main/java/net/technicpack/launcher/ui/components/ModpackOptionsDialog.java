@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui.components;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.launcher.ui.LauncherFrame;
 import net.technicpack.launcher.ui.listitems.PackBuildItem;
 import net.technicpack.launchercore.install.LauncherDirectories;
@@ -163,7 +164,7 @@ public class ModpackOptionsDialog extends LauncherDialog {
         add(header, BorderLayout.PAGE_START);
 
         JLabel title = new JLabel(resources.getString("launcher.title.modpackoptions"));
-        title.setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 26));
+        title.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 26));
         title.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
         title.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         title.setOpaque(false);
@@ -195,12 +196,12 @@ public class ModpackOptionsDialog extends LauncherDialog {
         centerPanel.setLayout(new GridBagLayout());
 
         JLabel installFolderLabel = new JLabel(resources.getString("modpackoptions.installfolder.text"));
-        installFolderLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        installFolderLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         installFolderLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         centerPanel.add(installFolderLabel, new GridBagConstraints(0, 0, 3, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0),0,0));
 
         installField = new JTextField("");
-        installField.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        installField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         installField.setForeground(LauncherFrame.COLOR_BLUE);
         installField.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
         installField.setHighlighter(null);
@@ -210,7 +211,7 @@ public class ModpackOptionsDialog extends LauncherDialog {
         centerPanel.add(installField, new GridBagConstraints(3, 0, 1, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,5,0,5),0,0));
 
         RoundedButton openFolder = new RoundedButton(resources.getString("modpackoptions.installfolder.open"));
-        openFolder.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        openFolder.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         openFolder.setContentAreaFilled(false);
         openFolder.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         openFolder.setHoverForeground(LauncherFrame.COLOR_BLUE);
@@ -230,7 +231,7 @@ public class ModpackOptionsDialog extends LauncherDialog {
         centerPanel.add(openFolder, new GridBagConstraints(4, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,5,0,5), 0,0));
 
         RoundedButton moveFolder = new RoundedButton(resources.getString("modpackoptions.installfolder.move"));
-        moveFolder.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        moveFolder.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         moveFolder.setContentAreaFilled(false);
         moveFolder.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         moveFolder.setHoverForeground(LauncherFrame.COLOR_BLUE);
@@ -252,12 +253,12 @@ public class ModpackOptionsDialog extends LauncherDialog {
         centerPanel.add(Box.createVerticalStrut(15), new GridBagConstraints(0, 1, 6, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0,0,0,0),0,0));
 
         JLabel buildSelectLabel = new JLabel(resources.getString("modpackoptions.version.text"));
-        buildSelectLabel.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        buildSelectLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         buildSelectLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         centerPanel.add(buildSelectLabel, new GridBagConstraints(0, 2, 6, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0,0,0,0),0,0));
 
         recommended = new JRadioButton(resources.getString("modpackoptions.version.recommended"));
-        recommended.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        recommended.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         recommended.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         recommended.setIcon(resources.getIcon("radio_deselected.png"));
         recommended.setSelectedIcon(resources.getIcon("radio_selected.png"));
@@ -272,7 +273,7 @@ public class ModpackOptionsDialog extends LauncherDialog {
         centerPanel.add(recommended, new GridBagConstraints(1, 3, 5, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0,0,0,0), 0,0));
 
         latest = new JRadioButton(resources.getString("modpackoptions.version.latest"));
-        latest.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        latest.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         latest.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         latest.setIcon(resources.getIcon("radio_deselected.png"));
         latest.setSelectedIcon(resources.getIcon("radio_selected.png"));
@@ -287,7 +288,7 @@ public class ModpackOptionsDialog extends LauncherDialog {
         centerPanel.add(latest, new GridBagConstraints(1, 4, 5, 1, 1, 0, GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0,0,0,0), 0, 0));
 
         manual = new JRadioButton(resources.getString("modpackoptions.version.manual"));
-        manual.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        manual.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         manual.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         manual.setIcon(resources.getIcon("radio_deselected.png"));
         manual.setSelectedIcon(resources.getIcon("radio_selected.png"));
@@ -321,7 +322,7 @@ public class ModpackOptionsDialog extends LauncherDialog {
         renderer.setSelectedForegroundColor(LauncherFrame.COLOR_BUTTON_BLUE);
         renderer.setSelectedBackgroundColor(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
 
-        manualBuildList.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        manualBuildList.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         manualBuildList.setEditable(false);
         manualBuildList.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
         manualBuildList.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
@@ -351,7 +352,7 @@ public class ModpackOptionsDialog extends LauncherDialog {
         bottomButtons.setLayout(new BoxLayout(bottomButtons, BoxLayout.LINE_AXIS));
 
         RoundedButton deletePack = new RoundedButton(resources.getString("modpackoptions.delete.text"));
-        deletePack.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        deletePack.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         deletePack.setContentAreaFilled(false);
         if (modpack.getInstalledDirectory() != null) {
             deletePack.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
@@ -371,7 +372,7 @@ public class ModpackOptionsDialog extends LauncherDialog {
         bottomButtons.add(Box.createHorizontalGlue());
 
         RoundedButton resetPack = new RoundedButton(resources.getString("modpackoptions.reinstall.text"));
-        resetPack.setFont(resources.getFont(ResourceLoader.FONT_OPENSANS, 16));
+        resetPack.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         resetPack.setContentAreaFilled(false);
         if (modpack.getInstalledDirectory() != null) {
             resetPack.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);

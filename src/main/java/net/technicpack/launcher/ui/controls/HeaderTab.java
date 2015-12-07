@@ -18,6 +18,7 @@
 
 package net.technicpack.launcher.ui.controls;
 
+import net.littlebits.ui.BitcraftPanel;
 import net.technicpack.launcher.ui.LauncherFrame;
 
 import javax.swing.*;
@@ -38,7 +39,7 @@ public class HeaderTab extends JLabel implements MouseListener {
         model = new DefaultButtonModel();
         setIsActive(false);
 
-        setFont(resources.getFont(ResourceLoader.FONT_RALEWAY, 26));
+        setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 26));
         setForeground(LauncherFrame.COLOR_WHITE_TEXT);
         setBackground(LauncherFrame.COLOR_BLUE_DARKER);
         setBorder(BorderFactory.createEmptyBorder(20,18,20,18));
