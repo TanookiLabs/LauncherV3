@@ -3,13 +3,13 @@
       <modelVersion>4.0.0</modelVersion>
 
       <!-- Project information -->
-      <name>Technic Launcher</name>
+      <name>Littlebits Bitcraft Launcher</name>
       <groupId>net.technicpack</groupId>
       <artifactId>launcher</artifactId>
       <version>4.0-${buildNumber}</version>
-      <url>http://www.technicpack.net</url>
-      <inceptionYear>2014</inceptionYear>
-      <description>Minecraft launcher for installing and updating Modpacks from the Technic Platform.</description>
+      <url>http://littlebits.cc</url>
+      <inceptionYear>2015</inceptionYear>
+      <description>Minecraft launcher for installing and updating the Littlebits Bitcraft Launcher.</description>
 
       <!-- Build properties -->
       <properties>
@@ -20,8 +20,8 @@
 
       <!-- Company information -->
       <organization>
-	    <url>http://www.technicpack.net</url>
-	    <name>Syndicate, LLC</name>
+	    <url>http://littlebits.cc</url>
+	    <name>littleBits Electronics, Inc.</name>
       </organization>
 
       <!-- Source code access -->
@@ -30,12 +30,6 @@
 	    <connection>scm:git:git://github.com/TechnicPack/LauncherV3.git</connection>
 	    <url>https://github.com/TechnicPack/LauncherV3/tree/dev</url>
       </scm>
-
-      <!-- Build server -->
-      <ciManagement>
-	    <system>jenkins</system>
-	    <url>http://jenkins.technicpack.net/job/LauncherV3/</url>
-      </ciManagement>
 
       <!-- Project dependencies -->
       <dependencies>
