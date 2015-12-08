@@ -326,7 +326,7 @@
 			      <target>
 				    <taskdef name="bundleapp" 
 					  classname="com.oracle.appbundler.AppBundlerTask"   
-					  classpath="${basedir}/lib/appbundler-1.0.jar" />
+					  classpath="${basedir}/lib/appbundler-1.0ea.jar" />
 				    <bundleapp outputdirectory="${project.build.directory}"
 					  name="LittlebitsBitcraft"
 					  displayname="${project.name}"
@@ -336,6 +336,7 @@
 					  copyright="${project.organization.name}"
 					  mainclassname="${mainClass}">
 					  <classpath file="${project.build.directory}/${project.build.finalName}.jar" />
+					  <runtime dir="#{env.JAVA_HOME}" />
 
 					  <!--
 					  <option value="-Xdock:name=${bundle.name}"/>
