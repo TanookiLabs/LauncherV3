@@ -312,6 +312,67 @@
 		  </execution>
 	    </executions>
       </plugin>	
+      <plugin>
+	    <artifactId>maven-antrun-plugin</artifactId>
+	    <version>1.8</version>
+	    <executions>
+		  <execution>
+			<phase>package</phase>
+			<goals>
+			      <goal>run</goal>
+			</goals>
+			<configuration>
+			      <!-- install appbundler into lib/appbundler-1.0.jar -->
+			      <target>
+				    <taskdef name="bundleapp" 
+					  classname="com.oracle.appbundler.AppBundlerTask"   
+					  classpath="${basedir}/lib/appbundler-1.0.jar" />
+				    <bundleapp outputdirectory="${project.build.directory}"
+					  name="LittlebitsBitcraft"
+					  displayname="${project.name}"
+					  icon="${basedir}/src/main/app/Contents/Resources/technic.icns"
+					  identifier="${project.groupId}"
+					  shortversion="${project.version}"
+					  copyright="${project.organization.name}"
+					  mainclassname="${mainClass}">
+					  <classpath file="${project.build.directory}/${project.build.finalName}.jar" />
+
+					  <!--
+					  <option value="-Xdock:name=${bundle.name}"/>
+
+					  <option value="-Dapple.laf.useScreenMenuBar=true"/>
+					  <option value="-Dcom.apple.macos.use-file-dialog-packages=true"/>
+					  <option value="-Dcom.apple.macos.useScreenMenuBar=true"/>
+					  <option value="-Dcom.apple.mrj.application.apple.menu.about.name=${bundle.name}"/>
+					  <option value="-Dcom.apple.smallTabs=true"/>
+					  <option value="-Dfile.encoding=UTF-8"/>
+-->
+				    </bundleapp>
+			      </target>									
+			</configuration>
+		  </execution>
+	    </executions>
+      </plugin>
+      <plugin>
+	    <groupId>org.codehaus.mojo</groupId>
+	    <artifactId>exec-maven-plugin</artifactId>
+	    <executions>
+		  <execution>
+			<id>chmod-modeler-mac-app</id>
+			<phase>package</phase>
+			<goals>
+			      <goal>exec</goal>
+			</goals>
+			<configuration>
+			      <executable>/bin/chmod</executable>
+			      <arguments>
+				    <argument>755</argument>
+				    <argument>${basedir}/target/LittlebitsBitcraft.app</argument>
+			      </arguments>
+			</configuration>
+		  </execution>
+	    </executions>
+      </plugin>
 </plugins>
 </build>
 <!-- Build profiles -->
