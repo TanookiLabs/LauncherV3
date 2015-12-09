@@ -294,81 +294,68 @@
 	</executions -->
       </plugin>
       <plugin>
-	    <groupId>org.apache.maven.plugins</groupId>
-	    <artifactId>maven-assembly-plugin</artifactId>
-	    <version>2.2.1</version>
-	    <executions>
-		  <execution>
-			<id>osx.app</id>
-			<phase>package</phase>
-			<goals>
-			      <goal>single</goal>
-			</goals>
-			<configuration>
-			      <descriptors>
-				    <descriptor>${basedir}/src/main/assembly/app.xml</descriptor>
-			      </descriptors>
-			</configuration>
-		  </execution>
-	    </executions>
-      </plugin>	
-      <plugin>
-	    <artifactId>maven-antrun-plugin</artifactId>
-	    <version>1.8</version>
-	    <executions>
-		  <execution>
-			<phase>package</phase>
-			<goals>
-			      <goal>run</goal>
-			</goals>
-			<configuration>
-			      <!-- install appbundler into lib/appbundler-1.0.jar -->
-			      <target>
-				    <taskdef name="bundleapp" 
-					  classname="com.oracle.appbundler.AppBundlerTask"   
-					  classpath="${basedir}/lib/appbundler-1.0ea.jar" />
-				    <bundleapp outputdirectory="${project.build.directory}"
-					  name="LittlebitsBitcraft"
-					  displayname="${project.name}"
-					  icon="${basedir}/src/main/app/Contents/Resources/technic.icns"
-					  identifier="${project.groupId}"
-					  shortversion="${project.version}"
-					  copyright="${project.organization.name}"
-					  mainclassname="${mainClass}">
-					  <classpath file="${project.build.directory}/${project.build.finalName}.jar" />
-					  <runtime dir="#{env.JAVA_HOME}" />
-
-					  <!--
-					  <option value="-Xdock:name=${bundle.name}"/>
-
-					  <option value="-Dapple.laf.useScreenMenuBar=true"/>
-					  <option value="-Dcom.apple.macos.use-file-dialog-packages=true"/>
-					  <option value="-Dcom.apple.macos.useScreenMenuBar=true"/>
-					  <option value="-Dcom.apple.mrj.application.apple.menu.about.name=${bundle.name}"/>
-					  <option value="-Dcom.apple.smallTabs=true"/>
-					  <option value="-Dfile.encoding=UTF-8"/>
--->
-				    </bundleapp>
-			      </target>									
-			</configuration>
-		  </execution>
-	    </executions>
-      </plugin>
-      <plugin>
 	    <groupId>org.codehaus.mojo</groupId>
 	    <artifactId>exec-maven-plugin</artifactId>
 	    <executions>
 		  <execution>
-			<id>chmod-modeler-mac-app</id>
+			<id>package-jar</id>
 			<phase>package</phase>
 			<goals>
 			      <goal>exec</goal>
 			</goals>
 			<configuration>
-			      <executable>/bin/chmod</executable>
+			      <executable>
+				    ${env.JAVA_HOME}/bin/javapackager
+			      </executable>
 			      <arguments>
-				    <argument>755</argument>
-				    <argument>${basedir}/target/LittlebitsBitcraft.app</argument>
+				    <argument>-createjar</argument>
+				    <argument>-appclass</argument>
+				    <argument>${mainClass}</argument>
+				    <argument>-srcdir</argument>
+				    <argument>${project.build.directory}/classes</argument>
+				    <argument>-outdir</argument>
+				    <argument>./target</argument>
+				    <argument>-outfile</argument>
+				    <argument>
+					  ${project.build.finalName}-app.jar
+				    </argument>
+				    <argument>-v</argument>
+			      </arguments>
+			</configuration>
+		  </execution>
+		  <execution>
+			<id>package-jar2</id>
+			<phase>package</phase>
+			<goals>
+			      <goal>exec</goal>
+			</goals>
+			<configuration>
+			      <executable>
+				    ${env.JAVA_HOME}/bin/javapackager
+			      </executable>
+
+			      <arguments>
+				    <argument>-deploy</argument>
+				    <argument>-native</argument>
+				    <argument>installer</argument>
+				    <argument>-appclass</argument>
+				    <argument>${mainClass}</argument>
+				    <argument>-name</argument>
+				    <argument>Littlebits Bitcraft</argument>
+				    <argument>-description</argument>
+				    <argument>${project.description}</argument>
+				    <argument>-nosign</argument>
+				    <argument>-srcfiles</argument>
+				    <argument>
+					  ${project.build.directory}/${project.artifactId}-${project.version}.jar
+				    </argument>
+				    <argument>-outdir</argument>
+				    <argument>./target</argument>
+				    <argument>-outfile</argument>
+				    <argument>
+					  ${project.build.finalName}-app
+				    </argument>
+				    <argument>-v</argument>
 			      </arguments>
 			</configuration>
 		  </execution>
