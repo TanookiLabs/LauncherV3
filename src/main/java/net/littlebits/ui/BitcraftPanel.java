@@ -30,7 +30,7 @@ public class BitcraftPanel extends JPanel {
 
     public static final Color COLOR_LITTLEBITS_GREY_BG = new Color(238,238,238); // #eee
 
-    public static final Font mainFont = new Font("Arial", 0, 12);
+    public static final Font mainFont = new Font("Courier New", 0, 12);
 
     public ImagePanel containerPanel;
     public JPanel contentPanel;
