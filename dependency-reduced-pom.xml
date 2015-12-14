@@ -155,6 +155,7 @@
                 <argument>-nosign</argument>
                 <argument>-srcfiles</argument>
                 <argument>${project.build.directory}/${project.artifactId}-${project.version}.jar</argument>
+                <argument>-Bicon=${basedir}/src/main/app/Contents/Resources/technic.icns</argument>
                 <argument>-outdir</argument>
                 <argument>./target</argument>
                 <argument>-outfile</argument>
