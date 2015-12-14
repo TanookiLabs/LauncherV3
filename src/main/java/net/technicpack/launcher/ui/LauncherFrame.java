@@ -513,6 +513,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
         ImageIcon logoutIcon = new ImageIcon(sizedImage);
         logout.setIcon(logoutIcon);
         logout.setText("log out");
+        logout.setFont(BitcraftPanel.mainFont.deriveFont(Font.BOLD, 14));
         logout.setIconTextGap(15);
 
         logout.addActionListener(new ActionListener() {
