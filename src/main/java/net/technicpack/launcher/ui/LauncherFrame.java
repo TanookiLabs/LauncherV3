@@ -210,7 +210,7 @@ public class LauncherFrame extends DraggableFrame implements IRelocalizableResou
 
     protected void setupLittlebitsMod() {
         InstalledPack installed = packRepo.getInstalledPacks().get("littlebits-bitcraft");
-        String jsonUrl = "https://s3.amazonaws.com/travis-lb-test/littlebits.json";
+        String jsonUrl = "https://d3m24255wmvqm5.cloudfront.net/littlebits.json";
         PlatformPackInfo littlebitsPackInfo = null;
         try {
             littlebitsPackInfo = RestObject.getRestObject(PlatformPackInfo.class, jsonUrl);
