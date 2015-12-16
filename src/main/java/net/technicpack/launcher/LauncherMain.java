@@ -188,7 +188,7 @@ public class LauncherMain {
         }
 
         //build = 100;
-        Relauncher launcher = new TechnicRelauncher(new HttpUpdateStream("https://d3m24255wmvqm5.cloudfront.net/launcher/"), settings.getBuildStream()+"4", build, directories, resources, params);
+        Relauncher launcher = new TechnicRelauncher(new HttpUpdateStream("https://s3.amazonaws.com/littlebits-bitcraft/launcher/"), settings.getBuildStream()+"4", build, directories, resources, params);
 
         try {
             if (launcher.runAutoUpdater())
