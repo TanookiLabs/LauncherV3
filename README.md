@@ -43,4 +43,6 @@ aws s3 cp stable4 s3://littlebits-bitcraft/launcher/version/stable4 --profile li
 aws s3 cp littlebits.json s3://littlebits-bitcraft/littlebits.json --profile littlebits
 
 aws s3 cp /Users/travis/littlebits/littlebits-bitcraft-0.1.3.zip s3://littlebits-bitcraft/littlebits-bitcraft-0.1.3.zip --profile littlebits
+
+aws s3 cp target/bundles/Littlebits\ Bitcraft-1.0.dmg s3://littlebits-bitcraft/launcher/453/LittlebitsBitcraft.dmg --profile littlebits
 ```
