@@ -1,0 +1,8 @@
+{
+  "name": "littlebits-bitcraft",
+  "displayName": "LittleBits",
+  "url": "https://s3.amazonaws.com/travis-lb-test/littlebits-0.1.3.zip",
+  "version": "0.1.3",
+  "minecraft": "1.7.10",
+  "forge": "7.10.114.1388"
+}
