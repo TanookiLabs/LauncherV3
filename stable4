@@ -1,0 +1,9 @@
+{
+  "build":451,
+  "url":{
+    "exe":"http://s3.amazonaws.com/travis-lb-test/launcher/451/LittlebitsBitcraft.exe",
+    "jar":"http://s3.amazonaws.com/travis-lb-test/launcher/451/LittlebitsBitcraft.jar",
+    "osx":"http://s3.amazonaws.com/travis-lb-test/launcher/451/LittlebitsBitcraft.app.zip"
+  },
+  "resources":[]
+}
