@@ -1,8 +1,8 @@
 {
-  "build":453,
+  "build":454,
   "url":{
-    "exe":"https://d3m24255wmvqm5.cloudfront.net/launcher/453/LittlebitsBitcraft.exe",
-    "jar":"https://d3m24255wmvqm5.cloudfront.net/launcher/453/LittlebitsBitcraft.jar",
+    "exe":"https://s3.amazonaws.com/littlebits-bitcraft/launcher/454/LittlebitsBitcraft.exe",
+    "jar":"https://s3.amazonaws.com/littlebits-bitcraft/launcher/454/LittlebitsBitcraft.jar",
     "osx":"https://d3m24255wmvqm5.cloudfront.net/launcher/453/LittlebitsBitcraft.app.zip"
   },
   "resources":[]
