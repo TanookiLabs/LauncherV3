@@ -198,10 +198,10 @@
                 <configuration>
                   <headerType>gui</headerType>
                   <stayAlive>false</stayAlive>
-                  <jar>/home/sok/git/Minecraft-Launcher/target/launcher-4.0-455.jar</jar>
-                  <outfile>/home/sok/git/Minecraft-Launcher/target/launcher-4.0-455.exe</outfile>
+                  <jar>${project.build.directory}/${project.artifactId}-${project.version}.jar</jar>
+                  <outfile>${project.build.directory}/${project.artifactId}-${project.version}.exe</outfile>
                   <classPath>
-                    <mainClass>net.technicpack.launcher.LauncherMain</mainClass>
+                    <mainClass>${mainClass}</mainClass>
                     <addDependencies>false</addDependencies>
                     <preCp>anything</preCp>
                   </classPath>
@@ -213,17 +213,17 @@
                       <opt>-Dswing.aatext=true</opt>
                     </opts>
                   </jre>
-                  <icon>/home/sok/git/Minecraft-Launcher/src/main/resources/exe/icon.ico</icon>
+                  <icon>${basedir}/src/main/resources/exe/icon.ico</icon>
                   <versionInfo>
-                    <fileVersion>4.0.0.455</fileVersion>
-                    <txtFileVersion>4.0.0.455</txtFileVersion>
-                    <productVersion>4.0.0.455</productVersion>
-                    <txtProductVersion>4.0.0.455</txtProductVersion>
-                    <fileDescription>Littlebits Bitcraft Launcher</fileDescription>
-                    <productName>Littlebits Bitcraft Launcher</productName>
-                    <copyright>littleBits Electronics, Inc., http://littlebits.cc</copyright>
-                    <internalName>launcher</internalName>
-                    <originalFilename>launcher.exe</originalFilename>
+                    <fileVersion>4.0.0.${buildNumber}</fileVersion>
+                    <txtFileVersion>4.0.0.${buildNumber}</txtFileVersion>
+                    <productVersion>4.0.0.${buildNumber}</productVersion>
+                    <txtProductVersion>4.0.0.${buildNumber}</txtProductVersion>
+                    <fileDescription>${project.name}</fileDescription>
+                    <productName>${project.name}</productName>
+                    <copyright>${project.organization.name}, ${project.organization.url}</copyright>
+                    <internalName>${project.artifactId}</internalName>
+                    <originalFilename>${project.artifactId}.exe</originalFilename>
                   </versionInfo>
                 </configuration>
               </execution>

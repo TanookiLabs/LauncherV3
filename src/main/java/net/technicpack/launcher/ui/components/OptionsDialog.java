@@ -38,7 +38,8 @@ import net.technicpack.ui.controls.list.popupformatters.RoundedBorderFormatter;
 import net.technicpack.ui.lang.IRelocalizableResource;
 import net.technicpack.ui.lang.ResourceLoader;
 import net.technicpack.launcher.settings.TechnicSettings;
-import net.technicpack.launcher.ui.LauncherFrame;
+//import net.technicpack.launcher.ui.LauncherFrame;
+import net.technicpack.launcher.ui.LauncherBitcraft;
 import net.technicpack.ui.controls.LauncherDialog;
 import net.technicpack.ui.controls.RoundedButton;
 import net.technicpack.ui.controls.borders.RoundBorder;
@@ -82,6 +83,24 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
     private final JavaVersionRepository javaVersions;
     private final FileJavaSource fileJavaSource;
     private final IBuildNumber buildNumber;
+
+    public static final Color COLOR_LITTLEBITS_ORANGE = new Color(255,138,0); // #FF8A00
+    public static final Color COLOR_LITTLEBITS_BUTTON_HOVER = new Color(230,140,0); // #e67c00
+    public static final Color COLOR_LITTLEBITS_WHITE = new Color(255,255,255);
+    public static final Color COLOR_LITTLEBITS_TEXT = new Color(68,68,68); // #444
+    public static final Color COLOR_LITTLEBITS_TEXT_FIELD_BG = new Color(238,238,238); // #eee
+    public static final Color COLOR_LITTLEBITS_TEXT_FIELD_STROKE = new Color(136,136,136); // #ccc
+    public static final Color COLOR_LITTLEBITS_GREY_BG = new Color(238,238,238); // #eee
+
+    public static final Color COLORS_FOOTER = new Color(238,238,238);//COLOR_LITTLEBITS_TEXT_FIELD_BG;
+    public static final Color COLORS_GREY_TEXT = new Color(68,68,68);//COLOR_LITTLEBITS_TEXT;
+    public static final Color COLORS_WHITE_TEXT = new Color(68,68,68);//COLOR_LITTLEBITS_TEXT;
+    public static final Color COLORS_FORMELEMENT_INTERNAL = new Color(238,238,238);//COLOR_LITTLEBITS_GREY_BG;
+    public static final Color COLORS_BLUE = new Color(255,138,0);//COLOR_LITTLEBITS_ORANGE;
+    public static final Color COLORS_CENTRAL_BACK_OPAQUE = new Color(238,238,238);//COLOR_LITTLEBITS_TEXT_FIELD_BG;
+    public static final Color COLORS_BUTTON_BLUE = new Color(255,138,0);//COLOR_LITTLEBITS_ORANGE;
+    public static final Color COLORS_SCROLL_TRACK = new Color(238,238,238);//COLOR_LITTLEBITS_GREY_BG;
+    public static final Color COLORS_SCROLL_THUMB = new Color(255,138,0);//COLOR_LITTLEBITS_ORANGE;
 
     private DocumentListener javaArgsListener = new DocumentListener() {
         @Override
@@ -586,9 +605,9 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
                 parent.add(memSelect, new GridBagConstraints(1, 1, 5, 1, 5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 0), 0, 16));
 
                 JToolTip toolTip = new JToolTip();
-                toolTip.setBackground(LauncherFrame.COLOR_FOOTER);
-                toolTip.setForeground(LauncherFrame.COLOR_GREY_TEXT);
-                toolTip.setBorder(BorderFactory.createCompoundBorder(new LineBorder(LauncherFrame.COLOR_GREY_TEXT), BorderFactory.createEmptyBorder(5,5,5,5)));
+                toolTip.setBackground(COLORS_FOOTER);
+                toolTip.setForeground(COLORS_GREY_TEXT);
+                toolTip.setBorder(BorderFactory.createCompoundBorder(new LineBorder(COLORS_GREY_TEXT), BorderFactory.createEmptyBorder(5,5,5,5)));
                 toolTip.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
 
 
@@ -616,14 +635,14 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         setLayout(new BorderLayout());
 
         JPanel header = new JPanel();
-        header.setBackground(Color.black);
+        header.setBackground(new Color(238,238,238));
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
         header.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
         add(header, BorderLayout.PAGE_START);
 
         JLabel title = new JLabel(resources.getString("launcher.title.options"));
         title.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 26));
-        title.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        title.setForeground(COLORS_WHITE_TEXT);
         title.setOpaque(false);
         title.setIcon(resources.getIcon("options_cog.png"));
         title.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
@@ -646,31 +665,31 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         header.add(closeButton);
 
         SimpleTabPane centerPanel = new SimpleTabPane();
-        centerPanel.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        centerPanel.setForeground(LauncherFrame.COLOR_GREY_TEXT);
-        centerPanel.setSelectedBackground(LauncherFrame.COLOR_BLUE);
-        centerPanel.setSelectedForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        centerPanel.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        centerPanel.setForeground(COLORS_GREY_TEXT);
+        centerPanel.setSelectedBackground(COLORS_BLUE);
+        centerPanel.setSelectedForeground(COLORS_WHITE_TEXT);
         centerPanel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         centerPanel.setOpaque(true);
         add(centerPanel, BorderLayout.CENTER);
 
         JPanel general = new JPanel();
-        general.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        general.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
 
         setupGeneralPanel(general);
 
         JPanel javaOptions = new JPanel();
-        javaOptions.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        javaOptions.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
 
         setupJavaOptionsPanel(javaOptions);
 
         JPanel videoOptions = new JPanel();
-        videoOptions.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        videoOptions.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
 
         setupVideoOptionsPanel(videoOptions);
 
         JPanel about = new JPanel();
-        about.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        about.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
 
         String linkText = "<a href=\"https://github.com/TechnicPack/\">"+resources.getString("launcheroptions.about.linktext")+"</a>";
         String aboutText = "<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.technicpack.net/assets/css/launcher.css\" /></head><body style=\"font-family: "+BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 12).getFamily()+";color:#D0D0D0\">";
@@ -681,7 +700,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         about.setLayout(new BorderLayout());
 
         JLabel buildCtrl = new JLabel(resources.getString("launcher.build.text", buildNumber.getBuildNumber(), resources.getString("launcher.build." + settings.getBuildStream())));
-        buildCtrl.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        buildCtrl.setForeground(COLORS_WHITE_TEXT);
         buildCtrl.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 14));
         buildCtrl.setBorder(BorderFactory.createEmptyBorder(6, 12, 6, 0));
         about.add(buildCtrl, BorderLayout.SOUTH);
@@ -689,7 +708,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         JTextPane textPane = new JTextPane();
         textPane.setBorder(BorderFactory.createEmptyBorder(0, 24, 9, 24));
         textPane.setOpaque(false);
-        textPane.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        textPane.setForeground(COLORS_WHITE_TEXT);
         textPane.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         textPane.setEditable(false);
         textPane.setHighlighter(null);
@@ -722,7 +741,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         JLabel streamLabel = new JLabel(resources.getString("launcheroptions.general.build"));
         streamLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        streamLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        streamLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(streamLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
         // Setup stream select box
@@ -734,25 +753,25 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         streamSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         streamSelect.setEditable(false);
-        streamSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
-        streamSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        streamSelect.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        streamSelect.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 0)), resources, LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB));
+        streamSelect.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 10));
+        streamSelect.setForeground(COLORS_BUTTON_BLUE);
+        streamSelect.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        streamSelect.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(COLORS_BUTTON_BLUE, 1, 0)), resources, COLORS_SCROLL_TRACK, COLORS_SCROLL_THUMB));
         streamSelect.setFocusable(false);
 
         Object child = streamSelect.getAccessibleContext().getAccessibleChild(0);
         BasicComboPopup popup = (BasicComboPopup)child;
         JList list = popup.getList();
-        list.setSelectionForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        list.setSelectionBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        list.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        list.setSelectionForeground(COLORS_BUTTON_BLUE);
+        list.setSelectionBackground(COLORS_FORMELEMENT_INTERNAL);
+        list.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
 
         panel.add(streamSelect, new GridBagConstraints(1, 0, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         //Setup language box
         JLabel langLabel = new JLabel(resources.getString("launcheroptions.general.lang"));
         langLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        langLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        langLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(langLabel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
         langSelect = new JComboBox();
@@ -763,25 +782,25 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         langSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         langSelect.setEditable(false);
-        langSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
-        langSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        langSelect.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        langSelect.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 0)), resources, LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB));
+        langSelect.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 10));
+        langSelect.setForeground(COLORS_BUTTON_BLUE);
+        langSelect.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        langSelect.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(COLORS_BUTTON_BLUE, 1, 0)), resources, COLORS_SCROLL_TRACK, COLORS_SCROLL_THUMB));
         langSelect.setFocusable(false);
 
         child = langSelect.getAccessibleContext().getAccessibleChild(0);
         popup = (BasicComboPopup)child;
         list = popup.getList();
-        list.setSelectionForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        list.setSelectionBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        list.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        list.setSelectionForeground(COLORS_BUTTON_BLUE);
+        list.setSelectionBackground(COLORS_FORMELEMENT_INTERNAL);
+        list.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
 
         panel.add(langSelect, new GridBagConstraints(1, 1, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         //Setup on pack launch box
         JLabel launchLabel = new JLabel(resources.getString("launcheroptions.general.onlaunch"));
         launchLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        launchLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        launchLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(launchLabel, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
         launchSelect = new JComboBox();
@@ -792,42 +811,42 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         launchSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         launchSelect.setEditable(false);
-        launchSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
-        launchSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        launchSelect.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        launchSelect.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 0)), resources, LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB));
+        launchSelect.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 10));
+        launchSelect.setForeground(COLORS_BUTTON_BLUE);
+        launchSelect.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        launchSelect.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(COLORS_BUTTON_BLUE, 1, 0)), resources, COLORS_SCROLL_TRACK, COLORS_SCROLL_THUMB));
         launchSelect.setFocusable(false);
 
         child = launchSelect.getAccessibleContext().getAccessibleChild(0);
         popup = (BasicComboPopup)child;
         list = popup.getList();
-        list.setSelectionForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        list.setSelectionBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        list.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        list.setSelectionForeground(COLORS_BUTTON_BLUE);
+        list.setSelectionBackground(COLORS_FORMELEMENT_INTERNAL);
+        list.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
 
         panel.add(launchSelect, new GridBagConstraints(1, 2, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         //Install folder field
         JLabel installLabel = new JLabel(resources.getString("launcheroptions.general.install"));
         installLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        installLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        installLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(installLabel, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
         installField = new JTextField("");
         installField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        installField.setForeground(LauncherFrame.COLOR_BLUE);
-        installField.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
+        installField.setForeground(COLORS_BLUE);
+        installField.setBackground(COLORS_FORMELEMENT_INTERNAL);
         installField.setHighlighter(null);
         installField.setEditable(false);
         installField.setCursor(null);
-        installField.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
+        installField.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 8));
         panel.add(installField, new GridBagConstraints(1, 3, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         RoundedButton reinstallButton = new RoundedButton(resources.getString("launcheroptions.install.change"));
         reinstallButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         reinstallButton.setContentAreaFilled(false);
-        reinstallButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        reinstallButton.setHoverForeground(LauncherFrame.COLOR_BLUE);
+        reinstallButton.setForeground(COLORS_BUTTON_BLUE);
+        reinstallButton.setHoverForeground(COLORS_BLUE);
         reinstallButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -839,24 +858,24 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         //Client ID field
         JLabel clientIdField = new JLabel(resources.getString("launcheroptions.general.id"));
         clientIdField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        clientIdField.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        clientIdField.setForeground(COLORS_WHITE_TEXT);
         panel.add(clientIdField, new GridBagConstraints(0, 4, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
         clientId = new JTextField("abc123");
         clientId.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        clientId.setForeground(LauncherFrame.COLOR_BLUE);
-        clientId.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
+        clientId.setForeground(COLORS_BLUE);
+        clientId.setBackground(COLORS_FORMELEMENT_INTERNAL);
         clientId.setHighlighter(null);
         clientId.setEditable(false);
         clientId.setCursor(null);
-        clientId.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
+        clientId.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 8));
         panel.add(clientId, new GridBagConstraints(1, 4, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         RoundedButton copyButton = new RoundedButton(resources.getString("launcheroptions.id.copy"));
         copyButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         copyButton.setContentAreaFilled(false);
-        copyButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        copyButton.setHoverForeground(LauncherFrame.COLOR_BLUE);
+        copyButton.setForeground(COLORS_BUTTON_BLUE);
+        copyButton.setHoverForeground(COLORS_BLUE);
         copyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -870,7 +889,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         //Add show console field
         JLabel showConsoleField = new JLabel(resources.getString("launcheroptions.general.console"));
         showConsoleField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        showConsoleField.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        showConsoleField.setForeground(COLORS_WHITE_TEXT);
         panel.add(showConsoleField, new GridBagConstraints(0, 5, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 40, 0, 0), 0, 0));
 
         showConsole = new JCheckBox("", false);
@@ -887,7 +906,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         //Add launch to modpacks
         JLabel launchToModpacksField = new JLabel(resources.getString("launcheroptions.general.modpacktab"));
         launchToModpacksField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        launchToModpacksField.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        launchToModpacksField.setForeground(COLORS_WHITE_TEXT);
         panel.add(launchToModpacksField, new GridBagConstraints(0,6,1,1,0,0,GridBagConstraints.EAST,GridBagConstraints.NONE,new Insets(10,40,0,0),0,0));
 
         launchToModpacks = new JCheckBox("", false);
@@ -907,8 +926,8 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         RoundedButton openLogs = new RoundedButton(resources.getString("launcheroptions.general.logs"));
         openLogs.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         openLogs.setContentAreaFilled(false);
-        openLogs.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        openLogs.setHoverForeground(LauncherFrame.COLOR_BLUE);
+        openLogs.setForeground(COLORS_BUTTON_BLUE);
+        openLogs.setHoverForeground(COLORS_BLUE);
         openLogs.setBorder(BorderFactory.createEmptyBorder(5, 17, 10, 17));
         openLogs.addActionListener(new ActionListener() {
             @Override
@@ -923,17 +942,17 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
         if (windowSelect.getSelectedIndex() == 2) {
             widthInput.setEnabled(true);
             heightInput.setEnabled(true);
-            widthInput.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-            heightInput.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-            widthInput.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
-            heightInput.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
+            widthInput.setForeground(COLORS_BUTTON_BLUE);
+            heightInput.setForeground(COLORS_BUTTON_BLUE);
+            widthInput.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 8));
+            heightInput.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 8));
         } else {
             widthInput.setEnabled(false);
             heightInput.setEnabled(false);
-            widthInput.setForeground(LauncherFrame.COLOR_GREY_TEXT);
-            heightInput.setForeground(LauncherFrame.COLOR_GREY_TEXT);
-            widthInput.setBorder(new RoundBorder(LauncherFrame.COLOR_GREY_TEXT, 1, 8));
-            heightInput.setBorder(new RoundBorder(LauncherFrame.COLOR_GREY_TEXT, 1, 8));
+            widthInput.setForeground(COLORS_GREY_TEXT);
+            heightInput.setForeground(COLORS_GREY_TEXT);
+            widthInput.setBorder(new RoundBorder(COLORS_GREY_TEXT, 1, 8));
+            heightInput.setBorder(new RoundBorder(COLORS_GREY_TEXT, 1, 8));
         }
     }
 
@@ -942,7 +961,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         JLabel streamLabel = new JLabel(resources.getString("launcheroptions.video.windowSize"));
         streamLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        streamLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        streamLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(streamLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 
         windowSelect = new JComboBox();
@@ -953,53 +972,53 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         windowSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         windowSelect.setEditable(false);
-        windowSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
-        windowSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        windowSelect.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        windowSelect.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 0)), resources, LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB));
+        windowSelect.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 10));
+        windowSelect.setForeground(COLORS_BUTTON_BLUE);
+        windowSelect.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        windowSelect.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(COLORS_BUTTON_BLUE, 1, 0)), resources, COLORS_SCROLL_TRACK, COLORS_SCROLL_THUMB));
         windowSelect.setFocusable(false);
 
         Object child = windowSelect.getAccessibleContext().getAccessibleChild(0);
         BasicComboPopup popup = (BasicComboPopup)child;
         JList list = popup.getList();
-        list.setSelectionForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        list.setSelectionBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        list.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        list.setSelectionForeground(COLORS_BUTTON_BLUE);
+        list.setSelectionBackground(COLORS_FORMELEMENT_INTERNAL);
+        list.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
 
         panel.add(windowSelect, new GridBagConstraints(1, 0, 1, 1, 0.5f, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         JLabel widthLabel = new JLabel(resources.getString("launcheroptions.video.windowSize.width"));
         widthLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        widthLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        widthLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(widthLabel, new GridBagConstraints(2, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
         widthInput = new JTextField(3);
         widthInput.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        widthInput.setForeground(LauncherFrame.COLOR_BLUE);
-        widthInput.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        widthInput.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
-        widthInput.setCaretColor(LauncherFrame.COLOR_BLUE);
+        widthInput.setForeground(COLORS_BLUE);
+        widthInput.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        widthInput.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 8));
+        widthInput.setCaretColor(COLORS_BLUE);
         widthInput.setText("800");
         panel.add(widthInput, new GridBagConstraints(3, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 6, 8, 16), 0, 0));
 
         JLabel heightLabel = new JLabel(resources.getString("launcheroptions.video.windowSize.height"));
         heightLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        heightLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        heightLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(heightLabel, new GridBagConstraints(4, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
         heightInput = new JTextField(3);
         heightInput.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        heightInput.setForeground(LauncherFrame.COLOR_BLUE);
-        heightInput.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        heightInput.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
-        heightInput.setCaretColor(LauncherFrame.COLOR_BLUE);
+        heightInput.setForeground(COLORS_BLUE);
+        heightInput.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        heightInput.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 8));
+        heightInput.setCaretColor(COLORS_BLUE);
         heightInput.setText("600");
         panel.add(heightInput, new GridBagConstraints(5, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(8, 6, 8, 16), 0,0));
 
         //Add show console field
         JLabel useStencilField = new JLabel(resources.getString("launcheroptions.video.stencil"));
         useStencilField.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        useStencilField.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        useStencilField.setForeground(COLORS_WHITE_TEXT);
         panel.add(useStencilField, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 40, 0, 0), 0, 0));
 
         useStencil = new JComboBox();
@@ -1010,18 +1029,18 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         useStencil.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         useStencil.setEditable(false);
-        useStencil.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
-        useStencil.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        useStencil.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        useStencil.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 0)), resources, LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB));
+        useStencil.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 10));
+        useStencil.setForeground(COLORS_BUTTON_BLUE);
+        useStencil.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        useStencil.setUI(new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(COLORS_BUTTON_BLUE, 1, 0)), resources, COLORS_SCROLL_TRACK, COLORS_SCROLL_THUMB));
         useStencil.setFocusable(false);
 
         child = useStencil.getAccessibleContext().getAccessibleChild(0);
         popup = (BasicComboPopup)child;
         list = popup.getList();
-        list.setSelectionForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        list.setSelectionBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        list.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        list.setSelectionForeground(COLORS_BUTTON_BLUE);
+        list.setSelectionBackground(COLORS_FORMELEMENT_INTERNAL);
+        list.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
         panel.add(useStencil, new GridBagConstraints(1, 1, 1, 1, 0.5f, 0, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(8, 16, 8, 16), 0, 16));
 
         JLabel stencilInfo = new JLabel("") {
@@ -1036,7 +1055,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
             }
         };
         stencilInfo.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 12));
-        stencilInfo.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        stencilInfo.setForeground(COLORS_WHITE_TEXT);
 
         stencilInfo.setText("<html><body style=\"font-family:" + stencilInfo.getFont().getFamily() + ";color:#D0D0D0\">" + resources.getString("launcheroptions.video.stencil.info") + "</body></html>");
 
@@ -1052,7 +1071,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         JLabel versionLabel = new JLabel(resources.getString("launcheroptions.java.version"));
         versionLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        versionLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        versionLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(versionLabel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 60, 0, 0), 0, 0));
 
         versionSelect = new JComboBox();
@@ -1063,27 +1082,27 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         versionSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         versionSelect.setEditable(false);
-        versionSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
-        versionSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        versionSelect.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        SimpleButtonComboUI ui = new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 0)), resources, LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB);
+        versionSelect.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 10));
+        versionSelect.setForeground(COLORS_BUTTON_BLUE);
+        versionSelect.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        SimpleButtonComboUI ui = new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(COLORS_BUTTON_BLUE, 1, 0)), resources, COLORS_SCROLL_TRACK, COLORS_SCROLL_THUMB);
         versionSelect.setUI(ui);
         versionSelect.setFocusable(false);
 
         Object child = versionSelect.getAccessibleContext().getAccessibleChild(0);
         BasicComboPopup popup = (BasicComboPopup)child;
         JList list = popup.getList();
-        list.setSelectionForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        list.setSelectionBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        list.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        list.setSelectionForeground(COLORS_BUTTON_BLUE);
+        list.setSelectionBackground(COLORS_FORMELEMENT_INTERNAL);
+        list.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
 
         panel.add(versionSelect, new GridBagConstraints(1, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 8), 0, 16));
 
         RoundedButton otherVersionButton = new RoundedButton(resources.getString("launcheroptions.java.otherversion"));
         otherVersionButton.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         otherVersionButton.setContentAreaFilled(false);
-        otherVersionButton.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        otherVersionButton.setHoverForeground(LauncherFrame.COLOR_BLUE);
+        otherVersionButton.setForeground(COLORS_BUTTON_BLUE);
+        otherVersionButton.setHoverForeground(COLORS_BLUE);
         otherVersionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1094,7 +1113,7 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         JLabel memLabel = new JLabel(resources.getString("launcheroptions.java.memory"));
         memLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        memLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        memLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(memLabel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 60, 0, 0), 0, 0));
 
         memSelect = new JComboBox();
@@ -1105,43 +1124,43 @@ public class OptionsDialog extends LauncherDialog implements IRelocalizableResou
 
         memSelect.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
         memSelect.setEditable(false);
-        memSelect.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 10));
-        memSelect.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        memSelect.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-         ui = new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 0)), resources, LauncherFrame.COLOR_SCROLL_TRACK, LauncherFrame.COLOR_SCROLL_THUMB);
+        memSelect.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 10));
+        memSelect.setForeground(COLORS_BUTTON_BLUE);
+        memSelect.setBackground(COLORS_FORMELEMENT_INTERNAL);
+         ui = new SimpleButtonComboUI(new RoundedBorderFormatter(new RoundBorder(COLORS_BUTTON_BLUE, 1, 0)), resources, COLORS_SCROLL_TRACK, COLORS_SCROLL_THUMB);
         memSelect.setUI(ui);
         memSelect.setFocusable(false);
 
         child = memSelect.getAccessibleContext().getAccessibleChild(0);
         popup = (BasicComboPopup)child;
         list = popup.getList();
-        list.setSelectionForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        list.setSelectionBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        list.setBackground(LauncherFrame.COLOR_CENTRAL_BACK_OPAQUE);
+        list.setSelectionForeground(COLORS_BUTTON_BLUE);
+        list.setSelectionBackground(COLORS_FORMELEMENT_INTERNAL);
+        list.setBackground(COLORS_CENTRAL_BACK_OPAQUE);
         panel.add(memSelect, new GridBagConstraints(1, 1, 6, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 8, 80), 0, 16));
 
         JLabel argsLabel = new JLabel(resources.getString("launcheroptions.java.arguments"));
         argsLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        argsLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        argsLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(argsLabel, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 60, 0, 0), 0, 0));
 
         javaArgs = new JTextArea(32, 4);
         javaArgs.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        javaArgs.setForeground(LauncherFrame.COLOR_BUTTON_BLUE);
-        javaArgs.setBackground(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
-        javaArgs.setBorder(new RoundBorder(LauncherFrame.COLOR_BUTTON_BLUE, 1, 8));
-        javaArgs.setCaretColor(LauncherFrame.COLOR_BUTTON_BLUE);
+        javaArgs.setForeground(COLORS_BUTTON_BLUE);
+        javaArgs.setBackground(COLORS_FORMELEMENT_INTERNAL);
+        javaArgs.setBorder(new RoundBorder(COLORS_BUTTON_BLUE, 1, 8));
+        javaArgs.setCaretColor(COLORS_BUTTON_BLUE);
         javaArgs.setMargin(new Insets(16, 4, 16, 4));
         javaArgs.setLineWrap(true);
         javaArgs.setWrapStyleWord(true);
-        javaArgs.setSelectionColor(LauncherFrame.COLOR_BUTTON_BLUE);
-        javaArgs.setSelectedTextColor(LauncherFrame.COLOR_FORMELEMENT_INTERNAL);
+        javaArgs.setSelectionColor(COLORS_BUTTON_BLUE);
+        javaArgs.setSelectedTextColor(COLORS_FORMELEMENT_INTERNAL);
 
         panel.add(javaArgs, new GridBagConstraints(1, 2, 6, 2, 0, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(8, 16, 6, 80), 0, 0));
 
         JLabel autoApprovalLabel = new JLabel(resources.getString("launcheroptions.java.autoApprove"));
         autoApprovalLabel.setFont(BitcraftPanel.mainFont.deriveFont(Font.PLAIN, 16));
-        autoApprovalLabel.setForeground(LauncherFrame.COLOR_WHITE_TEXT);
+        autoApprovalLabel.setForeground(COLORS_WHITE_TEXT);
         panel.add(autoApprovalLabel, new GridBagConstraints(0, 4, 1, 1, 0, 0, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
 
         askFirstBox = new JCheckBox("", false);
