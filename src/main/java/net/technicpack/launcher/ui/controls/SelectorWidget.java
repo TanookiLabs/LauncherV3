@@ -30,6 +30,8 @@ public class SelectorWidget extends JButton {
 
     private boolean isSelected;
 
+    public static final Color COLOR_LITTLEBITS_PURPLE = new Color(95,2,126);
+
     public SelectorWidget(ResourceLoader resources) {
         this.resources = resources;
     }
@@ -38,7 +40,7 @@ public class SelectorWidget extends JButton {
 
     protected void initComponents() {
         setBorder(BorderFactory.createEmptyBorder());
-        setBackground(LauncherFrame.COLOR_SELECTOR_BACK);
+        setBackground(COLOR_LITTLEBITS_PURPLE);
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         setContentAreaFilled(false);
         setOpaque(true);
@@ -48,6 +50,6 @@ public class SelectorWidget extends JButton {
     public boolean isSelected() { return isSelected; }
     public void setIsSelected(boolean isSelected) {
         this.isSelected = isSelected;
-        setBackground(isSelected?LauncherFrame.COLOR_SELECTOR_OPTION:LauncherFrame.COLOR_SELECTOR_BACK);
+        setBackground(isSelected?LauncherFrame.COLOR_SELECTOR_OPTION:COLOR_LITTLEBITS_PURPLE);
     }
 }
