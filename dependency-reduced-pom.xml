@@ -237,24 +237,27 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
+            <groupId>sh.tak.appbundler</groupId>
+            <artifactId>appbundle-maven-plugin</artifactId>
+            <version>1.1.0</version>
             <executions>
               <execution>
-                <id>chmod-modeler</id>
-                <phase>prepare-package</phase>
+                <phase>package</phase>
                 <goals>
-                  <goal>exec</goal>
+                  <goal>bundle</goal>
                 </goals>
                 <configuration>
-                  <executable>/bin/chmod</executable>
-                  <arguments>
-                    <argument>755</argument>
-                    <argument>${basedir}/src/main/app/Contents/MacOS/JavaAppLauncher</argument>
-                  </arguments>
+                  <mainClass>net.technicpack.launcher.LauncherMain</mainClass>
+                  <iconFile>technic.icns</iconFile>
+                  <jrePath>/home/sok/Desktop/java-8-oracle/</jrePath>
                 </configuration>
               </execution>
             </executions>
+            <configuration>
+              <mainClass>net.technicpack.launcher.LauncherMain</mainClass>
+              <iconFile>technic.icns</iconFile>
+              <jrePath>/home/sok/Desktop/java-8-oracle/</jrePath>
+            </configuration>
           </plugin>
         </plugins>
       </build>

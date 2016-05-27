@@ -338,6 +338,7 @@
 		  </execution>
 	    </executions>
       </plugin>
+
 </plugins>
 </build>
 <!-- Build profiles -->
@@ -428,28 +429,23 @@
 		    <build>
 			  <plugins>
 				<plugin>
-				      <groupId>org.codehaus.mojo</groupId>
-				      <artifactId>exec-maven-plugin</artifactId>
-				      <executions>
-					    <!-- chmod executable ... while japp plugin produces the correct
-				permissions, jar/unjar operation resets 'x' flag, so the app becomes non-executable.
-				Must fix that manually -->
-							<execution>
-							      <id>chmod-modeler</id>
-							      <phase>prepare-package</phase>
-							      <goals>
-								    <goal>exec</goal>
-							      </goals>
-							      <configuration>
-								    <executable>/bin/chmod</executable>
-								    <arguments>
-									  <argument>755</argument>
-									  <argument>${basedir}/src/main/app/Contents/MacOS/JavaAppLauncher</argument>
-								    </arguments>
-							      </configuration>
-							</execution>
-						  </executions>
-					    </plugin>
+          <groupId>sh.tak.appbundler</groupId>
+          <artifactId>appbundle-maven-plugin</artifactId>
+          <version>1.1.0</version>
+          <configuration>
+            <mainClass>${mainClass}</mainClass>
+            <iconFile>technic.icns</iconFile>
+            <jrePath>/home/sok/Desktop/java-8-oracle/</jrePath>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>bundle</goal>
+              </goals>
+            </execution>
+          </executions>
+					  </plugin>
 
 				      </plugins>
 				</build>
